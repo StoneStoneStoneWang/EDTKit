@@ -1,0 +1,6 @@
+framework module EDTBase {
+  umbrella header "EDTBase.h"
+
+  export *
+  module * { export * }
+}
