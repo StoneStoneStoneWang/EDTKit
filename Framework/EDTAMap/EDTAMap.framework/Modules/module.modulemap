@@ -1,0 +1,6 @@
+framework module EDTAMap {
+  umbrella header "EDTAMap.h"
+
+  export *
+  module * { export * }
+}
