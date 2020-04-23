@@ -1,0 +1,6 @@
+framework module EDTCollection {
+  umbrella header "EDTCollection.h"
+
+  export *
+  module * { export * }
+}
