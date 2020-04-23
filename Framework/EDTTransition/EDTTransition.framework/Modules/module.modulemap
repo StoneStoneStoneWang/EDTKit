@@ -1,0 +1,6 @@
+framework module EDTTransition {
+  umbrella header "EDTTransition.h"
+
+  export *
+  module * { export * }
+}

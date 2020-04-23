@@ -1,0 +1,6 @@
+framework module EDTOSS {
+  umbrella header "EDTOSS.h"
+
+  export *
+  module * { export * }
+}

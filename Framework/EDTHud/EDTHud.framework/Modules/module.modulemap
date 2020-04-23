@@ -1,0 +1,6 @@
+framework module EDTHud {
+  umbrella header "EDTHud.h"
+
+  export *
+  module * { export * }
+}

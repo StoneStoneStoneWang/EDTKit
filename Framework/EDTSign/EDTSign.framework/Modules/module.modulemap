@@ -1,0 +1,6 @@
+framework module EDTSign {
+  umbrella header "EDTSign.h"
+
+  export *
+  module * { export * }
+}
