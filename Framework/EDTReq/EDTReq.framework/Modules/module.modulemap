@@ -1,0 +1,6 @@
+framework module EDTReq {
+  umbrella header "EDTReq.h"
+
+  export *
+  module * { export * }
+}

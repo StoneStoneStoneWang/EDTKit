@@ -1,0 +1,6 @@
+framework module EDTLoading {
+  umbrella header "EDTLoading.h"
+
+  export *
+  module * { export * }
+}
