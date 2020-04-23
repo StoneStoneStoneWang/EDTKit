@@ -4,56 +4,56 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Headers/EDTReq.h</key>
+		<key>Headers/EDTUpload.h</key>
 		<data>
-		ZrHyJQT5rkOmWw5TZZxiOLUOwjs=
+		+mRJLlnK8k0B1w9b9+gMOfSwIbk=
 		</data>
-		<key>Headers/EDTReqManager.h</key>
+		<key>Headers/EDTUploadManager.h</key>
 		<data>
-		Yf3BJTyZtrTv1CKvxtqQU3UObr0=
+		G41ip+Z40z4II9UAaNB7l8dNSWA=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		jzywVXp/ym20krNkQQ0OjwN4hP8=
+		s3/B4J48l+Iq403JRF+Y/cpbBAE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		0VH9cHaMC+mMhE7H5miUhd3NLko=
+		ucI12yT+tXJecz7WPZ9JKZSgE8I=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Headers/EDTReq.h</key>
+		<key>Headers/EDTUpload.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ZrHyJQT5rkOmWw5TZZxiOLUOwjs=
+			+mRJLlnK8k0B1w9b9+gMOfSwIbk=
 			</data>
 			<key>hash2</key>
 			<data>
-			euybO5XVOhoNsnv3QD3SgigneTA/svfyVA2BxltuE3k=
+			nQboBVTYjVxpVJR4xxRcZZdGTEngD9SZwMf5lRPVVWA=
 			</data>
 		</dict>
-		<key>Headers/EDTReqManager.h</key>
+		<key>Headers/EDTUploadManager.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Yf3BJTyZtrTv1CKvxtqQU3UObr0=
+			G41ip+Z40z4II9UAaNB7l8dNSWA=
 			</data>
 			<key>hash2</key>
 			<data>
-			xGRLe2CAwgNDQiIFAxBN2DkpMpjANqKvBrbY/jIqFcg=
+			Wy+EB313u3fBFhkkkm05neU5T9JkRbEoh9tCGqosh9A=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			0VH9cHaMC+mMhE7H5miUhd3NLko=
+			ucI12yT+tXJecz7WPZ9JKZSgE8I=
 			</data>
 			<key>hash2</key>
 			<data>
-			ATO8AEFkvoO6lhL0+9sEAlTx5hzvV3OWn/vUiJ+3oGI=
+			q0FY06q1ZL4y3Nx97iGqYGpzIeDXxggzYHnzWcDhafs=
 			</data>
 		</dict>
 	</dict>

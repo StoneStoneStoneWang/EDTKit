@@ -1,0 +1,6 @@
+framework module EDTUpload {
+  umbrella header "EDTUpload.h"
+
+  export *
+  module * { export * }
+}

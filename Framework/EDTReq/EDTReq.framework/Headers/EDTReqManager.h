@@ -13,6 +13,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 FOUNDATION_EXPORT NSString * const EDTTokenInvalidNotification;
 
+typedef NS_ENUM(NSInteger ,EDTServiceType) {
+    
+    EDTServiceTypeNone,
+    
+    EDTServiceTypeSucc,
+    
+    EDTServiceTypeError,
+    
+    EDTServiceTypeTokenInvalid
+};
+
+@interface EDTBaseBean : NSObject
+
+@property (nonatomic ,copy) NSString *msg;
+
+@property (nonatomic ,strong) id data;
+
+@property (nonatomic ,copy) NSString *state;
+
+@property (nonatomic ,assign) EDTServiceType sType;
+
+@property (nonatomic ,copy) NSString *code;
+
+@property (nonatomic ,assign) EDTServiceType tType;
+
+@end
+
 NS_SWIFT_NAME(EDTReq)
 @interface EDTReqManager : NSObject
 
