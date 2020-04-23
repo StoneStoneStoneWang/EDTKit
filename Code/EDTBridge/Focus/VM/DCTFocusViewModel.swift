@@ -14,7 +14,7 @@ import EDTResult
 import EDTRReq
 import EDTBean
 import EDTApi
-import EDTOM
+import EDTObservableMapper
 import EDTError
 
 public struct EDTFocusViewModel: EDTViewModel {

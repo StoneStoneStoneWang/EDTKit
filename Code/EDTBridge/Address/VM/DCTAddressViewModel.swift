@@ -14,7 +14,7 @@ import EDTResult
 import EDTApi
 import EDTBean
 import EDTRReq
-import EDTOM
+import EDTObservableMapper
 import EDTError
 
 

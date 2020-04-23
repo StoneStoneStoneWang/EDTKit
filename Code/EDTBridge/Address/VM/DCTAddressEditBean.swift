@@ -16,7 +16,7 @@ import RxDataSources
 import EDTApi
 import EDTRReq
 import WLToolsKit
-import EDTOM
+import EDTObservableMapper
 import EDTError
 
 @objc (EDTAddressEditBean)

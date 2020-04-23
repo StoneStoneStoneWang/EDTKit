@@ -17,7 +17,7 @@ import EDTApi
 import EDTRReq
 import EDTBean
 import EDTError
-import EDTOM
+import EDTObservableMapper
 
 
 @objc public final class EDTUserInfoBean: NSObject {

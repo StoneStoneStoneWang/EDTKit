@@ -16,7 +16,7 @@ import EDTReq
 import EDTApi
 import Alamofire
 import EDTRReq
-import EDTOM
+import EDTObservableMapper
 import EDTError
 
 @objc (EDTAreaManager)

@@ -17,7 +17,7 @@ import EDTBean
 import EDTCheck
 import EDTCache
 import EDTError
-import EDTOM
+import EDTObservableMapper
 
 public struct EDTLoginViewModel: EDTViewModel {
     

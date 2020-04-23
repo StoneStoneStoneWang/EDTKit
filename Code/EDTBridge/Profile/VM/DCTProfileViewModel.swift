@@ -15,7 +15,7 @@ import EDTSign
 import EDTApi
 import EDTRReq
 import EDTCache
-import EDTOM
+import EDTObservableMapper
 
 @objc public final class EDTProfileBean: NSObject {
     

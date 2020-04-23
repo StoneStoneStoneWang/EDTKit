@@ -16,7 +16,7 @@ import EDTApi
 import EDTRReq
 import EDTBean
 import EDTCache
-import EDTOM
+import EDTObservableMapper
 import EDTError
 
 public struct EDTRegViewModel: EDTViewModel {

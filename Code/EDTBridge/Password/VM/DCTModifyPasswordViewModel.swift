@@ -10,7 +10,7 @@ import Foundation
 import EDTViewModel
 import RxCocoa
 import RxSwift
-import EDTOM
+import EDTObservableMapper
 import EDTError
 import EDTResult
 import EDTApi

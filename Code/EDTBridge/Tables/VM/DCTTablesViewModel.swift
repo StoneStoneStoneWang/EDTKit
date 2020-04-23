@@ -14,7 +14,7 @@ import EDTResult
 import EDTBean
 import EDTRReq
 import EDTApi
-import EDTOM
+import EDTObservableMapper
 import EDTError
 
 struct EDTTablesViewModel: EDTViewModel {

@@ -15,7 +15,7 @@ import EDTResult
 import EDTRReq
 import EDTApi
 import EDTError
-import EDTOM
+import EDTObservableMapper
 
 struct EDTCommentViewModel: EDTViewModel {
     

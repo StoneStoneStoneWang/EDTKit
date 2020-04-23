@@ -15,7 +15,7 @@ import EDTApi
 import EDTBean
 import EDTCache
 import EDTError
-import EDTOM
+import EDTObservableMapper
 
 struct EDTNameViewModel: EDTViewModel {
     
