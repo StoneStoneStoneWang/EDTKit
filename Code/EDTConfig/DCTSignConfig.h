@@ -1,31 +1,30 @@
 //
-//  DCTSignConfig.h
-//  DCTContainer
+//  EDTSignConfig.h
+//  EDTContainer
 //
 //  Created by 王磊 on 2020/3/29.
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
-#pragma mark ---- DCTSign
+#pragma mark ---- EDTSign
 
 #pragma mark ----
-#define DCTCONFIGURETYPETHERMAL 1
 
-#define DCTCONFIGURETYPESWIMMING 0
+#define EDTCONFIGURETYPESWIMMING 1
 
-#if DCTCONFIGURETYPESWIMMING
+#if EDTCONFIGURETYPESWIMMING
 
-#define DCTCONFIGURETYPE DCTCONFIGURETYPESWIMMING
+#define EDTCONFIGURETYPE EDTCONFIGURETYPESWIMMING
+
+#define EDTAPPKEY "75c6b690c22347de86a8e2f683a9a6d8"
+
+#define EDTDOMAIN "http://zhihw.ecsoi.com/"
+
+#elif EDTCONFIGURETYPETHERMAL
+
+#define EDTCONFIGURETYPE EDTConfigureTypeThermal
 
 
-
-#elif DCTCONFIGURETYPETHERMAL
-
-#define DCTCONFIGURETYPE DCTConfigureTypeThermal
-
-#define DCTAPPKEY "156d09d660c444c89d46b15ed5366256"
-
-#define DCTDOMAIN "http://zhihw.ecsoi.com/"
 
 #endif
 

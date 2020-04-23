@@ -1,125 +1,125 @@
 //
 //  ZIconConfig.h
-//  DCTContainer
+//  EDTContainer
 //
 //  Created by 王磊 on 2020/3/29.
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
-#import "DCTSignConfig.h"
+#import "EDTSignConfig.h"
 
 
-#if DCTCONFIGURETYPESWIMMING
+#if EDTCONFIGURETYPESWIMMING
 
-#define DCTBackIcon "返回灰"
+#define EDTBackIcon "返回灰"
 
-#define DCTLoginBackIcon "返回白"
+#define EDTLoginBackIcon "返回白"
 
-#define DCTLogoIcon "Logo"
+#define EDTLogoIcon "Logo"
 
-#define DCTWelcomeImgs @[@"引导页1",@"引导页2",@"引导页3"]
+#define EDTWelcomeImgs @[@"引导页1",@"引导页2",@"引导页3"]
 
-#define DCTCarouselImgs @[\
+#define EDTCarouselImgs @[\
 @{@"title": @"",@"icon": @"banner1"} ,\
 @{@"title": @"",@"icon": @"banner2"} ,\
 @{@"title": @"",@"icon": @"banner3"} ,\
 @{@"title": @"",@"icon": @"banner4"} ,\
 ]
 
-#define DCTAboutIcon "关于我们"
+#define EDTAboutIcon "关于我们"
 
-#define DCTContactUsIcon "联系我们"
+#define EDTContactUsIcon "联系我们"
 
-#define DCTPrivacyIcon "隐私政策"
+#define EDTPrivacyIcon "隐私政策"
 
-#define DCTUserInfoIcon "用户资料"
+#define EDTUserInfoIcon "用户资料"
 
-#define DCTFeedBackIcon "意见反馈"
+#define EDTFeedBackIcon "意见反馈"
 
-#define DCTSettingIcon "设置"
+#define EDTSettingIcon "设置"
 
-#define DCTZPhoneNum "+027-87580888"
+#define EDTZPhoneNum "+027-87580888"
 
-#define DCTPhoneIcon "手机号"
+#define EDTPhoneIcon "手机号"
 
-#define DCTPasswordIcon "密码"
+#define EDTPasswordIcon "密码"
 
-#define DCTVCodeIcon "验证码"
+#define EDTVCodeIcon "验证码"
 
-#define DCTPasswordNormalIcon "闭眼"
+#define EDTPasswordNormalIcon "闭眼"
 
-#define DCTPasswordSelectIcon "睁眼"
+#define EDTPasswordSelectIcon "睁眼"
 
-#define DCTNormalIcon "未选中"
+#define EDTNormalIcon "未选中"
 
-#define DCTSelectedIcon "选中"
+#define EDTSelectedIcon "选中"
 
-#define DCTBackground "Background"
+#define EDTBackground "Background"
 
-#define DCTOrderIcon "我的订单"
+#define EDTOrderIcon "我的订单"
 
-#define DCTAddressIcon "我的地址"
+#define EDTAddressIcon "我的地址"
 
-#define DCTFavorIcon "我的收藏"
+#define EDTFavorIcon "我的收藏"
 
 #param -- mark ----- 温泉
 
-#elif DCTCONFIGURETYPETHERMAL
+#elif EDTCONFIGURETYPETHERMAL
 
-#define DCTBackIcon "返回灰"
+#define EDTBackIcon "返回灰"
 
-#define DCTLoginBackIcon "返回白"
+#define EDTLoginBackIcon "返回白"
 
-#define DCTLoginIcon "登陆"
+#define EDTLoginIcon "登陆"
 
-#define DCTLogoIcon "Logo"
+#define EDTLogoIcon "Logo"
 
-#define DCTWelcomeImgs @[@"引导页1",@"引导页2",@"引导页3"]
+#define EDTWelcomeImgs @[@"引导页1",@"引导页2",@"引导页3"]
 
-#define DCTCarouselImgs @[\
+#define EDTCarouselImgs @[\
 @{@"title": @"",@"icon": @"banner1"} ,\
 @{@"title": @"",@"icon": @"banner2"} ,\
 @{@"title": @"",@"icon": @"banner3"} ,\
 @{@"title": @"",@"icon": @"banner4"} ,\
 ]
 
-#define DCTArrowIcon "箭头"
+#define EDTArrowIcon "箭头"
 
-#define DCTAboutIcon "关于我们"
+#define EDTAboutIcon "关于我们"
 
-#define DCTContactUsIcon "联系我们"
+#define EDTContactUsIcon "联系我们"
 
-#define DCTPrivacyIcon "隐私政策"
+#define EDTPrivacyIcon "隐私政策"
 
-#define DCTUserInfoIcon "用户资料"
+#define EDTUserInfoIcon "用户资料"
 
-#define DCTFeedBackIcon "意见反馈"
+#define EDTFeedBackIcon "意见反馈"
 
-#define DCTSettingIcon "设置"
+#define EDTSettingIcon "设置"
 
-#define DCTZPhoneNum "+027-87580888"
+#define EDTZPhoneNum "+027-87580888"
 
-#define DCTPhoneIcon "手机号"
+#define EDTPhoneIcon "手机号"
 
-#define DCTPasswordIcon "密码"
+#define EDTPasswordIcon "密码"
 
-#define DCTVCodeIcon "验证码"
+#define EDTVCodeIcon "验证码"
 
-#define DCTPasswordNormalIcon "闭眼"
+#define EDTPasswordNormalIcon "闭眼"
 
-#define DCTPasswordSelectIcon "睁眼"
+#define EDTPasswordSelectIcon "睁眼"
 
-#define DCTNormalIcon "未选中"
+#define EDTNormalIcon "未选中"
 
-#define DCTSelectedIcon "选中"
+#define EDTSelectedIcon "选中"
 
-#define DCTBackground "Background"
+#define EDTBackground "Background"
 
-#define DCTOrderIcon "我的订单"
+#define EDTOrderIcon "我的订单"
 
-#define DCTAddressIcon "我的地址"
+#define EDTAddressIcon "我的地址"
 
-#define DCTFavorIcon "我的收藏"
+#define EDTFavorIcon "我的收藏"
 
 #endif
 

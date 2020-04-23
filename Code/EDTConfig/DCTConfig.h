@@ -1,26 +1,25 @@
 //
-//  DCTConfig.h
-//  DCTContainer
+//  EDTConfig.h
+//  EDTContainer
 //
 //  Created by 王磊 on 2020/3/29.
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
-#import "DCTSignConfig.h"
+#import "EDTSignConfig.h"
 
-#import "DCTIconConfig.h"
+#import "EDTIconConfig.h"
 
-#if DCTCONFIGURETYPESWIMMING
+#if EDTCONFIGURETYPESWIMMING
 
-#import "DCTHandlerConfig.h"
+#import "DCTSwimmingConfig.h"
 
-#elif DCTCONFIGURETYPETHERMAL
+#elif EDTCONFIGURETYPETHERMAL
 
-#import "DCTThermalConfig.h"
 
 #endif
 
-#import "DCTShowType.h"
+#import "EDTShowType.h"
 
 
 
