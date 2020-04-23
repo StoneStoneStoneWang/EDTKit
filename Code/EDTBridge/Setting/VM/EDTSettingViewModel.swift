@@ -82,7 +82,7 @@ extension EDTSettingType {
         
         if EDTAccountCache.default.isLogin() {
             
-            if EDTConfigure.fetchPType() == .thermal {
+            if EDTConfigure.fetchPType() == .swimming {
                 
                 return [.space,.password,.space,.clear,.push,.space,.logout]
             }
@@ -93,7 +93,7 @@ extension EDTSettingType {
         
         if EDTAccountCache.default.isLogin() {
             
-            if EDTConfigure.fetchPType() == .thermal {
+            if EDTConfigure.fetchPType() == .swimming {
                 
                 return [.password,.black,.clear,.push,.logout]
             }

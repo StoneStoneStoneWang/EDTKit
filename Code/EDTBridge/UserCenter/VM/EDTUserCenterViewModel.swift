@@ -88,7 +88,7 @@ extension EDTUserCenterType {
     
     static var types: [EDTUserCenterType] {
         
-        if EDTConfigure.fetchPType() == .thermal {
+        if EDTConfigure.fetchPType() == .swimming {
             
             return [userInfo,.privacy,.share,.feedBack,.service,.setting]
         }
