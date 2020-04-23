@@ -1,0 +1,6 @@
+framework module EDTYY {
+  umbrella header "EDTYY.h"
+
+  export *
+  module * { export * }
+}
