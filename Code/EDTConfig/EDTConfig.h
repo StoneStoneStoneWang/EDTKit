@@ -16,6 +16,7 @@
 
 #elif EDTCONFIGURETYPETHERMAL
 
+#import "EDTHandlerConfig.h"
 
 #endif
 
