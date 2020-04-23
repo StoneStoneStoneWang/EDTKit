@@ -1,11 +1,11 @@
 
 Pod::Spec.new do |spec|
   
-  spec.name         = "EDTObservableReq."
+  spec.name         = "EDTObservableReq"
   spec.version      = "0.0.1"
   spec.summary      = "A Lib For oberverable req."
   spec.description  = <<-DESC
-  EDTObservableReq.
+  EDTObservableReq
   DESC
   
   spec.homepage     = "https://github.com/StoneStoneStoneWang/DCTKit.git"
@@ -24,7 +24,7 @@ Pod::Spec.new do |spec|
   
   spec.source = { :git => "https://github.com/StoneStoneStoneWang/DCTKit.git", :tag => "#{spec.version}" }
   
-  spec.source_files = "Code/EDTObservableReq./*.{swift}"
+  spec.source_files = "Code/EDTObservableReq/*.{swift}"
   
   spec.dependency 'Alamofire'
   
