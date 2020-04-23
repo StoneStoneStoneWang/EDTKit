@@ -1,0 +1,6 @@
+framework module EDTTable {
+  umbrella header "EDTTable.h"
+
+  export *
+  module * { export * }
+}

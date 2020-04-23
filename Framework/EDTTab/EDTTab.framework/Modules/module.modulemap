@@ -1,0 +1,6 @@
+framework module EDTTab {
+  umbrella header "EDTTab.h"
+
+  export *
+  module * { export * }
+}
