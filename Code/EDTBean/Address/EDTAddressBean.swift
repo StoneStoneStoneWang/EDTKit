@@ -1,5 +1,5 @@
 //
-//  DCTAddressBean.swift
+//  EDTAddressBean.swift
 //  DStoreDemo
 //
 //  Created by three stone 王 on 2019/7/16.
@@ -10,8 +10,8 @@ import Foundation
 import ObjectMapper
 import RxDataSources
 
-@objc (DCTAddressBean)
-public class DCTAddressBean: NSObject,Mappable,IdentifiableType {
+@objc (EDTAddressBean)
+public class EDTAddressBean: NSObject,Mappable,IdentifiableType {
     public var identity: String = ""
     
     public typealias Identity = String

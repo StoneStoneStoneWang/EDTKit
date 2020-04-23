@@ -1,5 +1,5 @@
 //
-//  DCTUserBean.swift
+//  EDTUserBean.swift
 //  ZUserKit
 //
 //  Created by three stone 王 on 2019/3/15.
@@ -9,8 +9,8 @@
 import Foundation
 import ObjectMapper
 
-@objc (DCTUserBean)
-public class DCTUserBean: NSObject, Mappable ,NSCoding {
+@objc (EDTUserBean)
+public class EDTUserBean: NSObject, Mappable ,NSCoding {
     public required init?(coder aDecoder: NSCoder) {
         
         phone = aDecoder.decodeObject(forKey: "phone") as! String
@@ -56,9 +56,9 @@ public class DCTUserBean: NSObject, Mappable ,NSCoding {
     
     @objc public var sex: Int = Int.max
     
-    public var gender: DCTGenderType {
+    public var gender: EDTGenderType {
         
-        return DCTGenderType(temp: sex)
+        return EDTGenderType(temp: sex)
     }
     
     @objc public var signature: String = ""

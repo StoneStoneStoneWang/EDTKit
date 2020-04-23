@@ -1,5 +1,5 @@
 //
-//  DCTGenderType.swift
+//  EDTGenderType.swift
 //  ZBean
 //
 //  Created by three stone 王 on 2019/8/22.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-@objc(DCTGenderType)
-public enum DCTGenderType: Int ,Codable {
+@objc(EDTGenderType)
+public enum EDTGenderType: Int ,Codable {
     
     case unknown = 0
     
@@ -30,7 +30,7 @@ public enum DCTGenderType: Int ,Codable {
     }
 }
 
-extension DCTGenderType {
+extension EDTGenderType {
     
     public var gender: String {
         

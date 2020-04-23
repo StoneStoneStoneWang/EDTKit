@@ -1,5 +1,5 @@
 //
-//  DCTAccountBean.swift
+//  EDTAccountBean.swift
 //  ZUserKit
 //
 //  Created by three stone 王 on 2019/3/15.
@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-public struct DCTAccountBean: Mappable {
+public struct EDTAccountBean: Mappable {
     
     public var token: String = ""
     

@@ -1,8 +1,8 @@
 //
-//  DCTCircleBean.swift
-//  WLUserKitDemo
+//  EDTCommodityBean.swift
+//  DStoreDemo
 //
-//  Created by three stone 王 on 2019/4/30.
+//  Created by three stone 王 on 2019/7/18.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
@@ -10,18 +10,15 @@ import Foundation
 import ObjectMapper
 import RxDataSources
 import WLToolsKit
-import UIKit
 
-@objc (DCTCircleBean)
-public class DCTCircleBean: NSObject, Mappable , IdentifiableType {
+@objc (EDTCommodityBean)
+public class EDTCommodityBean: NSObject, Mappable , IdentifiableType{
     
-    @objc public var identity: String = ""
+    public var identity: String = ""
     
     public typealias Identity = String
     
-    required public init?(map: Map) {
-        
-    }
+    required public init?(map: Map) { }
     
     public func mapping(map: Map) {
         
@@ -44,8 +41,6 @@ public class DCTCircleBean: NSObject, Mappable , IdentifiableType {
         projectId  <- map["projectId"]
         
         encoded  <- map["encoded"]
-        
-        isattention  <- map["isattention"]
     }
     
     @objc public var projectId: String = ""
@@ -62,18 +57,40 @@ public class DCTCircleBean: NSObject, Mappable , IdentifiableType {
     
     @objc public var tag: String = ""
     
-    @objc public var users: DCTUserBean!
+    @objc public var users: EDTUserBean!
     
     @objc public var countComment: Int = Int.max
     
-    @objc public var isattention: Bool = false
-    
-    @objc public var contentMap: [DCTKeyValueBean] {
+    @objc public var contentMap: [EDTKeyValueBean] {
         
         let res = WLJsonCast.cast(argu: content) as! [[String: String]]
         
-        return res.map({ DCTKeyValueBean(JSON: $0)! })
+        return res.map({ EDTKeyValueBean(JSON: $0)! })
     }
     
-    @objc public var videoImage: UIImage!
+    @objc public var imgs: [EDTKeyValueBean] {
+        
+        var result: [EDTKeyValueBean] = []
+        
+        for item in contentMap {
+            
+            if item.type == "image" {
+                
+                result += [item]
+            }
+        }
+        
+        if result.isEmpty {
+            
+            for item in contentMap {
+                
+                if item.type == "txt" && item.value.contains("Image:") {
+                    
+                    result += [item]
+                }
+            }
+        }
+        
+        return result
+    }
 }

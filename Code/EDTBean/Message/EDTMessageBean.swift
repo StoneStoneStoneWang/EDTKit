@@ -1,6 +1,6 @@
 //
-//  DCTMessageBean.swift
-//  DCTBean
+//  EDTMessageBean.swift
+//  EDTBean
 //
 //  Created by 王磊 on 2020/4/14.
 //  Copyright © 2020 王磊. All rights reserved.
@@ -10,8 +10,8 @@ import Foundation
 import ObjectMapper
 import RxDataSources
 
-@objc (DCTMessageBean)
-public final class DCTMessageBean: NSObject,Mappable,IdentifiableType {
+@objc (EDTMessageBean)
+public final class EDTMessageBean: NSObject,Mappable,IdentifiableType {
     
     public var identity: String = NSUUID().uuidString
     

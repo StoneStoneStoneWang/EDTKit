@@ -1,8 +1,8 @@
 //
-//  DCTBlackBean.swift
-//  HZTC
+//  EDTFocusBean.swift
+//  WLUserKitDemo
 //
-//  Created by three stone 王 on 2019/3/21.
+//  Created by three stone 王 on 2019/4/4.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
@@ -10,8 +10,8 @@ import Foundation
 import ObjectMapper
 import RxDataSources
 
-@objc (DCTBlackBean)
-public class DCTBlackBean: NSObject,Mappable,IdentifiableType {
+@objc (EDTFocusBean)
+public class EDTFocusBean: NSObject,Mappable,IdentifiableType {
     @objc public var identity: String = ""
     
     public typealias Identity = String
@@ -40,17 +40,18 @@ public class DCTBlackBean: NSObject,Mappable,IdentifiableType {
         
         content <- map["content"]
     }
-     @objc public var users: DCTUserBean!
+    @objc public var users: EDTUserBean!
     
-     @objc public var tableName: String = ""
+    @objc public var tableName: String = ""
     
-     @objc public var oUsEncoded: String = ""
+    @objc public var oUsEncoded: String = ""
     
-     @objc public var targetEncoded: String = ""
+    @objc public var targetEncoded: String = ""
     
-     @objc public var usEncoded: String = ""
+    @objc public var usEncoded: String = ""
     
-     @objc public var content: String = ""
+    @objc public var content: String = ""
     
-     @objc public var encoded: String = ""
+    @objc public var encoded: String = ""
 }
+
