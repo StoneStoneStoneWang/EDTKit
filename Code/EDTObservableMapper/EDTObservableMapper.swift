@@ -1,6 +1,6 @@
 //
-//  EDTOM.swift
-//  EDTOM
+//  EDTObservableMapper.swift
+//  EDTObservableMapper
 //
 //  Created by 王磊 on 2020/4/16.
 //  Copyright © 2020 王磊. All rights reserved.
