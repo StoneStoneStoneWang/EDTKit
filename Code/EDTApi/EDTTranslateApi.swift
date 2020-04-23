@@ -1,5 +1,5 @@
 //
-//  DCTTranslateApi.swift
+//  EDTTranslateApi.swift
 //  ZApi
 //
 //  Created by three stone 王 on 2020/3/16.
@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import DCTOR
+import EDTObservableReq
 import Alamofire
 
-@objc (DCTTranslateStyle)
-public enum DCTTranslateStyle: Int {
+@objc (EDTTranslateStyle)
+public enum EDTTranslateStyle: Int {
     
     case id // 🇮🇩 印尼语
     
@@ -30,7 +30,7 @@ public enum DCTTranslateStyle: Int {
     case th // 🇹🇭 泰语
 }
 
-extension DCTTranslateStyle {
+extension EDTTranslateStyle {
     
     public var title: String {
         
@@ -54,7 +54,7 @@ extension DCTTranslateStyle {
     }
 }
 
-public enum DCTTranslateApi {
+public enum EDTTranslateApi {
     
     case translateFromCNToKO(_ text: String ) // 韩语-> 中文
     
@@ -64,12 +64,12 @@ public enum DCTTranslateApi {
     
     case translateFromCNToTer(_ text: String) // 中文 -> 印尼语
     
-    case translateFromCNTo(_ text: String ,style: DCTTranslateStyle)
+    case translateFromCNTo(_ text: String ,style: EDTTranslateStyle)
     
-    case translateToCN(_ text: String ,style: DCTTranslateStyle)
+    case translateToCN(_ text: String ,style: EDTTranslateStyle)
 }
 
-extension DCTTranslateApi: DCTOR {
+extension EDTTranslateApi: EDTOR {
     
     public var host: String { return "" }
     

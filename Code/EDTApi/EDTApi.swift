@@ -1,5 +1,5 @@
 //
-//  DCTApi.swift
+//  EDTApi.swift
 //  ZUserKit
 //
 //  Created by three stone 王 on 2019/3/14.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum DCTApi {
+public enum EDTApi {
     
     case login(_ phone: String,password: String)
     

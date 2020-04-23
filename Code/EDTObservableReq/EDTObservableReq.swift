@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-public protocol EDTOR {
+public protocol EDTObservableReq {
     /*
      reqName 请求接口名 如 app/user/v1/login
      */
