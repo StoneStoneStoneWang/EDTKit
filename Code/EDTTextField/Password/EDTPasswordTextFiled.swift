@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-@objc (DCTPasswordImageTextFiled)
-public final class DCTPasswordImageTextFiled: DCTLeftImageTextField {
+@objc (EDTPasswordImageTextFiled)
+public final class EDTPasswordImageTextFiled: EDTLeftImageTextField {
     
     @objc (passwordItem)
     public final let passwordItem: UIButton = UIButton(type: .custom)
@@ -51,19 +51,19 @@ public final class DCTPasswordImageTextFiled: DCTLeftImageTextField {
     public override func commitInit() {
         super.commitInit()
         
-        DCT_rightViewMode(.always)
+        EDT_rightViewMode(.always)
     
-        DCT_editType(.secret)
+        EDT_editType(.secret)
         
-        DCT_maxLength(18)
+        EDT_maxLength(18)
         
-        DCT_secureTextEntry(true)
+        EDT_secureTextEntry(true)
         
     }
 }
 
-@objc (DCTPasswordTitleTextFiled)
-public final class DCTPasswordTitleTextFiled: DCTLeftTitleTextField {
+@objc (EDTPasswordTitleTextFiled)
+public final class EDTPasswordTitleTextFiled: EDTLeftTitleTextField {
     
     @objc (passwordItem)
     public final let passwordItem: UIButton = UIButton(type: .custom)
@@ -103,15 +103,15 @@ public final class DCTPasswordTitleTextFiled: DCTLeftTitleTextField {
     public override func commitInit() {
         super.commitInit()
         
-        DCT_rightViewMode(.always)
+        EDT_rightViewMode(.always)
         
-        DCT_rightView(passwordItem)
+        EDT_rightView(passwordItem)
         
-        DCT_editType(.secret)
+        EDT_editType(.secret)
         
-        DCT_maxLength(18)
+        EDT_maxLength(18)
         
-        DCT_secureTextEntry(true)
+        EDT_secureTextEntry(true)
         
     }
 }

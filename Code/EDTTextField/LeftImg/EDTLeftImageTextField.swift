@@ -1,5 +1,5 @@
 //
-//  DCTLeftImageTextField.swift
+//  EDTLeftImageTextField.swift
 //  TSTFKit_Swift
 //
 //  Created by three stone 王 on 2018/11/22.
@@ -7,8 +7,8 @@
 //
 
 import UIKit
-@objc (DCTLeftImageTextField)
-open class DCTLeftImageTextField: DCTBaseTextField {
+@objc (EDTLeftImageTextField)
+open class EDTLeftImageTextField: EDTBaseTextField {
     
     fileprivate final let leftImageView: UIImageView = UIImageView()
     
@@ -50,10 +50,10 @@ open class DCTLeftImageTextField: DCTBaseTextField {
         return leftImageFrame
     }
 }
-extension DCTLeftImageTextField {
+extension EDTLeftImageTextField {
     
     
-    @objc open override func makeAttribute(_ closure: @escaping (DCTLeftImageTextField) -> ()) {
+    @objc open override func makeAttribute(_ closure: @escaping (EDTLeftImageTextField) -> ()) {
         
         closure(self)
     }

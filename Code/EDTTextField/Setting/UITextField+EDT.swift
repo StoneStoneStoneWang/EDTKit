@@ -10,67 +10,67 @@ import Foundation
 import UIKit
 
 extension UITextField {
-    @objc (DCT_backgroundColor:)
-    public func DCT_backgroundColor(_ color: UIColor) {
+    @objc (EDT_backgroundColor:)
+    public func EDT_backgroundColor(_ color: UIColor) {
         
         backgroundColor = color
     }
-    @objc (DCT_font:)
-    public func DCT_font(_ font: UIFont) {
+    @objc (EDT_font:)
+    public func EDT_font(_ font: UIFont) {
         
         self.font = font
     }
-    @objc (DCT_textColor:)
-    public func DCT_textColor(_ color: UIColor) {
+    @objc (EDT_textColor:)
+    public func EDT_textColor(_ color: UIColor) {
         
         textColor = color
     }
-    @objc (DCT_textAlignment:)
-    public func DCT_textAlignment(_ alignment: NSTextAlignment) {
+    @objc (EDT_textAlignment:)
+    public func EDT_textAlignment(_ alignment: NSTextAlignment) {
         
         textAlignment = alignment
     }
-    @objc (DCT_keyboardType:)
-    public func DCT_keyboardType(_ keyboardType: UIKeyboardType) {
+    @objc (EDT_keyboardType:)
+    public func EDT_keyboardType(_ keyboardType: UIKeyboardType) {
         
         self.keyboardType = keyboardType
     }
-    @objc (DCT_clearButtonMode:)
-    public func DCT_clearButtonMode(_ clearButtonMode: UITextField.ViewMode) {
+    @objc (EDT_clearButtonMode:)
+    public func EDT_clearButtonMode(_ clearButtonMode: UITextField.ViewMode) {
         
         self.clearButtonMode = clearButtonMode
         
     }
-    @objc (DCT_returnKeyType:)
-    public func DCT_returnKeyType(_ returnKeyType: UIReturnKeyType) {
+    @objc (EDT_returnKeyType:)
+    public func EDT_returnKeyType(_ returnKeyType: UIReturnKeyType) {
         
         self.returnKeyType = returnKeyType
     }
-    @objc (DCT_rightViewMode:)
-    public func DCT_rightViewMode(_ rightViewMode: UITextField.ViewMode) {
+    @objc (EDT_rightViewMode:)
+    public func EDT_rightViewMode(_ rightViewMode: UITextField.ViewMode) {
         
         self.rightViewMode = rightViewMode
     }
-    @objc (DCT_leftViewMode:)
-    public func DCT_leftViewMode(_ leftViewMode: UITextField.ViewMode) {
+    @objc (EDT_leftViewMode:)
+    public func EDT_leftViewMode(_ leftViewMode: UITextField.ViewMode) {
         
         self.leftViewMode = leftViewMode
     }
-    @objc (DCT_leftView:)
-    public func DCT_leftView(_ leftView: UIView) {
+    @objc (EDT_leftView:)
+    public func EDT_leftView(_ leftView: UIView) {
         
         self.leftView = leftView
     }
-    @objc (DCT_rightView:)
-    public func DCT_rightView(_ rightView: UIView) {
+    @objc (EDT_rightView:)
+    public func EDT_rightView(_ rightView: UIView) {
         
         self.rightView = rightView
     }
 }
 
-public typealias DCTShouldReturn = () -> Bool
+public typealias EDTShouldReturn = () -> Bool
 
-public typealias DCTShouldClear = () -> Bool
+public typealias EDTShouldClear = () -> Bool
 
 extension UITextField: UITextFieldDelegate {
     
@@ -79,18 +79,18 @@ extension UITextField: UITextFieldDelegate {
         return true
     }
     
-    fileprivate var shouldReturn: DCTShouldReturn! {
+    fileprivate var shouldReturn: EDTShouldReturn! {
         set {
             
             objc_setAssociatedObject(self, "shouldReturn", newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
         get {
             
-            return objc_getAssociatedObject(self, "shouldReturn") as? DCTShouldReturn
+            return objc_getAssociatedObject(self, "shouldReturn") as? EDTShouldReturn
         }
     }
-    @objc (DCT_shouldReturn:)
-    public func DCT_shouldReturn(_ shouldReturn: @escaping () -> Bool) {
+    @objc (EDT_shouldReturn:)
+    public func EDT_shouldReturn(_ shouldReturn: @escaping () -> Bool) {
         
         self.shouldReturn = shouldReturn
     }
@@ -105,7 +105,7 @@ extension UITextField: UITextFieldDelegate {
         return shouldReturn!()
     }
     
-    fileprivate var shouldClear: DCTShouldClear! {
+    fileprivate var shouldClear: EDTShouldClear! {
         
         set {
             
@@ -113,11 +113,11 @@ extension UITextField: UITextFieldDelegate {
         }
         get {
             
-            return objc_getAssociatedObject(self, "shouldClear") as? DCTShouldClear
+            return objc_getAssociatedObject(self, "shouldClear") as? EDTShouldClear
         }
     }
-    @objc (DCT_shouldClear:)
-    public func DCT_shouldClear(_ shouldClear: @escaping () -> Bool) {
+    @objc (EDT_shouldClear:)
+    public func EDT_shouldClear(_ shouldClear: @escaping () -> Bool) {
         
         self.shouldClear = shouldClear
     }

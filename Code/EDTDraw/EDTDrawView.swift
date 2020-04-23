@@ -9,20 +9,20 @@
 import Foundation
 import UIKit
 
-@objc public enum DCTDrawType: Int {
+@objc public enum EDTDrawType: Int {
     
     case shape
 }
 
-@objc (DCTDrawView)
-public final class DCTDrawView: UIView {
+@objc (EDTDrawView)
+public final class EDTDrawView: UIView {
     
-    @objc public static func createDraw(_ drawType: DCTDrawType) -> DCTDrawView {
+    @objc public static func createDraw(_ drawType: EDTDrawType) -> EDTDrawView {
         
         return Self.init(drawType)
     }
     
-    private var drawType: DCTDrawType = .shape
+    private var drawType: EDTDrawType = .shape
     
     @objc public var drawRadius: CGFloat = 20
     
@@ -34,7 +34,7 @@ public final class DCTDrawView: UIView {
             setNeedsDisplay()
         }
     }
-    private convenience init(_ drawType: DCTDrawType) {
+    private convenience init(_ drawType: EDTDrawType) {
         self.init(frame: .zero)
     }
     private override init(frame: CGRect) {
@@ -46,7 +46,7 @@ public final class DCTDrawView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-extension DCTDrawView {
+extension EDTDrawView {
     
     override public func draw(_ rect: CGRect) {
         super.draw(rect)

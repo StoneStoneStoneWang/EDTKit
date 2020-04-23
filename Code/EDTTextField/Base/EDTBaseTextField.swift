@@ -1,5 +1,5 @@
 //
-//  DCTBaseTextField.swift
+//  EDTBaseTextField.swift
 //  WLTFKit_Swift
 //
 //  Created by three stone 王 on 2018/11/14.
@@ -30,10 +30,10 @@ fileprivate let WLNUMBERANDCHAR_PARTTERN: String = "^[0-9a-zA-Z]*$"
 
 fileprivate let WL_ZH_CN: String = "[^\\u4E00-\\u9FA5]"
 
-fileprivate typealias WLTextChanged = (DCTBaseTextField) -> ()
+fileprivate typealias WLTextChanged = (EDTBaseTextField) -> ()
 
-@objc (DCTBaseTextField)
-open class DCTBaseTextField: UITextField {
+@objc (EDTBaseTextField)
+open class EDTBaseTextField: UITextField {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -92,7 +92,7 @@ open class DCTBaseTextField: UITextField {
     // MARK: maxLength 默认Int.max
     fileprivate var maxLength: Int = Int.max
     // MARK: 编辑类型 详情参考 枚举
-    fileprivate var editType: DCTTextFiledEditType = .phone {
+    fileprivate var editType: EDTTextFiledEditType = .phone {
         
         willSet {
             switch newValue {
@@ -119,7 +119,7 @@ open class DCTBaseTextField: UITextField {
                 
                 NotificationCenter
                     .default
-                    .addObserver(self, selector: #selector(greetingTextFieldChanged), name: NSNotification.Name(rawValue: "UITextFieldTextDidChangeNotifiDCTion"), object: self)
+                    .addObserver(self, selector: #selector(greetingTextFieldChanged), name: NSNotification.Name(rawValue: "UITextFieldTextDidChangeNotifiEDTion"), object: self)
                 
                 maxLength = 10
                 
@@ -128,7 +128,7 @@ open class DCTBaseTextField: UITextField {
                 
                 NotificationCenter
                     .default
-                    .addObserver(self, selector: #selector(greetingTextFieldChanged), name: NSNotification.Name(rawValue: "UITextFieldTextDidChangeNotifiDCTion"), object: self)
+                    .addObserver(self, selector: #selector(greetingTextFieldChanged), name: NSNotification.Name(rawValue: "UITextFieldTextDidChangeNotifiEDTion"), object: self)
                 keyboardType = .default
             case .default:
                 
@@ -149,7 +149,7 @@ open class DCTBaseTextField: UITextField {
     
     deinit {
         
-        NotificationCenter.default.removeObserver(self, name:NSNotification.Name(rawValue: "UITextFieldTextDidChangeNotifiDCTion"), object: self)
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name(rawValue: "UITextFieldTextDidChangeNotifiEDTion"), object: self)
     }
     
     // MARK: 限制输入的正则表达式字符串
@@ -161,7 +161,7 @@ open class DCTBaseTextField: UITextField {
     
 }
 
-extension DCTBaseTextField {
+extension EDTBaseTextField {
     @objc (commitInit)
     open func commitInit() {
         
@@ -186,10 +186,10 @@ extension DCTBaseTextField {
 }
 
 /** 文本框内容 样式 */
-extension DCTBaseTextField {
-    @objc (DCTTextFiledEditType)
-    public enum DCTTextFiledEditType: Int {
-        @objc (DCTTextFiledEditTypepriceEdit)
+extension EDTBaseTextField {
+    @objc (EDTTextFiledEditType)
+    public enum EDTTextFiledEditType: Int {
+        @objc (EDTTextFiledEditTypepriceEdit)
         case priceEdit
         /** 手机号 默认判断是长度11位 首位为1的+86手机号 如果是复制过去的 加入了-处理机制 比如从通讯录复制*/
         case phone
@@ -212,71 +212,71 @@ extension DCTBaseTextField {
         //        case `default` // 默认 这个在swift中弃用
     }
 }
-extension DCTBaseTextField {
+extension EDTBaseTextField {
     @objc (makeAttributeWithClosure:)
-    open func makeAttribute(_ closure: @escaping (DCTBaseTextField) -> ()) {
+    open func makeAttribute(_ closure: @escaping (EDTBaseTextField) -> ()) {
         
         closure(self)
     }
 }
 
 // 新增属性的处理
-extension DCTBaseTextField {
-    @objc (DCT_maxLength:)
-    public func DCT_maxLength(_ maxLength: Int) {
+extension EDTBaseTextField {
+    @objc (EDT_maxLength:)
+    public func EDT_maxLength(_ maxLength: Int) {
         
         self.maxLength = maxLength
     }
-    @objc (DCT_editType:)
-    public func DCT_editType(_ editType: DCTTextFiledEditType) {
+    @objc (EDT_editType:)
+    public func EDT_editType(_ editType: EDTTextFiledEditType) {
         
         self.editType = editType
     }
-    @objc (DCT_pattern:)
-    public func DCT_pattern(_ pattern: String) {
+    @objc (EDT_pattern:)
+    public func EDT_pattern(_ pattern: String) {
         
         self.pattern = pattern
     }
-    @objc (DCT_textChanged:)
-    public func DCT_textChanged(_ textChanged: @escaping (DCTBaseTextField) -> ()) {
+    @objc (EDT_textChanged:)
+    public func EDT_textChanged(_ textChanged: @escaping (EDTBaseTextField) -> ()) {
         
         self.textChanged = textChanged
     }
-    @objc (DCT_topLineFrame:)
-    public func DCT_topLineFrame(_ frame: CGRect) {
+    @objc (EDT_topLineFrame:)
+    public func EDT_topLineFrame(_ frame: CGRect) {
         
         topLineFrame = frame
     }
-    @objc (DCT_bottomLineFrame:)
-    public func DCT_bottomLineFrame(_ frame: CGRect) {
+    @objc (EDT_bottomLineFrame:)
+    public func EDT_bottomLineFrame(_ frame: CGRect) {
         
         bottomLineFrame = frame
     }
-    @objc (DCT_topLineColor:)
-    public func DCT_topLineColor(_ color: UIColor) {
+    @objc (EDT_topLineColor:)
+    public func EDT_topLineColor(_ color: UIColor) {
         
         topLineColor = color
     }
-    @objc (DCT_bottomLineColor:)
-    public func DCT_bottomLineColor(_ color: UIColor) {
+    @objc (EDT_bottomLineColor:)
+    public func EDT_bottomLineColor(_ color: UIColor) {
         
         bottomLineColor = color
     }
-    @objc (DCT_secureTextEntry:)
-    public func DCT_secureTextEntry(_ isSecureTextEntry: Bool) {
+    @objc (EDT_secureTextEntry:)
+    public func EDT_secureTextEntry(_ isSecureTextEntry: Bool) {
         
         self.isSecureTextEntry = isSecureTextEntry
     }
 }
 // MARK: UITextFieldDelegate
-extension DCTBaseTextField {
+extension EDTBaseTextField {
     
     open override func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        return __shouldChangeCharacters(target: textField as! DCTBaseTextField,range: range,string: string)
+        return __shouldChangeCharacters(target: textField as! EDTBaseTextField,range: range,string: string)
     }
     
-    private func __shouldChangeCharacters(target: DCTBaseTextField , range: NSRange, string: String) -> Bool {
+    private func __shouldChangeCharacters(target: EDTBaseTextField , range: NSRange, string: String) -> Bool {
         
         if editType == .defineLength || editType == .only_zh_cn || editType == .default {
             
@@ -342,7 +342,7 @@ extension DCTBaseTextField {
 
 
 // MARK: textFieldDidChange
-extension DCTBaseTextField {
+extension EDTBaseTextField {
     @objc (greetingTextFieldChangedWithNoti:)
     open func greetingTextFieldChanged(obj: NSNotification) {
         
@@ -375,13 +375,13 @@ extension DCTBaseTextField {
         }
     }
     
-    @objc open func textFieldDidChange(_ textField: DCTBaseTextField) {
+    @objc open func textFieldDidChange(_ textField: EDTBaseTextField) {
         
         __textDidChange(target: textField)
     }
     
     // MARK: editChanged
-    private func __textDidChange(target: DCTBaseTextField) {
+    private func __textDidChange(target: EDTBaseTextField) {
         
         switch target.editType {
         case .defineLength: break
@@ -421,7 +421,7 @@ extension DCTBaseTextField {
 }
 
 // MARK: editingRect and textRect rightViewRect leftViewRect
-extension DCTBaseTextField {
+extension EDTBaseTextField {
     
     
 }
