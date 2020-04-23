@@ -1,0 +1,6 @@
+framework module EDTNavi {
+  umbrella header "EDTNavi.h"
+
+  export *
+  module * { export * }
+}
