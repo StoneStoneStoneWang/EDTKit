@@ -1,5 +1,5 @@
 //
-//  DCTAccountCache.swift
+//  EDTAccountCache.swift
 //  ZUserKit
 //
 //  Created by three stone 王 on 2019/3/15.
@@ -7,12 +7,12 @@
 //
 
 import Foundation
-import DCTBean
+import EDTBean
 
-@objc (DCTAccountCache)
-public final class DCTAccountCache: NSObject {
+@objc (EDTAccountCache)
+public final class EDTAccountCache: NSObject {
     @objc (shared)
-    public static let `default`: DCTAccountCache = DCTAccountCache()
+    public static let `default`: EDTAccountCache = EDTAccountCache()
     
     private override init() { }
     
@@ -23,7 +23,7 @@ public final class DCTAccountCache: NSObject {
     @objc public var uid: String = ""
 }
 
-extension DCTAccountCache {
+extension EDTAccountCache {
     
     @objc public func isPushOn() -> Bool {
         
@@ -48,7 +48,7 @@ extension DCTAccountCache {
         return !token.isEmpty && token != ""
     }
     
-    public func saveAccount(acc: DCTAccountBean) -> DCTAccountBean {
+    public func saveAccount(acc: EDTAccountBean) -> EDTAccountBean {
         
         UserDefaults.standard.setValue(acc.token, forKey: "token")
         
@@ -67,14 +67,14 @@ extension DCTAccountCache {
         return acc
     }
     
-    public func queryAccount() -> DCTAccountBean! {
+    public func queryAccount() -> EDTAccountBean! {
         
         guard let id = UserDefaults.standard.object(forKey: "uid") else {
             
             return nil
         }
         
-        var acc = DCTAccountBean()
+        var acc = EDTAccountBean()
         
         acc.token = UserDefaults.standard.object(forKey: "token") as? String ?? ""
         
@@ -100,7 +100,7 @@ extension DCTAccountCache {
             return
         }
         
-        var acc = DCTAccountBean()
+        var acc = EDTAccountBean()
         
         acc.token = UserDefaults.standard.object(forKey: "token") as? String ?? ""
         
