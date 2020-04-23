@@ -1,5 +1,5 @@
 //
-//  DCTWelcomViewModel.swift
+//  EDTWelcomViewModel.swift
 //  ZUserKit
 //
 //  Created by three stone 王 on 2019/3/15.
@@ -7,12 +7,12 @@
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
 import WLToolsKit
 
-public struct DCTWelcomViewModel: DCTViewModel {
+public struct EDTWelcomViewModel: EDTViewModel {
     
     public var input: WLInput
     

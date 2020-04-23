@@ -1,5 +1,5 @@
 //
-//  DCTAddressViewModel.swift
+//  EDTAddressViewModel.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/20.
@@ -7,18 +7,18 @@
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTResult
-import DCTApi
-import DCTBean
-import DCTRReq
-import DCTOM
-import DCTError
+import EDTResult
+import EDTApi
+import EDTBean
+import EDTRReq
+import EDTOM
+import EDTError
 
 
-struct DCTAddressViewModel: DCTViewModel {
+struct EDTAddressViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -26,7 +26,7 @@ struct DCTAddressViewModel: DCTViewModel {
     
     struct WLInput {
         
-        let modelSelect: ControlEvent<DCTAddressBean>
+        let modelSelect: ControlEvent<EDTAddressBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -39,11 +39,11 @@ struct DCTAddressViewModel: DCTViewModel {
     
     struct WLOutput {
         
-        let zip: Observable<(DCTAddressBean,IndexPath)>
+        let zip: Observable<(EDTAddressBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[DCTAddressBean]> = BehaviorRelay<[DCTAddressBean]>(value: [])
+        let tableData: BehaviorRelay<[EDTAddressBean]> = BehaviorRelay<[EDTAddressBean]>(value: [])
         
-        let endHeaderRefreshing: Driver<DCTResult>
+        let endHeaderRefreshing: Driver<EDTResult>
         
         let addItemed: Driver<Void>
         
@@ -59,10 +59,10 @@ struct DCTAddressViewModel: DCTViewModel {
             .headerRefresh
             .startWith(())
             .flatMapLatest({_ in
-                return DCTArrayResp(DCTApi.fetchAddress)
-                    .mapArray(type: DCTAddressBean.self)
-                    .map({ return $0.count > 0 ? DCTResult.fetchList($0) : DCTResult.empty })
-                    .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                return EDTArrayResp(EDTApi.fetchAddress)
+                    .mapArray(type: EDTAddressBean.self)
+                    .map({ return $0.count > 0 ? EDTResult.fetchList($0) : EDTResult.empty })
+                    .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
             })
         
         let itemAccessoryButtonTapped: Driver<IndexPath> = input.itemAccessoryButtonTapped.map { $0 }
@@ -79,7 +79,7 @@ struct DCTAddressViewModel: DCTViewModel {
                 switch result {
                 case let .fetchList(items):
                     
-                    output.tableData.accept(items as! [DCTAddressBean])
+                    output.tableData.accept(items as! [EDTAddressBean])
                     
                 default: break
                 }
@@ -89,12 +89,12 @@ struct DCTAddressViewModel: DCTViewModel {
         self.output = output
     }
 }
-extension DCTAddressViewModel {
+extension EDTAddressViewModel {
     
-    static func removeAddress(_ encode: String) -> Driver<DCTResult> {
+    static func removeAddress(_ encode: String) -> Driver<EDTResult> {
         
-        return DCTVoidResp(DCTApi.deleteAddress(encode))
-            .flatMapLatest({ return Driver.just(DCTResult.ok("移除成功")) })
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTVoidResp(EDTApi.deleteAddress(encode))
+            .flatMapLatest({ return Driver.just(EDTResult.ok("移除成功")) })
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
 }

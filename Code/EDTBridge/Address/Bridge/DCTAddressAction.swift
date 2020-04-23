@@ -1,5 +1,5 @@
 //
-//  DCTAddressBridge.swift
+//  EDTAddressBridge.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/20.
@@ -7,16 +7,16 @@
 //
 
 import Foundation
-import DCTTable
+import EDTTable
 import RxDataSources
-import DCTCocoa
-import DCTHud
+import EDTCocoa
+import EDTHud
 import RxCocoa
 import RxSwift
-import DCTBean
+import EDTBean
 
-@objc (DCTAddressActionType)
-public enum DCTAddressActionType: Int {
+@objc (EDTAddressActionType)
+public enum EDTAddressActionType: Int {
     
     case added
     
@@ -29,28 +29,28 @@ public enum DCTAddressActionType: Int {
     case edit
 }
 
-public typealias DCTAddressLoadingStatus = (_ status: Int) -> ()
+public typealias EDTAddressLoadingStatus = (_ status: Int) -> ()
 
-public typealias DCTAddressAction = (_ actionType: DCTAddressActionType,_ ip: IndexPath?,_ address: DCTAddressBean?) -> ()
+public typealias EDTAddressAction = (_ actionType: EDTAddressActionType,_ ip: IndexPath?,_ address: EDTAddressBean?) -> ()
 
-@objc (DCTAddressBridge)
-public final class DCTAddressBridge: DCTBaseBridge {
+@objc (EDTAddressBridge)
+public final class EDTAddressBridge: EDTBaseBridge {
     
-    typealias Section = DCTAnimationSetionModel<DCTAddressBean>
+    typealias Section = EDTAnimationSetionModel<EDTAddressBean>
     
     var dataSource: RxTableViewSectionedAnimatedDataSource<Section>!
     
-    var viewModel: DCTAddressViewModel!
+    var viewModel: EDTAddressViewModel!
     
-    weak var vc: DCTTableLoadingViewController!
+    weak var vc: EDTTableLoadingViewController!
     
-    var addressAction: DCTAddressAction!
+    var addressAction: EDTAddressAction!
     
 }
 
-extension DCTAddressBridge {
+extension EDTAddressBridge {
     
-    @objc public func createAddress(_ vc: DCTTableLoadingViewController ,status: @escaping DCTAddressLoadingStatus ,addressAction: @escaping DCTAddressAction ) {
+    @objc public func createAddress(_ vc: EDTTableLoadingViewController ,status: @escaping EDTAddressLoadingStatus ,addressAction: @escaping EDTAddressAction ) {
         
         if let addItem = vc.view.viewWithTag(301) as? UIButton {
             
@@ -58,13 +58,13 @@ extension DCTAddressBridge {
             
             self.addressAction = addressAction
             
-            let input = DCTAddressViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(DCTAddressBean.self),
+            let input = EDTAddressViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(EDTAddressBean.self),
                                                     itemSelect: vc.tableView.rx.itemSelected,
-                                                    headerRefresh: vc.tableView.mj_header!.rx.DCTRefreshing.asDriver(),
+                                                    headerRefresh: vc.tableView.mj_header!.rx.EDTRefreshing.asDriver(),
                                                     itemAccessoryButtonTapped: vc.tableView.rx.itemAccessoryButtonTapped.asDriver() ,
                                                     addItemTaps: addItem.rx.tap.asSignal())
             
-            viewModel = DCTAddressViewModel(input, disposed: disposed)
+            viewModel = EDTAddressViewModel(input, disposed: disposed)
             
             let dataSource = RxTableViewSectionedAnimatedDataSource<Section>(
                 animationConfiguration: AnimationConfiguration(insertAnimation: .fade, reloadAnimation: .fade, deleteAnimation: .left),
@@ -122,7 +122,7 @@ extension DCTAddressBridge {
             
             endHeaderRefreshing
                 .map({ _ in return true })
-                .drive(vc.tableView.mj_header!.rx.DCTEndRefreshing)
+                .drive(vc.tableView.mj_header!.rx.EDTEndRefreshing)
                 .disposed(by: disposed)
             
             endHeaderRefreshing
@@ -133,7 +133,7 @@ extension DCTAddressBridge {
                         
                         status(0)
                     case let .failed(msg):
-                        DCTHud.showInfo(msg)
+                        EDTHud.showInfo(msg)
                         vc.loadingStatus = .fail
                         status(-1)
                     case .empty:
@@ -151,7 +151,7 @@ extension DCTAddressBridge {
         }
     }
     
-    @objc public func insertAddress(_ address: DCTAddressBean ,addressAction: @escaping DCTAddressAction) {
+    @objc public func insertAddress(_ address: EDTAddressBean ,addressAction: @escaping EDTAddressAction) {
         
         var values = viewModel.output.tableData.value
         
@@ -165,7 +165,7 @@ extension DCTAddressBridge {
         
         addressAction(.insert, nil, nil)
     }
-    @objc public func updateAddress(_ address: DCTAddressBean ,ip: IndexPath) {
+    @objc public func updateAddress(_ address: EDTAddressBean ,ip: IndexPath) {
         
         var values = viewModel.output.tableData.value
         
@@ -176,7 +176,7 @@ extension DCTAddressBridge {
     }
     
 }
-extension DCTAddressBridge: UITableViewDelegate {
+extension EDTAddressBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -207,11 +207,11 @@ extension DCTAddressBridge: UITableViewDelegate {
         return [cancel,edit,delete]
     }
     
-    @objc public func removeAddress(_ address: DCTAddressBean ,ip: IndexPath) {
+    @objc public func removeAddress(_ address: EDTAddressBean ,ip: IndexPath) {
         
-        DCTHud.show(withStatus: "删除地址中...")
+        EDTHud.show(withStatus: "删除地址中...")
 
-        DCTAddressViewModel
+        EDTAddressViewModel
             .removeAddress(address.encoded)
             .drive(onNext: { [weak self] (result) in
 
@@ -219,9 +219,9 @@ extension DCTAddressBridge: UITableViewDelegate {
                 switch result {
                 case .ok:
 
-                    DCTHud.pop()
+                    EDTHud.pop()
 
-                    DCTHud.showInfo("删除地址成功")
+                    EDTHud.showInfo("删除地址成功")
 
                     var value = self.viewModel.output.tableData.value
 
@@ -236,9 +236,9 @@ extension DCTAddressBridge: UITableViewDelegate {
 
                 case .failed:
 
-                    DCTHud.pop()
+                    EDTHud.pop()
 
-                    DCTHud.showInfo("删除当前地址失败")
+                    EDTHud.showInfo("删除当前地址失败")
                 default: break;
 
                 }

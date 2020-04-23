@@ -1,27 +1,27 @@
 //
-//  DCTCarouselViewModel.swift
-//  DCTBridge
+//  EDTCarouselViewModel.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2020/3/12.
 //  Copyright © 2020 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
 import WLToolsKit
 import ObjectMapper
 
-@objc public final class DCTCarouselBean: NSObject , Mappable{
+@objc public final class EDTCarouselBean: NSObject , Mappable{
     public init?(map: Map) {
         
         
     }
     
-    @objc public static func createCarousel(_ title: String ,icon: String) -> DCTCarouselBean {
+    @objc public static func createCarousel(_ title: String ,icon: String) -> EDTCarouselBean {
         
-        let carousel = DCTCarouselBean()
+        let carousel = EDTCarouselBean()
         
         carousel.title = title
         
@@ -46,13 +46,13 @@ import ObjectMapper
     }
 }
 
-@objc (DCTCarouselStyle)
-public enum DCTCarouselStyle: Int {
+@objc (EDTCarouselStyle)
+public enum EDTCarouselStyle: Int {
     case normal
     case card
 }
 
-struct DCTCarouselViewModel: DCTViewModel {
+struct EDTCarouselViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -62,7 +62,7 @@ struct DCTCarouselViewModel: DCTViewModel {
         
         let contentoffSetX: Observable<CGFloat>
         
-        let modelSelect: ControlEvent<DCTCarouselBean>
+        let modelSelect: ControlEvent<EDTCarouselBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -73,18 +73,18 @@ struct DCTCarouselViewModel: DCTViewModel {
         
         let currentPage: BehaviorRelay<Int>
         
-        let style: DCTCarouselStyle
+        let style: EDTCarouselStyle
         
         
     }
     
     struct WLOutput {
         
-        let tableData: BehaviorRelay<[DCTCarouselBean]>
+        let tableData: BehaviorRelay<[EDTCarouselBean]>
         
         let timered: Observable<Int>
         
-        let zip: Observable<(DCTCarouselBean,IndexPath)>
+        let zip: Observable<(EDTCarouselBean,IndexPath)>
         
         let currentPage: BehaviorRelay<Int> = BehaviorRelay<Int>(value: 0)
     }
@@ -93,7 +93,7 @@ struct DCTCarouselViewModel: DCTViewModel {
         
         self.input = input
         
-        let tableData: BehaviorRelay<[DCTCarouselBean]> = BehaviorRelay<[DCTCarouselBean]>(value: [])
+        let tableData: BehaviorRelay<[EDTCarouselBean]> = BehaviorRelay<[EDTCarouselBean]>(value: [])
         
         let zip = Observable.zip(input.modelSelect,input.itemSelect)
         

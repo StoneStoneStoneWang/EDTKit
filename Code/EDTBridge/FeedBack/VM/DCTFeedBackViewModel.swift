@@ -1,6 +1,6 @@
 //
-//  DCTFeedBackViewModel.swift
-//  DCTBridge
+//  EDTFeedBackViewModel.swift
+//  EDTBridge
 //
 //  Created by 王磊 on 2020/3/30.
 //  Copyright © 2020 王磊. All rights reserved.
@@ -8,14 +8,14 @@
 
 import Foundation
 import RxCocoa
-import DCTError
-import DCTViewModel
+import EDTError
+import EDTViewModel
 import WLToolsKit
-import DCTResult
-import DCTRReq
-import DCTApi
+import EDTResult
+import EDTRReq
+import EDTApi
 
-struct DCTFeedBackViewModel: DCTViewModel {
+struct EDTFeedBackViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -36,7 +36,7 @@ struct DCTFeedBackViewModel: DCTViewModel {
         
         let completing: Driver<Void>
         
-        let completed: Driver<DCTResult>
+        let completed: Driver<EDTResult>
         
         let placeholderHidden: Driver<Bool>
     }
@@ -51,13 +51,13 @@ struct DCTFeedBackViewModel: DCTViewModel {
         
         let completing: Driver<Void> = input.completTaps.flatMap { Driver.just($0) }
         
-        let completed: Driver<DCTResult> = input.completTaps
+        let completed: Driver<EDTResult> = input.completTaps
             .withLatestFrom(ou)
             .flatMapLatest({
                 
-                return DCTVoidResp(DCTApi.feedback("yuanxingfu1314@163.com", content: $0.0))
-                    .map { _ in DCTResult.ok("意见建议提交成功")}
-                    .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) }) })
+                return EDTVoidResp(EDTApi.feedback("yuanxingfu1314@163.com", content: $0.0))
+                    .map { _ in EDTResult.ok("意见建议提交成功")}
+                    .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) }) })
         
         let placeholderHidden: Driver<Bool> = input.feedBack.flatMapLatest { Driver.just(!$0.wl_isEmpty)}
         

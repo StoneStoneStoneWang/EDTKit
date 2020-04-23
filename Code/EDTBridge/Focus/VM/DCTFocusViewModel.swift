@@ -1,23 +1,23 @@
 //
-//  DCTFocusViewModel.swift
-//  DCTBridge
+//  EDTFocusViewModel.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/26.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTResult
-import DCTRReq
-import DCTBean
-import DCTApi
-import DCTOM
-import DCTError
+import EDTResult
+import EDTRReq
+import EDTBean
+import EDTApi
+import EDTOM
+import EDTError
 
-public struct DCTFocusViewModel: DCTViewModel {
+public struct EDTFocusViewModel: EDTViewModel {
     
     public var input: WLInput
     
@@ -25,7 +25,7 @@ public struct DCTFocusViewModel: DCTViewModel {
     
     public struct WLInput {
         
-        let modelSelect: ControlEvent<DCTFocusBean>
+        let modelSelect: ControlEvent<EDTFocusBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -34,11 +34,11 @@ public struct DCTFocusViewModel: DCTViewModel {
     
     public struct WLOutput {
         
-        let zip: Observable<(DCTFocusBean,IndexPath)>
+        let zip: Observable<(EDTFocusBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[DCTFocusBean]> = BehaviorRelay<[DCTFocusBean]>(value: [])
+        let tableData: BehaviorRelay<[EDTFocusBean]> = BehaviorRelay<[EDTFocusBean]>(value: [])
         
-        let endHeaderRefreshing: Driver<DCTResult>
+        let endHeaderRefreshing: Driver<EDTResult>
     }
     init(_ input: WLInput ,disposed: DisposeBag) {
         
@@ -51,10 +51,10 @@ public struct DCTFocusViewModel: DCTViewModel {
             .startWith(())
             .flatMapLatest({_ in
 
-                return DCTArrayResp(DCTApi.fetchBlackList)
-                    .mapArray(type: DCTFocusBean.self)
-                    .map({ return $0.count > 0 ? DCTResult.fetchList($0) : DCTResult.empty })
-                    .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                return EDTArrayResp(EDTApi.fetchBlackList)
+                    .mapArray(type: EDTFocusBean.self)
+                    .map({ return $0.count > 0 ? EDTResult.fetchList($0) : EDTResult.empty })
+                    .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
             })
         
         let endHeaderRefreshing = headerRefreshData.map { $0 }
@@ -67,7 +67,7 @@ public struct DCTFocusViewModel: DCTViewModel {
                 switch result {
                 case let .fetchList(items):
                     
-                    output.tableData.accept(items as! [DCTFocusBean])
+                    output.tableData.accept(items as! [EDTFocusBean])
                     
                 default: break
                 }
@@ -77,12 +77,12 @@ public struct DCTFocusViewModel: DCTViewModel {
         self.output = output
     }
 }
-extension DCTFocusViewModel {
+extension EDTFocusViewModel {
     
-    static func removeFocus(_ encode: String) -> Driver<DCTResult> {
+    static func removeFocus(_ encode: String) -> Driver<EDTResult> {
         
-        return DCTVoidResp(DCTApi.removeBlack(encode))
-            .flatMapLatest({ return Driver.just(DCTResult.ok("移除成功")) })
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTVoidResp(EDTApi.removeBlack(encode))
+            .flatMapLatest({ return Driver.just(EDTResult.ok("移除成功")) })
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
 }

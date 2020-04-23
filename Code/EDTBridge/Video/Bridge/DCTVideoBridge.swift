@@ -1,5 +1,5 @@
 //
-//  DCTVideoBridge.swift
+//  EDTVideoBridge.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/22.
@@ -7,12 +7,12 @@
 //
 
 import Foundation
-import DCTTransition
-import DCTHud
-import DCTCache
+import EDTTransition
+import EDTHud
+import EDTCache
 
-@objc(DCTVideoActionType)
-public enum DCTVideoActionType: Int ,Codable {
+@objc(EDTVideoActionType)
+public enum EDTVideoActionType: Int ,Codable {
     
     case myCircle = 0
     
@@ -37,83 +37,83 @@ public enum DCTVideoActionType: Int ,Codable {
     case share = 10
 }
 
-public typealias DCTVideoAction = (_ action: DCTVideoActionType) -> ()
+public typealias EDTVideoAction = (_ action: EDTVideoActionType) -> ()
 
-@objc (DCTVideoBridge)
-public final class DCTVideoBridge: DCTBaseBridge {
+@objc (EDTVideoBridge)
+public final class EDTVideoBridge: EDTBaseBridge {
     
-    var viewModel: DCTVideoViewModel!
+    var viewModel: EDTVideoViewModel!
     
-    weak var vc: DCTTViewController!
+    weak var vc: EDTTViewController!
 }
-extension DCTVideoBridge {
+extension EDTVideoBridge {
     
-    @objc public func createVideo(_ vc: DCTTViewController) {
+    @objc public func createVideo(_ vc: EDTTViewController) {
         
         self.vc = vc
     }
 }
-extension DCTVideoBridge {
+extension EDTVideoBridge {
     
-    @objc public func addBlack(_ OUsEncoded: String,targetEncoded: String ,content: String ,action: @escaping DCTVideoAction) {
+    @objc public func addBlack(_ OUsEncoded: String,targetEncoded: String ,content: String ,action: @escaping EDTVideoAction) {
         
-        if !DCTAccountCache.default.isLogin() {
+        if !EDTAccountCache.default.isLogin() {
             
             action(.unLogin)
             
             return
         }
         
-        DCTHud.show(withStatus: "添加黑名单中...")
+        EDTHud.show(withStatus: "添加黑名单中...")
         
-        DCTVideoViewModel
+        EDTVideoViewModel
             .addBlack(OUsEncoded, targetEncoded: targetEncoded, content: content)
             .drive(onNext: { (result) in
                 
-                DCTHud.pop()
+                EDTHud.pop()
                 
                 switch result {
                 case .ok(let msg):
                 
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                     
                     action(.black)
                     
                 case .failed(let msg):
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 default:
                     break
                 }
             })
             .disposed(by: disposed)
     }
-    @objc public func focus(_ uid: String ,encode: String ,isFocus: Bool,action: @escaping DCTVideoAction) {
+    @objc public func focus(_ uid: String ,encode: String ,isFocus: Bool,action: @escaping EDTVideoAction) {
         
-        if !DCTAccountCache.default.isLogin() {
+        if !EDTAccountCache.default.isLogin() {
             
             action(.unLogin)
             
             return
         }
         
-        DCTHud.show(withStatus: isFocus ? "取消关注中..." : "关注中...")
+        EDTHud.show(withStatus: isFocus ? "取消关注中..." : "关注中...")
         
-        DCTVideoViewModel
+        EDTVideoViewModel
             .focus(uid, encode: encode)
             .drive(onNext: { (result) in
                 
-                DCTHud.pop()
+                EDTHud.pop()
                 
                 switch result {
                 case .ok:
                     
                     action(.focus)
                     
-                    DCTHud.showInfo(isFocus ? "取消关注成功" : "关注成功")
+                    EDTHud.showInfo(isFocus ? "取消关注成功" : "关注成功")
                 case .failed(let msg):
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 default:
                     break
                 }
@@ -122,32 +122,32 @@ extension DCTVideoBridge {
         
     }
 
-    @objc public func like(_ encoded: String,isLike: Bool,action: @escaping DCTVideoAction) {
+    @objc public func like(_ encoded: String,isLike: Bool,action: @escaping EDTVideoAction) {
         
-        if !DCTAccountCache.default.isLogin() {
+        if !EDTAccountCache.default.isLogin() {
             
             action(.unLogin)
             
             return
         }
         
-        DCTHud.show(withStatus: isLike ? "取消点赞中..." : "点赞中...")
+        EDTHud.show(withStatus: isLike ? "取消点赞中..." : "点赞中...")
         
-        DCTVideoViewModel
+        EDTVideoViewModel
             .like(encoded, isLike: !isLike)
             .drive(onNext: { [unowned self] (result) in
                 
-                DCTHud.pop()
+                EDTHud.pop()
                 
                 switch result {
                 case .ok(let msg):
                 
                     action(.like)
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 case .failed(let msg):
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 default:
                     break
                 }

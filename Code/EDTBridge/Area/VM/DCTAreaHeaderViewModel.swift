@@ -1,5 +1,5 @@
 //
-//  DCTAreaHeaderViewModel.swift
+//  EDTAreaHeaderViewModel.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/19.
@@ -7,21 +7,21 @@
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTBean
+import EDTBean
 
-@objc (DCTAreaHeaderBean)
-public class DCTAreaHeaderBean: NSObject {
+@objc (EDTAreaHeaderBean)
+public class EDTAreaHeaderBean: NSObject {
     
     @objc public var isSelected: Bool = false
     
-    @objc public var areaBean: DCTAreaBean!
+    @objc public var areaBean: EDTAreaBean!
 }
 
 
-struct DCTAreaHeaderViewModel: DCTViewModel {
+struct EDTAreaHeaderViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -29,16 +29,16 @@ struct DCTAreaHeaderViewModel: DCTViewModel {
     
     struct WLInput {
         
-        let modelSelect: ControlEvent<DCTAreaHeaderBean>
+        let modelSelect: ControlEvent<EDTAreaHeaderBean>
         
         let itemSelect: ControlEvent<IndexPath>
     }
     
     struct WLOutput {
         
-        let zip: Observable<(DCTAreaHeaderBean,IndexPath)>
+        let zip: Observable<(EDTAreaHeaderBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[DCTAreaHeaderBean]> = BehaviorRelay<[DCTAreaHeaderBean]>(value: [])
+        let tableData: BehaviorRelay<[EDTAreaHeaderBean]> = BehaviorRelay<[EDTAreaHeaderBean]>(value: [])
     }
     init(_ input: WLInput ,disposed: DisposeBag) {
         

@@ -1,22 +1,22 @@
 //
-//  DCTCollectionsViewModel.swift
-//  DCTBridge
+//  EDTCollectionsViewModel.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/29.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTResult
-import DCTBean
-import DCTRReq
-import DCTApi
-import DCTError
+import EDTResult
+import EDTBean
+import EDTRReq
+import EDTApi
+import EDTError
 
-struct DCTCollectionsViewModel: DCTViewModel {
+struct EDTCollectionsViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -26,7 +26,7 @@ struct DCTCollectionsViewModel: DCTViewModel {
         
         let isMy: Bool
         
-        let modelSelect: ControlEvent<DCTCircleBean>
+        let modelSelect: ControlEvent<EDTCircleBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -41,13 +41,13 @@ struct DCTCollectionsViewModel: DCTViewModel {
     
     struct WLOutput {
         
-        let zip: Observable<(DCTCircleBean,IndexPath)>
+        let zip: Observable<(EDTCircleBean,IndexPath)>
         
-        let collectionData: BehaviorRelay<[DCTCircleBean]> = BehaviorRelay<[DCTCircleBean]>(value: [])
+        let collectionData: BehaviorRelay<[EDTCircleBean]> = BehaviorRelay<[EDTCircleBean]>(value: [])
         
-        let endHeaderRefreshing: Driver<DCTResult>
+        let endHeaderRefreshing: Driver<EDTResult>
         
-        let endFooterRefreshing: Driver<DCTResult>
+        let endFooterRefreshing: Driver<EDTResult>
         
         let footerHidden: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: true)
     }
@@ -61,10 +61,10 @@ struct DCTCollectionsViewModel: DCTViewModel {
             .headerRefresh
             .flatMapLatest({_ in
   
-                return DCTArrayResp(input.isMy ? DCTApi.fetchMyList(input.tag, page: 1) : DCTApi.fetchList(input.tag, page: 1))
-                    .mapArray(type: DCTCircleBean.self)
-                    .map({ return $0.count > 0 ? DCTResult.fetchList($0) : DCTResult.empty })
-                    .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                return EDTArrayResp(input.isMy ? EDTApi.fetchMyList(input.tag, page: 1) : EDTApi.fetchList(input.tag, page: 1))
+                    .mapArray(type: EDTCircleBean.self)
+                    .map({ return $0.count > 0 ? EDTResult.fetchList($0) : EDTResult.empty })
+                    .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
             })
         
         let endHeaderRefreshing = headerRefreshData.map { $0 }
@@ -73,10 +73,10 @@ struct DCTCollectionsViewModel: DCTViewModel {
             .footerRefresh
             .flatMapLatest({_ in
                 
-                return DCTArrayResp(input.isMy ? DCTApi.fetchMyList(input.tag, page: input.page.value) : DCTApi.fetchList(input.tag, page: input.page.value))
-                    .mapArray(type: DCTCircleBean.self)
-                    .map({ return $0.count > 0 ? DCTResult.fetchList($0) : DCTResult.empty })
-                    .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                return EDTArrayResp(input.isMy ? EDTApi.fetchMyList(input.tag, page: input.page.value) : EDTApi.fetchList(input.tag, page: input.page.value))
+                    .mapArray(type: EDTCircleBean.self)
+                    .map({ return $0.count > 0 ? EDTResult.fetchList($0) : EDTResult.empty })
+                    .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
             })
         
         let endFooterRefreshing = footerRefreshData.map { $0 }
@@ -109,7 +109,7 @@ struct DCTCollectionsViewModel: DCTViewModel {
                         output.footerHidden.accept(true)
                     }
                     
-                    output.collectionData.accept(items as! [DCTCircleBean])
+                    output.collectionData.accept(items as! [EDTCircleBean])
                     
                 case .empty: output.collectionData.accept([])
                 default: break
@@ -146,7 +146,7 @@ struct DCTCollectionsViewModel: DCTViewModel {
                     
                     var values = output.collectionData.value
                     
-                    values += items as! [DCTCircleBean]
+                    values += items as! [EDTCircleBean]
                     
                     output.collectionData.accept(values )
                 default: break
@@ -157,29 +157,29 @@ struct DCTCollectionsViewModel: DCTViewModel {
         self.output = output
     }
     
-    static func addBlack(_ OUsEncoded: String,targetEncoded: String ,content: String) -> Driver<DCTResult> {
+    static func addBlack(_ OUsEncoded: String,targetEncoded: String ,content: String) -> Driver<EDTResult> {
 
-        return DCTVoidResp(DCTApi.addBlack(OUsEncoded, targetEncoded: targetEncoded, content: content))
-            .map({ _ in DCTResult.ok("添加黑名单成功")})
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTVoidResp(EDTApi.addBlack(OUsEncoded, targetEncoded: targetEncoded, content: content))
+            .map({ _ in EDTResult.ok("添加黑名单成功")})
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
-    static func focus(_ uid: String ,encode: String) -> Driver<DCTResult> {
+    static func focus(_ uid: String ,encode: String) -> Driver<EDTResult> {
         
-        return DCTVoidResp(DCTApi.focus(uid, targetEncoded: encode))
-            .flatMapLatest({ return Driver.just(DCTResult.ok("关注或取消关注成功")) })
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTVoidResp(EDTApi.focus(uid, targetEncoded: encode))
+            .flatMapLatest({ return Driver.just(EDTResult.ok("关注或取消关注成功")) })
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
     
-    static func like(_ encoded: String ,isLike: Bool) -> Driver<DCTResult> {
+    static func like(_ encoded: String ,isLike: Bool) -> Driver<EDTResult> {
         
-        return DCTVoidResp(DCTApi.like(encoded))
-            .flatMapLatest({ return Driver.just(DCTResult.ok( isLike ? "点赞成功" : "取消点赞成功")) })
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTVoidResp(EDTApi.like(encoded))
+            .flatMapLatest({ return Driver.just(EDTResult.ok( isLike ? "点赞成功" : "取消点赞成功")) })
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
-    static func removeMyCircle(_ encoded: String ) -> Driver<DCTResult> {
+    static func removeMyCircle(_ encoded: String ) -> Driver<EDTResult> {
         
-        return DCTVoidResp(DCTApi.deleteMyCircle(encoded))
-            .map({ DCTResult.ok("删除成功！")  })
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTVoidResp(EDTApi.deleteMyCircle(encoded))
+            .map({ EDTResult.ok("删除成功！")  })
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
 }

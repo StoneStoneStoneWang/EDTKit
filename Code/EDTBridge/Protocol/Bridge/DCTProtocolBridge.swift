@@ -1,27 +1,27 @@
 //
-//  DCTProtocolBridge.swift
-//  DCTBridge
+//  EDTProtocolBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/25.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTTextInner
+import EDTTextInner
 
-@objc (DCTProtocolBridge)
-public final class DCTProtocolBridge: DCTBaseBridge {
+@objc (EDTProtocolBridge)
+public final class EDTProtocolBridge: EDTBaseBridge {
     
-    public var viewModel: DCTProtocolViewModel!
+    public var viewModel: EDTProtocolViewModel!
 }
 
-extension DCTProtocolBridge {
+extension EDTProtocolBridge {
     
-    @objc public func createProtocol(_ vc: DCTTextInnerViewController) {
+    @objc public func createProtocol(_ vc: EDTTextInnerViewController) {
         
-        let inputs = DCTProtocolViewModel.WLInput()
+        let inputs = EDTProtocolViewModel.WLInput()
         
-        viewModel = DCTProtocolViewModel(inputs)
+        viewModel = EDTProtocolViewModel(inputs)
         
         viewModel
             .output
@@ -31,7 +31,7 @@ extension DCTProtocolBridge {
                 
                 DispatchQueue.main.async {
                     
-                    vc.DCTLoadHtmlString(htmlString: value)
+                    vc.EDTLoadHtmlString(htmlString: value)
                 }
                 
             })

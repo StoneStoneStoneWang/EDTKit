@@ -1,36 +1,36 @@
 //
-//  DCTBlackBridge.swift
-//  DCTBridge
+//  EDTBlackBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/26.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTTable
+import EDTTable
 import RxDataSources
-import DCTCocoa
-import DCTBean
-import DCTHud
+import EDTCocoa
+import EDTBean
+import EDTHud
 
-public typealias DCTBlackAction = (_ blackBean: DCTBlackBean ,_ ip: IndexPath) -> ()
+public typealias EDTBlackAction = (_ blackBean: EDTBlackBean ,_ ip: IndexPath) -> ()
 
-@objc (DCTBlackBridge)
-public final class DCTBlackBridge: DCTBaseBridge {
+@objc (EDTBlackBridge)
+public final class EDTBlackBridge: EDTBaseBridge {
     
-    typealias Section = DCTAnimationSetionModel<DCTBlackBean>
+    typealias Section = EDTAnimationSetionModel<EDTBlackBean>
     
     var dataSource: RxTableViewSectionedAnimatedDataSource<Section>!
     
-    public var viewModel: DCTBlackViewModel!
+    public var viewModel: EDTBlackViewModel!
     
-    weak var vc: DCTTableLoadingViewController!
+    weak var vc: EDTTableLoadingViewController!
     
-    var blackAction: DCTBlackAction!
+    var blackAction: EDTBlackAction!
 }
-extension DCTBlackBridge {
+extension EDTBlackBridge {
     
-    @objc public func createBlack(_ vc: DCTTableLoadingViewController ,_ blackAction:@escaping DCTBlackAction) {
+    @objc public func createBlack(_ vc: EDTTableLoadingViewController ,_ blackAction:@escaping EDTBlackAction) {
         
         self.blackAction = blackAction
         
@@ -38,11 +38,11 @@ extension DCTBlackBridge {
         
         vc.tableView.mj_footer?.isHidden = true
         
-        let input = DCTBlackViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(DCTBlackBean.self),
+        let input = EDTBlackViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(EDTBlackBean.self),
                                               itemSelect: vc.tableView.rx.itemSelected,
-                                              headerRefresh: vc.tableView.mj_header!.rx.DCTRefreshing.asDriver())
+                                              headerRefresh: vc.tableView.mj_header!.rx.EDTRefreshing.asDriver())
         
-        viewModel = DCTBlackViewModel(input, disposed: disposed)
+        viewModel = EDTBlackViewModel(input, disposed: disposed)
         
         let dataSource = RxTableViewSectionedAnimatedDataSource<Section>(
             animationConfiguration: AnimationConfiguration(insertAnimation: .top, reloadAnimation: .fade, deleteAnimation: .left),
@@ -64,7 +64,7 @@ extension DCTBlackBridge {
         
         endHeaderRefreshing
             .map({ _ in return true })
-            .drive(vc.tableView.mj_header!.rx.DCTEndRefreshing)
+            .drive(vc.tableView.mj_header!.rx.EDTEndRefreshing)
             .disposed(by: disposed)
         
         endHeaderRefreshing
@@ -73,7 +73,7 @@ extension DCTBlackBridge {
                 case .fetchList:
                     vc.loadingStatus = .succ
                 case let .failed(msg):
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                     vc.loadingStatus = .fail
                     
                 case .empty:
@@ -99,7 +99,7 @@ extension DCTBlackBridge {
             .disposed(by: disposed)
     }
 }
-extension DCTBlackBridge: UITableViewDelegate {
+extension EDTBlackBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -125,11 +125,11 @@ extension DCTBlackBridge: UITableViewDelegate {
         return [cancel,delete]
     }
     
-    @objc public func removeBlack(_ blackBean: DCTBlackBean ,_ ip: IndexPath ,_ blackAction: @escaping () -> ()) {
+    @objc public func removeBlack(_ blackBean: EDTBlackBean ,_ ip: IndexPath ,_ blackAction: @escaping () -> ()) {
         
-        DCTHud.show(withStatus: "移除\(blackBean.users.nickname)中...")
+        EDTHud.show(withStatus: "移除\(blackBean.users.nickname)中...")
         
-        DCTBlackViewModel
+        EDTBlackViewModel
             .removeBlack(blackBean.identity)
             .drive(onNext: { [weak self] (result) in
                 
@@ -138,9 +138,9 @@ extension DCTBlackBridge: UITableViewDelegate {
                 switch result {
                 case .ok:
                     
-                    DCTHud.pop()
+                    EDTHud.pop()
                     
-                    DCTHud.showInfo("移除\(blackBean.users.nickname)成功")
+                    EDTHud.showInfo("移除\(blackBean.users.nickname)成功")
                     
                     var value = self.viewModel.output.tableData.value
                     
@@ -157,9 +157,9 @@ extension DCTBlackBridge: UITableViewDelegate {
                     
                 case .failed:
                     
-                    DCTHud.pop()
+                    EDTHud.pop()
                     
-                    DCTHud.showInfo("移除\(blackBean.users.nickname)失败")
+                    EDTHud.showInfo("移除\(blackBean.users.nickname)失败")
                     
                 default: break
                     

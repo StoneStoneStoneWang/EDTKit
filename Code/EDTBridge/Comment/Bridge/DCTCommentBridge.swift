@@ -1,47 +1,47 @@
 //
-//  DCTCommentBridge.swift
-//  DCTBridge
+//  EDTCommentBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/9/11.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTTable
+import EDTTable
 import RxDataSources
-import DCTCocoa
-import DCTBean
-import DCTHud
+import EDTCocoa
+import EDTBean
+import EDTHud
 import MJRefresh
 
-@objc (DCTCommentBridge)
-public final class DCTCommentBridge: DCTBaseBridge {
+@objc (EDTCommentBridge)
+public final class EDTCommentBridge: EDTBaseBridge {
     
-    typealias Section = DCTAnimationSetionModel<DCTCommentBean>
+    typealias Section = EDTAnimationSetionModel<EDTCommentBean>
     
     var dataSource: RxTableViewSectionedAnimatedDataSource<Section>!
     
-    var viewModel: DCTCommentViewModel!
+    var viewModel: EDTCommentViewModel!
     
-    weak var vc: DCTTableLoadingViewController!
+    weak var vc: EDTTableLoadingViewController!
     
-    var circleBean: DCTCircleBean!
+    var circleBean: EDTCircleBean!
 }
-extension DCTCommentBridge {
+extension EDTCommentBridge {
     
-    @objc public func createComment(_ vc: DCTTableLoadingViewController,encode: String ,circle: DCTCircleBean) {
+    @objc public func createComment(_ vc: EDTTableLoadingViewController,encode: String ,circle: EDTCircleBean) {
         
         self.vc = vc
         
         self.circleBean = circle
         
-        let input = DCTCommentViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(DCTCommentBean.self),
+        let input = EDTCommentViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(EDTCommentBean.self),
                                               itemSelect: vc.tableView.rx.itemSelected,
-                                              headerRefresh: vc.tableView.mj_header!.rx.DCTRefreshing.asDriver(),
-                                              footerRefresh: vc.tableView.mj_footer!.rx.DCTRefreshing.asDriver(),
+                                              headerRefresh: vc.tableView.mj_header!.rx.EDTRefreshing.asDriver(),
+                                              footerRefresh: vc.tableView.mj_footer!.rx.EDTRefreshing.asDriver(),
                                               encoded: encode)
         
-        viewModel = DCTCommentViewModel(input, disposed: disposed)
+        viewModel = EDTCommentViewModel(input, disposed: disposed)
         
         let dataSource = RxTableViewSectionedAnimatedDataSource<Section>(
             animationConfiguration: AnimationConfiguration(insertAnimation: .fade, reloadAnimation: .fade, deleteAnimation: .left),
@@ -60,7 +60,7 @@ extension DCTCommentBridge {
         
         endHeaderRefreshing
             .map({ _ in return true })
-            .drive(vc.tableView.mj_header!.rx.DCTEndRefreshing)
+            .drive(vc.tableView.mj_header!.rx.EDTEndRefreshing)
             .disposed(by: disposed)
         
         endHeaderRefreshing
@@ -69,7 +69,7 @@ extension DCTCommentBridge {
                 case .fetchList:
                     vc.loadingStatus = .succ
                 case let .failed(msg):
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                     vc.loadingStatus = .fail
                     
                 case .empty:
@@ -85,7 +85,7 @@ extension DCTCommentBridge {
         
         endFooterRefreshing
             .map({ _ in return true })
-            .drive(vc.tableView.mj_footer!.rx.DCTEndRefreshing)
+            .drive(vc.tableView.mj_footer!.rx.EDTEndRefreshing)
             .disposed(by: disposed)
         
         self.dataSource = dataSource
@@ -112,7 +112,7 @@ extension DCTCommentBridge {
             .setDelegate(self)
             .disposed(by: disposed)
     }
-    @objc public func insertComment(_ comment: DCTCommentBean) {
+    @objc public func insertComment(_ comment: EDTCommentBean) {
         
         var value = self.viewModel.output.tableData.value
         
@@ -138,30 +138,30 @@ extension DCTCommentBridge {
         self.vc.tableView.scrollsToTop = true
 
     }
-    @objc public func addComment(_ encoded: String,content: String ,commentAction: @escaping (_ comment: DCTCommentBean? ,_ circleBean: DCTCircleBean) -> () ) {
+    @objc public func addComment(_ encoded: String,content: String ,commentAction: @escaping (_ comment: EDTCommentBean? ,_ circleBean: EDTCircleBean) -> () ) {
         
-        DCTHud.show(withStatus: "发布评论中....")
+        EDTHud.show(withStatus: "发布评论中....")
         
-        DCTCommentViewModel
+        EDTCommentViewModel
             .addComment(encoded, content: content)
             .drive(onNext: { [unowned self](result) in
                 
-                DCTHud.pop()
+                EDTHud.pop()
                 
                 switch result {
                 case .operation(let comment):
                     
-                    DCTHud.showInfo("发布评论成功!")
+                    EDTHud.showInfo("发布评论成功!")
                     
                     self.circleBean.countComment += 1
                     
-                    self.insertComment(comment as! DCTCommentBean)
+                    self.insertComment(comment as! EDTCommentBean)
                     
-                    commentAction(comment as? DCTCommentBean ,self.circleBean)
+                    commentAction(comment as? EDTCommentBean ,self.circleBean)
 
                 case .failed(let msg):
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 default:
                     break
                 }
@@ -170,7 +170,7 @@ extension DCTCommentBridge {
     }
 }
 
-extension DCTCommentBridge: UITableViewDelegate {
+extension EDTCommentBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         

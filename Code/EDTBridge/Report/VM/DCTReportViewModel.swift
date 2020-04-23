@@ -1,24 +1,24 @@
 //
-//  DCTReportViewModel.swift
-//  DCTBridge
+//  EDTReportViewModel.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/9/9.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
 
-import DCTResult
+import EDTResult
 import ObjectMapper
 import RxDataSources
-import DCTApi
-import DCTRReq
-import DCTError
+import EDTApi
+import EDTRReq
+import EDTError
 
-@objc public final class DCTReportBean: NSObject,IdentifiableType ,Mappable {
+@objc public final class EDTReportBean: NSObject,IdentifiableType ,Mappable {
     public init?(map: Map) {
         
         
@@ -49,7 +49,7 @@ import DCTError
 }
 
 
-struct DCTReportViewModel: DCTViewModel {
+struct EDTReportViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -59,7 +59,7 @@ struct DCTReportViewModel: DCTViewModel {
         
         let reports: [[String: Any]]
         
-        let modelSelect: ControlEvent<DCTReportBean>
+        let modelSelect: ControlEvent<EDTReportBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -77,14 +77,14 @@ struct DCTReportViewModel: DCTViewModel {
     
     struct WLOutput {
         
-        let zip: Observable<(DCTReportBean,IndexPath)>
+        let zip: Observable<(EDTReportBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[DCTReportBean]> = BehaviorRelay<[DCTReportBean]>(value: [])
+        let tableData: BehaviorRelay<[EDTReportBean]> = BehaviorRelay<[EDTReportBean]>(value: [])
         
         /* 完成中... 序列*/
         let completing: Driver<Void>
         /* 完成结果... 序列*/
-        let completed: Driver<DCTResult>
+        let completed: Driver<EDTResult>
     }
     
     init(_ input: WLInput ,disposed: DisposeBag) {
@@ -97,21 +97,21 @@ struct DCTReportViewModel: DCTViewModel {
         
         let completing = input.completeTaps.flatMap { Driver.just($0) }
         
-        let completed: Driver<DCTResult> = input
+        let completed: Driver<EDTResult> = input
             .completeTaps
             .withLatestFrom(combine)
             .flatMapLatest {
 
-                return DCTVoidResp(DCTApi.report(input.uid, targetEncoded: input.encode, type: $0.0, content: $0.1))
-                    .map({ _ in DCTResult.ok("举报成功") })
-                    .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                return EDTVoidResp(EDTApi.report(input.uid, targetEncoded: input.encode, type: $0.0, content: $0.1))
+                    .map({ _ in EDTResult.ok("举报成功") })
+                    .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
         }
         
         let output = WLOutput(zip: zip, completing: completing, completed: completed)
         
         for item in input.reports {
             
-            let res = DCTReportBean(JSON: item)
+            let res = EDTReportBean(JSON: item)
             
             output.tableData.accept( output.tableData.value + [res!])
         }

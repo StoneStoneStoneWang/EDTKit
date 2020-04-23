@@ -1,38 +1,38 @@
 //
-//  DCTAboutBridge.swift
-//  DCTBridge
+//  EDTAboutBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/27.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTTable
+import EDTTable
 import RxDataSources
-import DCTCocoa
+import EDTCocoa
 
-@objc (DCTAboutBridge)
-public final class DCTAboutBridge: DCTBaseBridge {
+@objc (EDTAboutBridge)
+public final class EDTAboutBridge: EDTBaseBridge {
     
-    typealias Section = DCTSectionModel<(), DCTAboutType>
+    typealias Section = EDTSectionModel<(), EDTAboutType>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    var viewModel: DCTAboutViewModel!
+    var viewModel: EDTAboutViewModel!
 }
 
-extension DCTAboutBridge {
+extension EDTAboutBridge {
     
-    @objc public func createAbout(_ vc: DCTTableNoLoadingViewController ,hasSpace: Bool) {
+    @objc public func createAbout(_ vc: EDTTableNoLoadingViewController ,hasSpace: Bool) {
         
-        let input = DCTAboutViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(DCTAboutType.self),
+        let input = EDTAboutViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(EDTAboutType.self),
                                               itemSelect: vc.tableView.rx.itemSelected,
                                               hasSpace: hasSpace)
         
-        viewModel = DCTAboutViewModel(input)
+        viewModel = EDTAboutViewModel(input)
         
         let dataSource = RxTableViewSectionedReloadDataSource<Section>(
-            configureCell: { ds, tv, ip, item in return vc.configTableViewCell(DCTAboutBean.createAbout(item, title: item.title, subTitle: item.subtitle), for: ip) })
+            configureCell: { ds, tv, ip, item in return vc.configTableViewCell(EDTAboutBean.createAbout(item, title: item.title, subTitle: item.subtitle), for: ip) })
         
         viewModel
             .output
@@ -51,7 +51,7 @@ extension DCTAboutBridge {
                 
                 vc.tableView.deselectRow(at: ip, animated: true)
                 
-                vc.tableViewSelectData(DCTAboutBean.createAbout(item, title: item.title, subTitle: item.subtitle), for: ip)
+                vc.tableViewSelectData(EDTAboutBean.createAbout(item, title: item.title, subTitle: item.subtitle), for: ip)
             })
             .disposed(by: disposed)
         
@@ -63,7 +63,7 @@ extension DCTAboutBridge {
     }
     
 }
-extension DCTAboutBridge: UITableViewDelegate {
+extension EDTAboutBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         

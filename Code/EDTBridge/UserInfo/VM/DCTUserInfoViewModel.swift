@@ -1,28 +1,28 @@
 //
-//  DCTUserInfoViewModel.swift
-//  DCTBridge
+//  EDTUserInfoViewModel.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/28.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
 
-import DCTResult
-import DCTCache
-import DCTApi
-import DCTRReq
-import DCTBean
-import DCTError
-import DCTOM
+import EDTResult
+import EDTCache
+import EDTApi
+import EDTRReq
+import EDTBean
+import EDTError
+import EDTOM
 
 
-@objc public final class DCTUserInfoBean: NSObject {
+@objc public final class EDTUserInfoBean: NSObject {
     
-    @objc public var type: DCTUserInfoType = .header
+    @objc public var type: EDTUserInfoType = .header
     
     @objc public var img: UIImage!
     
@@ -33,31 +33,31 @@ import DCTOM
         return type.title
     }
     
-    static func createUserInfo(_ type: DCTUserInfoType) -> DCTUserInfoBean {
+    static func createUserInfo(_ type: EDTUserInfoType) -> EDTUserInfoBean {
         
-        let userInfo = DCTUserInfoBean()
+        let userInfo = EDTUserInfoBean()
         
         userInfo.type = type
         
         return userInfo
     }
     
-    static func createUserInfoTypes(_ hasSpace: Bool) -> [DCTUserInfoBean] {
+    static func createUserInfoTypes(_ hasSpace: Bool) -> [EDTUserInfoBean] {
         
-        var result: [DCTUserInfoBean] = []
+        var result: [EDTUserInfoBean] = []
         
         if hasSpace {
             
-            for item in DCTUserInfoType.spaceTypes {
+            for item in EDTUserInfoType.spaceTypes {
                 
-                result += [DCTUserInfoBean.createUserInfo(item)]
+                result += [EDTUserInfoBean.createUserInfo(item)]
             }
             
         } else {
             
-            for item in DCTUserInfoType.types {
+            for item in EDTUserInfoType.types {
                 
-                result += [DCTUserInfoBean.createUserInfo(item)]
+                result += [EDTUserInfoBean.createUserInfo(item)]
             }
         }
         
@@ -65,8 +65,8 @@ import DCTOM
     }
 }
 
-@objc (DCTUserInfoType)
-public enum DCTUserInfoType: Int {
+@objc (EDTUserInfoType)
+public enum EDTUserInfoType: Int {
     
     case header
     
@@ -84,13 +84,13 @@ public enum DCTUserInfoType: Int {
 }
 
 
-extension DCTUserInfoType {
+extension EDTUserInfoType {
     
-    static var spaceTypes: [DCTUserInfoType] {
+    static var spaceTypes: [EDTUserInfoType] {
         
         return [.space ,.header ,.name ,.phone ,.space ,.sex ,.birth ,.signature]
     }
-    static var types: [DCTUserInfoType] {
+    static var types: [EDTUserInfoType] {
         
         return [.header ,.name ,.phone ,.sex ,.birth ,.signature]
     }
@@ -145,7 +145,7 @@ extension DCTUserInfoType {
     }
 }
 
-public struct DCTUserInfoViewModel: DCTViewModel {
+public struct EDTUserInfoViewModel: EDTViewModel {
     
     public var input: WLInput
     
@@ -153,7 +153,7 @@ public struct DCTUserInfoViewModel: DCTViewModel {
     
     public struct WLInput {
         
-        let modelSelect: ControlEvent<DCTUserInfoBean>
+        let modelSelect: ControlEvent<EDTUserInfoBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -161,9 +161,9 @@ public struct DCTUserInfoViewModel: DCTViewModel {
     }
     public struct WLOutput {
         
-        let zip: Observable<(DCTUserInfoBean,IndexPath)>
+        let zip: Observable<(EDTUserInfoBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[DCTUserInfoBean]> = BehaviorRelay<[DCTUserInfoBean]>(value: [])
+        let tableData: BehaviorRelay<[EDTUserInfoBean]> = BehaviorRelay<[EDTUserInfoBean]>(value: [])
     }
     public init(_ input: WLInput ,disposed: DisposeBag) {
         
@@ -173,11 +173,11 @@ public struct DCTUserInfoViewModel: DCTViewModel {
         
         let output = WLOutput(zip: zip)
         
-        output.tableData.accept(DCTUserInfoBean.createUserInfoTypes(input.hasSpace))
+        output.tableData.accept(EDTUserInfoBean.createUserInfoTypes(input.hasSpace))
         
-        DCTUserInfoCache.default
+        EDTUserInfoCache.default
             .rx
-            .observe(DCTUserBean.self, "userBean")
+            .observe(EDTUserBean.self, "userBean")
             .subscribe(onNext: { (user) in
                 
                 if let user = user {
@@ -216,19 +216,19 @@ public struct DCTUserInfoViewModel: DCTViewModel {
         self.output = output
     }
     
-    public static func updateUserInfo(type: DCTUserInfoType,value: String) -> Driver<DCTResult>{
+    public static func updateUserInfo(type: EDTUserInfoType,value: String) -> Driver<EDTResult>{
         
-        return DCTDictResp(DCTApi.updateUserInfo(type.updateKey, value: value))
-            .mapObject(type: DCTUserBean.self)
-            .map({ DCTUserInfoCache.default.saveUser(data: $0) })
-            .map { _ in DCTResult.ok("")}
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTDictResp(EDTApi.updateUserInfo(type.updateKey, value: value))
+            .mapObject(type: EDTUserBean.self)
+            .map({ EDTUserInfoCache.default.saveUser(data: $0) })
+            .map { _ in EDTResult.ok("")}
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
     
-    public static func fetchAliToken() -> Driver<DCTResult> {
+    public static func fetchAliToken() -> Driver<EDTResult> {
         
-        return DCTAliResp(DCTApi.aliToken)
-            .map { DCTResult.fetchSomeObject($0 as AnyObject)}
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTAliResp(EDTApi.aliToken)
+            .map { EDTResult.fetchSomeObject($0 as AnyObject)}
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
 }

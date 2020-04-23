@@ -1,40 +1,40 @@
 //
-//  DCTCarouselBridge.swift
-//  DCTBridge
+//  EDTCarouselBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2020/3/12.
 //  Copyright © 2020 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTCollection
+import EDTCollection
 import RxCocoa
 import RxSwift
 import RxDataSources
-import DCTCocoa
+import EDTCocoa
 import WLToolsKit
 import ObjectMapper
 
-public typealias DCTCarouselAction = (_ carouse: DCTCarouselBean) -> ()
+public typealias EDTCarouselAction = (_ carouse: EDTCarouselBean) -> ()
 
-@objc (DCTCarouselBridge)
-public final class DCTCarouselBridge: DCTBaseBridge {
+@objc (EDTCarouselBridge)
+public final class EDTCarouselBridge: EDTBaseBridge {
     
-    var viewModel: DCTCarouselViewModel!
+    var viewModel: EDTCarouselViewModel!
     
-    typealias Section = DCTSectionModel<(), DCTCarouselBean>
+    typealias Section = EDTSectionModel<(), EDTCarouselBean>
     
     var dataSource: RxCollectionViewSectionedReloadDataSource<Section>!
     
-    var vc: DCTCollectionNoLoadingViewController!
+    var vc: EDTCollectionNoLoadingViewController!
     
-    var style: DCTCarouselStyle = .normal
+    var style: EDTCarouselStyle = .normal
 }
 
 // MARK: skip item 101 pagecontrol 102
-extension DCTCarouselBridge {
+extension EDTCarouselBridge {
     
-    @objc public func createCarousel(_ vc: DCTCollectionNoLoadingViewController ,canPageHidden: Bool ,canTimerResp: Bool,carousels: [[String: String]],style: DCTCarouselStyle ,carouseAction: @escaping DCTCarouselAction) {
+    @objc public func createCarousel(_ vc: EDTCollectionNoLoadingViewController ,canPageHidden: Bool ,canTimerResp: Bool,carousels: [[String: String]],style: EDTCarouselStyle ,carouseAction: @escaping EDTCarouselAction) {
         
         if let pageControl = vc.view.viewWithTag(102) as? UIPageControl {
             
@@ -44,20 +44,20 @@ extension DCTCarouselBridge {
             
             self.style = style
             
-            let input = DCTCarouselViewModel.WLInput(contentoffSetX: vc.collectionView.rx.contentOffset.map({ $0.x }),
-                                                     modelSelect: vc.collectionView.rx.modelSelected(DCTCarouselBean.self),
+            let input = EDTCarouselViewModel.WLInput(contentoffSetX: vc.collectionView.rx.contentOffset.map({ $0.x }),
+                                                     modelSelect: vc.collectionView.rx.modelSelected(EDTCarouselBean.self),
                                                      itemSelect: vc.collectionView.rx.itemSelected,
                                                      canTimerResp: canTimerResp,
                                                      currentPage: BehaviorRelay<Int>(value: 0),
                                                      style: style)
             
-            viewModel = DCTCarouselViewModel(input, disposed: disposed)
+            viewModel = EDTCarouselViewModel(input, disposed: disposed)
             
-            var result : [DCTCarouselBean] = []
+            var result : [EDTCarouselBean] = []
             
             for carousel in carousels {
                 
-                let c = DCTCarouselBean(JSON: carousel)!
+                let c = EDTCarouselBean(JSON: carousel)!
                 
                 result += [c]
                 
@@ -103,7 +103,7 @@ extension DCTCarouselBridge {
                 .bind(to: pageControl.rx.currentPage)
                 .disposed(by: disposed)
             
-            var mutable: [DCTCarouselBean] = []
+            var mutable: [EDTCarouselBean] = []
             
             for _ in 0..<999 {
                 
@@ -123,7 +123,7 @@ extension DCTCarouselBridge {
         }
     }
 }
-extension DCTCarouselBridge: UICollectionViewDelegate {
+extension EDTCarouselBridge: UICollectionViewDelegate {
     
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         

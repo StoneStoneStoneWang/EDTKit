@@ -1,6 +1,6 @@
 //
-//  DCTSignatureViewModel.swift
-//  DCTBridge
+//  EDTSignatureViewModel.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/28.
 //  Copyright © 2019 three stone 王. All rights reserved.
@@ -8,17 +8,17 @@
 
 import Foundation
 import RxCocoa
-import DCTViewModel
+import EDTViewModel
 import WLToolsKit
-import DCTResult
-import DCTRReq
-import DCTApi
-import DCTBean
-import DCTCache
-import DCTError
-import DCTOM
+import EDTResult
+import EDTRReq
+import EDTApi
+import EDTBean
+import EDTCache
+import EDTError
+import EDTOM
 
-struct DCTSignatureViewModel: DCTViewModel {
+struct EDTSignatureViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -39,7 +39,7 @@ struct DCTSignatureViewModel: DCTViewModel {
         
         let completing: Driver<Void>
         
-        let completed: Driver<DCTResult>
+        let completed: Driver<EDTResult>
         
         let placeholderHidden: Driver<Bool>
     }
@@ -54,13 +54,13 @@ struct DCTSignatureViewModel: DCTViewModel {
         
         let completing: Driver<Void> = input.completTaps.flatMap { Driver.just($0) }
         
-        let completed: Driver<DCTResult> = input.completTaps
+        let completed: Driver<EDTResult> = input.completTaps
             .withLatestFrom(input.updated)
-            .flatMapLatest({ return DCTDictResp(DCTApi.updateUserInfo("users.signature", value: $0))
-                .mapObject(type: DCTUserBean.self)
-                .map({ DCTUserInfoCache.default.saveUser(data: $0) })
-                .map { DCTResult.updateUserInfoSucc($0, msg: "个性签名修改成功")}
-                .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) }) })
+            .flatMapLatest({ return EDTDictResp(EDTApi.updateUserInfo("users.signature", value: $0))
+                .mapObject(type: EDTUserBean.self)
+                .map({ EDTUserInfoCache.default.saveUser(data: $0) })
+                .map { EDTResult.updateUserInfoSucc($0, msg: "个性签名修改成功")}
+                .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) }) })
         
         let placeholderHidden: Driver<Bool> = input.updated.flatMapLatest { Driver.just(!$0.wl_isEmpty)}
         

@@ -1,5 +1,5 @@
 //
-//  DCTAddressEditBridge.swift
+//  EDTAddressEditBridge.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/20.
@@ -7,26 +7,26 @@
 //
 
 import Foundation
-import DCTTable
-import DCTHud
-import DCTBean
+import EDTTable
+import EDTHud
+import EDTBean
 import RxCocoa
 import RxSwift
 import RxDataSources
-import DCTCocoa
+import EDTCocoa
 
-public typealias ZCharactersEditAction = (_ address: DCTAddressBean?) -> ()
+public typealias ZCharactersEditAction = (_ address: EDTAddressBean?) -> ()
 
-@objc (DCTAddressEditBridge)
-public final class DCTAddressEditBridge: DCTBaseBridge {
+@objc (EDTAddressEditBridge)
+public final class EDTAddressEditBridge: EDTBaseBridge {
     
-    typealias Section = DCTSectionModel<(), DCTAddressEditBean>
+    typealias Section = EDTSectionModel<(), EDTAddressEditBean>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    var viewModel: DCTAddressEditViewModel!
+    var viewModel: EDTAddressEditViewModel!
     
-    var vc: DCTTableNoLoadingViewController!
+    var vc: EDTTableNoLoadingViewController!
     
     let name: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
     
@@ -36,22 +36,22 @@ public final class DCTAddressEditBridge: DCTBaseBridge {
     
     let def: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: false)
     
-    let province: BehaviorRelay<DCTAreaBean> = BehaviorRelay<DCTAreaBean>(value: DCTAreaBean())
+    let province: BehaviorRelay<EDTAreaBean> = BehaviorRelay<EDTAreaBean>(value: EDTAreaBean())
     
-    let city: BehaviorRelay<DCTAreaBean> = BehaviorRelay<DCTAreaBean>(value: DCTAreaBean())
+    let city: BehaviorRelay<EDTAreaBean> = BehaviorRelay<EDTAreaBean>(value: EDTAreaBean())
     
-    let region: BehaviorRelay<DCTAreaBean> = BehaviorRelay<DCTAreaBean>(value: DCTAreaBean())
+    let region: BehaviorRelay<EDTAreaBean> = BehaviorRelay<EDTAreaBean>(value: EDTAreaBean())
 }
 
-extension DCTAddressEditBridge {
+extension EDTAddressEditBridge {
     
-    @objc public func createAddressEdit(_ vc: DCTTableNoLoadingViewController,temp: DCTAddressBean? ,editAction: @escaping ZCharactersEditAction) {
+    @objc public func createAddressEdit(_ vc: EDTTableNoLoadingViewController,temp: EDTAddressBean? ,editAction: @escaping ZCharactersEditAction) {
         
         if let completeItem = vc.navigationItem.rightBarButtonItem?.customView as? UIButton {
             
             self.vc = vc
             
-            let input = DCTAddressEditViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(DCTAddressEditBean.self),
+            let input = EDTAddressEditViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(EDTAddressEditBean.self),
                                                          itemSelect: vc.tableView.rx.itemSelected,
                                                          completeTaps: completeItem.rx.tap.asSignal(),
                                                          encode: temp?.encoded ?? "",
@@ -63,7 +63,7 @@ extension DCTAddressEditBridge {
                                                          region: region.asDriver(),
                                                          def: def.asDriver())
             
-            viewModel = DCTAddressEditViewModel(input, disposed: disposed)
+            viewModel = EDTAddressEditViewModel(input, disposed: disposed)
             
             let dataSource = RxTableViewSectionedReloadDataSource<Section>(
                 configureCell: { ds, tv, ip, item in return vc.configTableViewCell(item, for: ip)})
@@ -102,7 +102,7 @@ extension DCTAddressEditBridge {
                     
                     vc.view.endEditing(true)
                     
-                    DCTHud.show(withStatus: "编辑地址中")
+                    EDTHud.show(withStatus: "编辑地址中")
                     
                 })
                 .disposed(by: disposed)
@@ -113,17 +113,17 @@ extension DCTAddressEditBridge {
                 .completed
                 .drive(onNext: {
                     
-                    DCTHud.pop()
+                    EDTHud.pop()
                     
                     switch $0 {
                         
-                    case let .failed(msg): DCTHud.showInfo(msg)
+                    case let .failed(msg): EDTHud.showInfo(msg)
                         
                     case let .operation(obj):
                         
-                        DCTHud.showInfo(temp != nil ? "修改地址成功" : "添加地址成功")
+                        EDTHud.showInfo(temp != nil ? "修改地址成功" : "添加地址成功")
                         
-                        editAction(obj as? DCTAddressBean)
+                        editAction(obj as? EDTAddressBean)
                         
                     default: break
                     }
@@ -150,17 +150,17 @@ extension DCTAddressEditBridge {
             
                 def.accept(temp.isdel)
                 
-                let p = DCTAreaBean()
+                let p = EDTAreaBean()
                 
                 p.areaId = temp.plcl
                 p.name = temp.plclne
                 
-                let c = DCTAreaBean()
+                let c = EDTAreaBean()
                 
                 c.areaId = temp.city
                 c.name = temp.cityne
                 
-                let r = DCTAreaBean()
+                let r = EDTAreaBean()
                 
                 r.areaId = temp.region
                 r.name = temp.regionne
@@ -182,7 +182,7 @@ extension DCTAddressEditBridge {
         }
     }
     
-    @objc public func updateAddressEdit(type: DCTAddressEditType,value: String) {
+    @objc public func updateAddressEdit(type: EDTAddressEditType,value: String) {
         
         let values = viewModel.output.tableData.value
 
@@ -228,17 +228,17 @@ extension DCTAddressEditBridge {
             
             let edit = values[idx]
             
-            let p = DCTAreaBean()
+            let p = EDTAreaBean()
             
             p.areaId = pid
             p.name = pName
             
-            let c = DCTAreaBean()
+            let c = EDTAreaBean()
             
             c.areaId = cid
             c.name = cName
             
-            let r = DCTAreaBean()
+            let r = EDTAreaBean()
             
             r.areaId = rid
             r.name = rName
@@ -259,7 +259,7 @@ extension DCTAddressEditBridge {
         }
     }
 }
-extension DCTAddressEditBridge: UITableViewDelegate {
+extension EDTAddressEditBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         

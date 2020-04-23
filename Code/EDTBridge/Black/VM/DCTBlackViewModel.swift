@@ -1,23 +1,23 @@
 //
-//  DCTBlackViewModel.swift
-//  DCTBridge
+//  EDTBlackViewModel.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/26.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTResult
-import DCTRReq
-import DCTBean
-import DCTApi
-import DCTError
-import DCTOM
+import EDTResult
+import EDTRReq
+import EDTBean
+import EDTApi
+import EDTError
+import EDTOM
 
-public struct DCTBlackViewModel: DCTViewModel {
+public struct EDTBlackViewModel: EDTViewModel {
     
     public var input: WLInput
     
@@ -25,7 +25,7 @@ public struct DCTBlackViewModel: DCTViewModel {
     
     public struct WLInput {
         
-        let modelSelect: ControlEvent<DCTBlackBean>
+        let modelSelect: ControlEvent<EDTBlackBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -34,11 +34,11 @@ public struct DCTBlackViewModel: DCTViewModel {
     
     public struct WLOutput {
         
-        let zip: Observable<(DCTBlackBean,IndexPath)>
+        let zip: Observable<(EDTBlackBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[DCTBlackBean]> = BehaviorRelay<[DCTBlackBean]>(value: [])
+        let tableData: BehaviorRelay<[EDTBlackBean]> = BehaviorRelay<[EDTBlackBean]>(value: [])
         
-        let endHeaderRefreshing: Driver<DCTResult>
+        let endHeaderRefreshing: Driver<EDTResult>
     }
     init(_ input: WLInput ,disposed: DisposeBag) {
         
@@ -51,10 +51,10 @@ public struct DCTBlackViewModel: DCTViewModel {
             .startWith(())
             .flatMapLatest({_ in
 
-                return DCTArrayResp(DCTApi.fetchBlackList)
-                    .mapArray(type: DCTBlackBean.self)
-                    .map({ return $0.count > 0 ? DCTResult.fetchList($0) : DCTResult.empty })
-                    .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                return EDTArrayResp(EDTApi.fetchBlackList)
+                    .mapArray(type: EDTBlackBean.self)
+                    .map({ return $0.count > 0 ? EDTResult.fetchList($0) : EDTResult.empty })
+                    .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
             })
         
         let endHeaderRefreshing = headerRefreshData.map { $0 }
@@ -67,7 +67,7 @@ public struct DCTBlackViewModel: DCTViewModel {
                 switch result {
                 case let .fetchList(items):
                     
-                    output.tableData.accept(items as! [DCTBlackBean])
+                    output.tableData.accept(items as! [EDTBlackBean])
                     
                 default: break
                 }
@@ -77,12 +77,12 @@ public struct DCTBlackViewModel: DCTViewModel {
         self.output = output
     }
 }
-extension DCTBlackViewModel {
+extension EDTBlackViewModel {
     
-    static func removeBlack(_ encode: String) -> Driver<DCTResult> {
+    static func removeBlack(_ encode: String) -> Driver<EDTResult> {
         
-        return DCTVoidResp(DCTApi.removeBlack(encode))
-            .flatMapLatest({ return Driver.just(DCTResult.ok("移除成功")) })
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTVoidResp(EDTApi.removeBlack(encode))
+            .flatMapLatest({ return Driver.just(EDTResult.ok("移除成功")) })
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
 }

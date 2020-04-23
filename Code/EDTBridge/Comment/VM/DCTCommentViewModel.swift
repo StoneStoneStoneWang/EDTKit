@@ -1,23 +1,23 @@
 //
-//  DCTCommentViewModel.swift
-//  DCTBridge
+//  EDTCommentViewModel.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/9/11.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTBean
-import DCTResult
-import DCTRReq
-import DCTApi
-import DCTError
-import DCTOM
+import EDTBean
+import EDTResult
+import EDTRReq
+import EDTApi
+import EDTError
+import EDTOM
 
-struct DCTCommentViewModel: DCTViewModel {
+struct EDTCommentViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -25,7 +25,7 @@ struct DCTCommentViewModel: DCTViewModel {
     
     struct WLInput {
         
-        let modelSelect: ControlEvent<DCTCommentBean>
+        let modelSelect: ControlEvent<EDTCommentBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -40,13 +40,13 @@ struct DCTCommentViewModel: DCTViewModel {
     
     struct WLOutput {
         
-        let zip: Observable<(DCTCommentBean,IndexPath)>
+        let zip: Observable<(EDTCommentBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[DCTCommentBean]> = BehaviorRelay<[DCTCommentBean]>(value: [])
+        let tableData: BehaviorRelay<[EDTCommentBean]> = BehaviorRelay<[EDTCommentBean]>(value: [])
         
-        let endHeaderRefreshing: Driver<DCTResult>
+        let endHeaderRefreshing: Driver<EDTResult>
         
-        let endFooterRefreshing: Driver<DCTResult>
+        let endFooterRefreshing: Driver<EDTResult>
         
         let footerHidden: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: true)
     }
@@ -61,10 +61,10 @@ struct DCTCommentViewModel: DCTViewModel {
             .startWith(())
             .flatMapLatest({_ in
                 
-                return DCTArrayResp(DCTApi.fetchComments(1, targetEncoded: input.encoded))
-                    .mapArray(type: DCTCommentBean.self)
-                    .map({ return $0.count > 0 ? DCTResult.fetchList($0) : DCTResult.empty })
-                    .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                return EDTArrayResp(EDTApi.fetchComments(1, targetEncoded: input.encoded))
+                    .mapArray(type: EDTCommentBean.self)
+                    .map({ return $0.count > 0 ? EDTResult.fetchList($0) : EDTResult.empty })
+                    .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
             })
         
         let endHeaderRefreshing = headerRefreshData.map { $0 }
@@ -73,10 +73,10 @@ struct DCTCommentViewModel: DCTViewModel {
             .footerRefresh
             .flatMapLatest({_ in
                 
-                return DCTArrayResp(DCTApi.fetchComments(input.page.value, targetEncoded: input.encoded))
-                    .mapArray(type: DCTCommentBean.self)
-                    .map({ return $0.count > 0 ? DCTResult.fetchList($0) : DCTResult.empty })
-                    .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                return EDTArrayResp(EDTApi.fetchComments(input.page.value, targetEncoded: input.encoded))
+                    .mapArray(type: EDTCommentBean.self)
+                    .map({ return $0.count > 0 ? EDTResult.fetchList($0) : EDTResult.empty })
+                    .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
             })
         
         let endFooterRefreshing = footerRefreshData.map { $0 }
@@ -86,7 +86,7 @@ struct DCTCommentViewModel: DCTViewModel {
         headerRefreshData
             .drive(onNext: { (result) in
                 
-                let rectangle = DCTCommentBean()
+                let rectangle = EDTCommentBean()
                 
                 rectangle.type = .rectangle
                 
@@ -96,7 +96,7 @@ struct DCTCommentViewModel: DCTViewModel {
                 
                 rectangle.identity = NSUUID().uuidString
                 
-                let total = DCTCommentBean()
+                let total = EDTCommentBean()
                 
                 total.type = .total
                 
@@ -121,9 +121,9 @@ struct DCTCommentViewModel: DCTViewModel {
                         output.footerHidden.accept(false)
                     }
                     
-                    output.tableData.accept([rectangle] + [total] + items as! [DCTCommentBean])
+                    output.tableData.accept([rectangle] + [total] + items as! [EDTCommentBean])
                     
-                    let noMore = DCTCommentBean()
+                    let noMore = EDTCommentBean()
                     
                     noMore.encoded = NSUUID().uuidString
                     
@@ -137,7 +137,7 @@ struct DCTCommentViewModel: DCTViewModel {
                     
                 case .empty:
                     
-                    let empty = DCTCommentBean()
+                    let empty = EDTCommentBean()
                     
                     empty.encoded = NSUUID().uuidString
                     
@@ -150,7 +150,7 @@ struct DCTCommentViewModel: DCTViewModel {
                     output.tableData.accept([rectangle,total,empty])
                 case .failed:
                     
-                    let failed = DCTCommentBean()
+                    let failed = EDTCommentBean()
                     
                     failed.type = .failed
                     
@@ -187,11 +187,11 @@ struct DCTCommentViewModel: DCTViewModel {
                     
                     var value = output.tableData.value
                     
-                    value += (items as! [DCTCommentBean])
+                    value += (items as! [EDTCommentBean])
                     
                     output.tableData.accept( value)
                     
-                    let noMore = DCTCommentBean()
+                    let noMore = EDTCommentBean()
                     
                     noMore.encoded = NSUUID().uuidString
                     
@@ -205,7 +205,7 @@ struct DCTCommentViewModel: DCTViewModel {
                     
                 case .failed:
                     
-                    let failed = DCTCommentBean()
+                    let failed = EDTCommentBean()
                     
                     failed.encoded = NSUUID().uuidString
                     
@@ -225,11 +225,11 @@ struct DCTCommentViewModel: DCTViewModel {
         self.output = output
     }
     
-    static func addComment(_ encoded: String,content: String) -> Driver<DCTResult> {
+    static func addComment(_ encoded: String,content: String) -> Driver<EDTResult> {
         
-        return DCTDictResp(DCTApi.addComment(encoded, content: content, tablename: "CircleFriends", type: "0"))
-            .mapObject(type: DCTCommentBean.self)
-            .map({ DCTResult.operation($0) })
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTDictResp(EDTApi.addComment(encoded, content: content, tablename: "CircleFriends", type: "0"))
+            .mapObject(type: EDTCommentBean.self)
+            .map({ EDTResult.operation($0) })
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
 }

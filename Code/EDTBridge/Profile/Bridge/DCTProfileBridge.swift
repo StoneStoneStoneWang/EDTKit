@@ -1,23 +1,23 @@
 //
-//  DCTProfileBridge.swift
-//  DCTBridge
+//  EDTProfileBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/27.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTTable
+import EDTTable
 import RxDataSources
-import DCTCocoa
-import DCTCache
+import EDTCocoa
+import EDTCache
 import RxCocoa
 import RxSwift
-import DCTBean
+import EDTBean
 import RxGesture
 
-@objc(DCTProfileActionType)
-public enum DCTProfileActionType: Int ,Codable {
+@objc(EDTProfileActionType)
+public enum EDTProfileActionType: Int ,Codable {
     
     case header
     
@@ -50,15 +50,15 @@ public enum DCTProfileActionType: Int ,Codable {
     case favor
 }
 
-public typealias DCTProfileAction = (_ action: DCTProfileActionType ) -> ()
+public typealias EDTProfileAction = (_ action: EDTProfileActionType ) -> ()
 
 private var key: Void?
 
-extension DCTTableHeaderView {
+extension EDTTableHeaderView {
     
-    @objc public var user: DCTUserBean? {
+    @objc public var user: EDTUserBean? {
         get {
-            return objc_getAssociatedObject(self, &key) as? DCTUserBean
+            return objc_getAssociatedObject(self, &key) as? EDTUserBean
         }
         set{
             objc_setAssociatedObject(self, &key,newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -66,9 +66,9 @@ extension DCTTableHeaderView {
     }
 }
 
-extension Reactive where Base: DCTTableHeaderView {
+extension Reactive where Base: EDTTableHeaderView {
     
-    var user: Binder<DCTUserBean?> {
+    var user: Binder<EDTUserBean?> {
         
         return Binder(base) { view, user in
             
@@ -77,27 +77,27 @@ extension Reactive where Base: DCTTableHeaderView {
     }
 }
 
-@objc (DCTProfileBridge)
-public final class DCTProfileBridge: DCTBaseBridge {
+@objc (EDTProfileBridge)
+public final class EDTProfileBridge: EDTBaseBridge {
     
-    typealias Section = DCTSectionModel<(), DCTProfileBean>
+    typealias Section = EDTSectionModel<(), EDTProfileBean>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    var viewModel: DCTProfileViewModel!
+    var viewModel: EDTProfileViewModel!
     
-    weak var vc: DCTTableNoLoadingViewController!
+    weak var vc: EDTTableNoLoadingViewController!
 }
 
-extension DCTProfileBridge {
+extension EDTProfileBridge {
     
-    @objc public func createProfile(_ vc: DCTTableNoLoadingViewController,hasSpace: Bool,profileAction:@escaping DCTProfileAction) {
+    @objc public func createProfile(_ vc: EDTTableNoLoadingViewController,hasSpace: Bool,profileAction:@escaping EDTProfileAction) {
         
-        let input = DCTProfileViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(DCTProfileBean.self),
+        let input = EDTProfileViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(EDTProfileBean.self),
                                               itemSelect: vc.tableView.rx.itemSelected,
                                               hasSpace: hasSpace)
         
-        viewModel = DCTProfileViewModel(input, disposed: disposed)
+        viewModel = EDTProfileViewModel(input, disposed: disposed)
         
         let dataSource = RxTableViewSectionedReloadDataSource<Section>(
             configureCell: { ds, tv, ip, item in return vc.configTableViewCell(item, for: ip)  })
@@ -125,7 +125,7 @@ extension DCTProfileBridge {
                 
                 vc.tableView.deselectRow(at: ip, animated: true)
                 
-                let isLogin = DCTAccountCache.default.isLogin()
+                let isLogin = EDTAccountCache.default.isLogin()
                 
                 switch type.type {
                 case .setting: profileAction(.setting)
@@ -163,7 +163,7 @@ extension DCTProfileBridge {
             .when(.recognized)
             .subscribe(onNext: { (_) in
                 
-                let isLogin = DCTAccountCache.default.isLogin()
+                let isLogin = EDTAccountCache.default.isLogin()
                 
                 profileAction(isLogin ? .header : .unLogin)
             
@@ -172,7 +172,7 @@ extension DCTProfileBridge {
     }
 }
 
-extension DCTProfileBridge: UITableViewDelegate {
+extension EDTProfileBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         

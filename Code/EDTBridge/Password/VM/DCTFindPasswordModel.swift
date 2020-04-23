@@ -1,23 +1,23 @@
 //
 //  ZForgetPwdModel.swift
-//  DCTBridge
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/26.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTOM
-import DCTError
-import DCTResult
-import DCTCheck
-import DCTApi
-import DCTRReq
+import EDTOM
+import EDTError
+import EDTResult
+import EDTCheck
+import EDTApi
+import EDTRReq
 
-public struct DCTFindPasswordModel: DCTViewModel {
+public struct EDTFindPasswordModel: EDTViewModel {
     
     public var input: WLInput
     
@@ -46,11 +46,11 @@ public struct DCTFindPasswordModel: DCTViewModel {
         /* 获取验证码中 序列*/
         let verifying: Driver<Void>
         /* 获取验证码结果 序列*/
-        let verifyed: Driver<DCTResult>
+        let verifyed: Driver<EDTResult>
         
         let completing: Driver<Void>
         
-        let completed: Driver<DCTResult>
+        let completed: Driver<EDTResult>
         @available(*, deprecated, message: "Please use smsRelay")
         let sms: Variable<(Bool,String)> = Variable<(Bool,String)>((true,"获取验证码"))
         
@@ -71,26 +71,26 @@ public struct DCTFindPasswordModel: DCTViewModel {
         
         let duration: Int = 60
         
-        let verifyed: Driver<DCTResult> = input
+        let verifyed: Driver<EDTResult> = input
             .verifyTaps
             .withLatestFrom(input.username)
             .flatMapLatest({ (username) in
                 
-                switch DCTCheckUsername(username) {
+                switch EDTCheckUsername(username) {
                 case .ok:
                     
-                    let result: Observable<DCTResult> = Observable<DCTResult>.create({ (ob) -> Disposable in
+                    let result: Observable<EDTResult> = Observable<EDTResult>.create({ (ob) -> Disposable in
  
-                        DCTVoidResp(DCTApi.smsPassword(username))
+                        EDTVoidResp(EDTApi.smsPassword(username))
                             .subscribe(onNext: { (_) in
                                 
-                                ob.onNext(DCTResult.ok("验证码已发送到您的手机，请注意查收"))
+                                ob.onNext(EDTResult.ok("验证码已发送到您的手机，请注意查收"))
                                 
                                 input.timer
                                     .map({ duration - $0 })
                                     .take(61)
                                     .map({ smsResult(count: $0) })
-                                    .map({ DCTResult.smsOk(isEnabled: $0, title: $1)})
+                                    .map({ EDTResult.smsOk(isEnabled: $0, title: $1)})
                                     .subscribe(onNext: { (result) in
                                         
                                         ob.onNext(result)
@@ -107,31 +107,31 @@ public struct DCTFindPasswordModel: DCTViewModel {
                         return Disposables.create { }
                     })
                     
-                    return result.asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                    return result.asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
                     
-                case let .failed(message: msg): return Driver<DCTResult>.just(DCTResult.failed( msg))
+                case let .failed(message: msg): return Driver<EDTResult>.just(EDTResult.failed( msg))
                     
-                default: return Driver<DCTResult>.empty()
+                default: return Driver<EDTResult>.empty()
                     
                 }
             })
         
         let completing: Driver<Void> = input.completeTaps.flatMap { Driver.just($0) }
         
-        let completed: Driver<DCTResult> = input
+        let completed: Driver<EDTResult> = input
             .completeTaps
             .withLatestFrom(uvp)
             .flatMapLatest {
                 
-                switch DCTCheckPasswordForget($0.0, vcode: $0.1, password: $0.2) {
+                switch EDTCheckPasswordForget($0.0, vcode: $0.1, password: $0.2) {
                 case .ok:
                     
-                    return DCTVoidResp(DCTApi.resettingPassword($0.0, password: $0.2, code: $0.1))
-                        .map({ DCTResult.ok("找回密码成功") })
-                        .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                    return EDTVoidResp(EDTApi.resettingPassword($0.0, password: $0.2, code: $0.1))
+                        .map({ EDTResult.ok("找回密码成功") })
+                        .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
                     
-                case let .failed(message: msg): return Driver<DCTResult>.just(DCTResult.failed( msg))
-                default: return Driver<DCTResult>.empty()
+                case let .failed(message: msg): return Driver<EDTResult>.just(EDTResult.failed( msg))
+                default: return Driver<EDTResult>.empty()
                     
                 }
         }

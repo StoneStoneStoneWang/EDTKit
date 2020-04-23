@@ -1,6 +1,6 @@
 //
 //  ZNickameViewModel.swift
-//  DCTBridge
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/28.
 //  Copyright © 2019 three stone 王. All rights reserved.
@@ -8,16 +8,16 @@
 
 import Foundation
 import RxCocoa
-import DCTViewModel
-import DCTResult
-import DCTRReq
-import DCTApi
-import DCTBean
-import DCTCache
-import DCTError
-import DCTOM
+import EDTViewModel
+import EDTResult
+import EDTRReq
+import EDTApi
+import EDTBean
+import EDTCache
+import EDTError
+import EDTOM
 
-struct DCTNameViewModel: DCTViewModel {
+struct EDTNameViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -38,7 +38,7 @@ struct DCTNameViewModel: DCTViewModel {
         
         let completing: Driver<Void>
         
-        let completed: Driver<DCTResult>
+        let completed: Driver<EDTResult>
     }
     
     init(_ input: WLInput) {
@@ -51,14 +51,14 @@ struct DCTNameViewModel: DCTViewModel {
         
         let completing: Driver<Void> = input.completTaps.flatMap { Driver.just($0) }
         
-        let completed: Driver<DCTResult> = input.completTaps
+        let completed: Driver<EDTResult> = input.completTaps
             .withLatestFrom(input.updated)
             .flatMapLatest({
-                return DCTDictResp(DCTApi.updateUserInfo("users.nickname", value: $0))
-                    .mapObject(type: DCTUserBean.self)
-                    .map({ DCTUserInfoCache.default.saveUser(data: $0) })
-                    .map { DCTResult.updateUserInfoSucc($0, msg: "昵称修改成功")}
-                    .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) }) })
+                return EDTDictResp(EDTApi.updateUserInfo("users.nickname", value: $0))
+                    .mapObject(type: EDTUserBean.self)
+                    .map({ EDTUserInfoCache.default.saveUser(data: $0) })
+                    .map { EDTResult.updateUserInfoSucc($0, msg: "昵称修改成功")}
+                    .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) }) })
         
         self.output = WLOutput(completeEnabled: completEnabled, completing: completing, completed: completed)
     }

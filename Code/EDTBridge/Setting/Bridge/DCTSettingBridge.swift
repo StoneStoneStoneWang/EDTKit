@@ -1,19 +1,19 @@
 //
-//  DCTSettingBridge.swift
-//  DCTBridge
+//  EDTSettingBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/26.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTTable
+import EDTTable
 import RxDataSources
-import DCTCocoa
-import DCTCache
+import EDTCocoa
+import EDTCache
 
-@objc(DCTSettingActionType)
-public enum DCTSettingActionType: Int ,Codable {
+@objc(EDTSettingActionType)
+public enum EDTSettingActionType: Int ,Codable {
     
     case gotoFindPassword = 0
     
@@ -26,29 +26,29 @@ public enum DCTSettingActionType: Int ,Codable {
     case black = 4
 }
 
-public typealias DCTSettingAction = (_ action: DCTSettingActionType ) -> ()
+public typealias EDTSettingAction = (_ action: EDTSettingActionType ) -> ()
 
-@objc (DCTSettingBridge)
-public final class DCTSettingBridge: DCTBaseBridge {
+@objc (EDTSettingBridge)
+public final class EDTSettingBridge: EDTBaseBridge {
     
-    typealias Section = DCTSectionModel<(), DCTSettingBean>
+    typealias Section = EDTSectionModel<(), EDTSettingBean>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    var viewModel: DCTSettingViewModel!
+    var viewModel: EDTSettingViewModel!
     
-    weak var vc: DCTTableNoLoadingViewController!
+    weak var vc: EDTTableNoLoadingViewController!
 }
-extension DCTSettingBridge {
+extension EDTSettingBridge {
     
-    @objc public func createSetting(_ vc: DCTTableNoLoadingViewController ,hasSpace: Bool,settingAction: @escaping DCTSettingAction) {
+    @objc public func createSetting(_ vc: EDTTableNoLoadingViewController ,hasSpace: Bool,settingAction: @escaping EDTSettingAction) {
         
         self.vc = vc
         
-        let input = DCTSettingViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(DCTSettingBean.self),
+        let input = EDTSettingViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(EDTSettingBean.self),
                                                 itemSelect: vc.tableView.rx.itemSelected, hasSpace: hasSpace)
         
-        viewModel = DCTSettingViewModel(input)
+        viewModel = EDTSettingViewModel(input)
         
         let dataSource = RxTableViewSectionedReloadDataSource<Section>(
             configureCell: { ds, tv, ip, item in  return vc.configTableViewCell(item, for: ip) })
@@ -84,7 +84,7 @@ extension DCTSettingBridge {
                     
                 case .black:
                     
-                    if DCTAccountCache.default.isLogin() {
+                    if EDTAccountCache.default.isLogin() {
                         
                         settingAction(.black)
                         
@@ -121,10 +121,10 @@ extension DCTSettingBridge {
     
     @objc public func updateTableData(_ hasPlace: Bool) {
         
-        viewModel.output.tableData.accept(DCTSettingBean.createTabledata(hasPlace))
+        viewModel.output.tableData.accept(EDTSettingBean.createTabledata(hasPlace))
     }
 }
-extension DCTSettingBridge: UITableViewDelegate {
+extension EDTSettingBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         

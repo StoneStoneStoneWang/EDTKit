@@ -1,36 +1,36 @@
 //
-//  DCTFocusBridge.swift
-//  DCTBridge
+//  EDTFocusBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/26.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTTable
+import EDTTable
 import RxDataSources
-import DCTCocoa
-import DCTBean
-import DCTHud
+import EDTCocoa
+import EDTBean
+import EDTHud
 
-public typealias DCTFocusAction = (_ blackBean: DCTFocusBean ,_ ip: IndexPath) -> ()
+public typealias EDTFocusAction = (_ blackBean: EDTFocusBean ,_ ip: IndexPath) -> ()
 
-@objc (DCTFocusBridge)
-public final class DCTFocusBridge: DCTBaseBridge {
+@objc (EDTFocusBridge)
+public final class EDTFocusBridge: EDTBaseBridge {
     
-    typealias Section = DCTAnimationSetionModel<DCTFocusBean>
+    typealias Section = EDTAnimationSetionModel<EDTFocusBean>
     
     var dataSource: RxTableViewSectionedAnimatedDataSource<Section>!
     
-    public var viewModel: DCTFocusViewModel!
+    public var viewModel: EDTFocusViewModel!
     
-    weak var vc: DCTTableLoadingViewController!
+    weak var vc: EDTTableLoadingViewController!
     
-    var focusAction: DCTFocusAction!
+    var focusAction: EDTFocusAction!
 }
-extension DCTFocusBridge {
+extension EDTFocusBridge {
     
-    @objc public func createFocus(_ vc: DCTTableLoadingViewController ,_ focusAction:@escaping DCTFocusAction) {
+    @objc public func createFocus(_ vc: EDTTableLoadingViewController ,_ focusAction:@escaping EDTFocusAction) {
         
         self.focusAction = focusAction
         
@@ -38,11 +38,11 @@ extension DCTFocusBridge {
         
         vc.tableView.mj_footer?.isHidden = true
         
-        let input = DCTFocusViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(DCTFocusBean.self),
+        let input = EDTFocusViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(EDTFocusBean.self),
                                               itemSelect: vc.tableView.rx.itemSelected,
-                                              headerRefresh: vc.tableView.mj_header!.rx.DCTRefreshing.asDriver())
+                                              headerRefresh: vc.tableView.mj_header!.rx.EDTRefreshing.asDriver())
         
-        viewModel = DCTFocusViewModel(input, disposed: disposed)
+        viewModel = EDTFocusViewModel(input, disposed: disposed)
         
         let dataSource = RxTableViewSectionedAnimatedDataSource<Section>(
             animationConfiguration: AnimationConfiguration(insertAnimation: .top, reloadAnimation: .fade, deleteAnimation: .left),
@@ -64,7 +64,7 @@ extension DCTFocusBridge {
         
         endHeaderRefreshing
             .map({ _ in return true })
-            .drive(vc.tableView.mj_header!.rx.DCTEndRefreshing)
+            .drive(vc.tableView.mj_header!.rx.EDTEndRefreshing)
             .disposed(by: disposed)
         
         endHeaderRefreshing
@@ -73,7 +73,7 @@ extension DCTFocusBridge {
                 case .fetchList:
                     vc.loadingStatus = .succ
                 case let .failed(msg):
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                     vc.loadingStatus = .fail
                     
                 case .empty:
@@ -99,7 +99,7 @@ extension DCTFocusBridge {
             .disposed(by: disposed)
     }
 }
-extension DCTFocusBridge: UITableViewDelegate {
+extension EDTFocusBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -125,11 +125,11 @@ extension DCTFocusBridge: UITableViewDelegate {
         return [cancel,delete]
     }
     
-    @objc public func removeFocus(_ blackBean: DCTFocusBean ,_ ip: IndexPath ,_ focusAction: @escaping () -> ()) {
+    @objc public func removeFocus(_ blackBean: EDTFocusBean ,_ ip: IndexPath ,_ focusAction: @escaping () -> ()) {
         
-        DCTHud.show(withStatus: "移除\(blackBean.users.nickname)中...")
+        EDTHud.show(withStatus: "移除\(blackBean.users.nickname)中...")
         
-        DCTFocusViewModel
+        EDTFocusViewModel
             .removeFocus(blackBean.identity)
             .drive(onNext: { [weak self] (result) in
                 
@@ -138,9 +138,9 @@ extension DCTFocusBridge: UITableViewDelegate {
                 switch result {
                 case .ok:
                     
-                    DCTHud.pop()
+                    EDTHud.pop()
                     
-                    DCTHud.showInfo("移除\(blackBean.users.nickname)成功")
+                    EDTHud.showInfo("移除\(blackBean.users.nickname)成功")
                     
                     var value = self.viewModel.output.tableData.value
                     
@@ -157,9 +157,9 @@ extension DCTFocusBridge: UITableViewDelegate {
                     
                 case .failed:
                     
-                    DCTHud.pop()
+                    EDTHud.pop()
                     
-                    DCTHud.showInfo("移除\(blackBean.users.nickname)失败")
+                    EDTHud.showInfo("移除\(blackBean.users.nickname)失败")
                     
                 default: break
                     

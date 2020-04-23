@@ -1,21 +1,21 @@
 //
-//  DCTCollectionsBridge.swift
-//  DCTBridge
+//  EDTCollectionsBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/29.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTCollection
+import EDTCollection
 import RxDataSources
-import DCTCocoa
-import DCTBean
-import DCTHud
-import DCTCache
+import EDTCocoa
+import EDTBean
+import EDTHud
+import EDTCache
 
-@objc(DCTCollectionsActionType)
-public enum DCTCollectionsActionType: Int ,Codable {
+@objc(EDTCollectionsActionType)
+public enum EDTCollectionsActionType: Int ,Codable {
     
     case myCircle = 0
     
@@ -40,34 +40,34 @@ public enum DCTCollectionsActionType: Int ,Codable {
     case share = 10
 }
 
-public typealias DCTCollectionsAction = (_ actionType: DCTCollectionsActionType ,_ circle: DCTCircleBean? ,_ ip: IndexPath?) -> ()
+public typealias EDTCollectionsAction = (_ actionType: EDTCollectionsActionType ,_ circle: EDTCircleBean? ,_ ip: IndexPath?) -> ()
 
-@objc (DCTCollectionsBridge)
-public final class DCTCollectionsBridge: DCTBaseBridge {
+@objc (EDTCollectionsBridge)
+public final class EDTCollectionsBridge: EDTBaseBridge {
     
-    typealias Section = DCTAnimationSetionModel<DCTCircleBean>
+    typealias Section = EDTAnimationSetionModel<EDTCircleBean>
     
     var dataSource: RxCollectionViewSectionedAnimatedDataSource<Section>!
     
-    var viewModel: DCTCollectionsViewModel!
+    var viewModel: EDTCollectionsViewModel!
     
-    weak var vc: DCTCollectionLoadingViewController!
+    weak var vc: EDTCollectionLoadingViewController!
 }
 
-extension DCTCollectionsBridge {
+extension EDTCollectionsBridge {
     
-    @objc public func createCollections(_ vc: DCTCollectionLoadingViewController ,moreSection: Bool,isMy: Bool ,tag: String ,collectionsAction: @escaping DCTCollectionsAction) {
+    @objc public func createCollections(_ vc: EDTCollectionLoadingViewController ,moreSection: Bool,isMy: Bool ,tag: String ,collectionsAction: @escaping EDTCollectionsAction) {
         
         self.vc = vc
         
-        let input = DCTCollectionsViewModel.WLInput(isMy: isMy,
-                                                    modelSelect: vc.collectionView.rx.modelSelected(DCTCircleBean.self),
+        let input = EDTCollectionsViewModel.WLInput(isMy: isMy,
+                                                    modelSelect: vc.collectionView.rx.modelSelected(EDTCircleBean.self),
                                                     itemSelect: vc.collectionView.rx.itemSelected,
-                                                    headerRefresh: vc.collectionView.mj_header!.rx.DCTRefreshing.asDriver(),
-                                                    footerRefresh: vc.collectionView.mj_footer!.rx.DCTRefreshing.asDriver(),
+                                                    headerRefresh: vc.collectionView.mj_header!.rx.EDTRefreshing.asDriver(),
+                                                    footerRefresh: vc.collectionView.mj_footer!.rx.EDTRefreshing.asDriver(),
                                                     tag: tag)
         
-        viewModel = DCTCollectionsViewModel(input, disposed: disposed)
+        viewModel = EDTCollectionsViewModel(input, disposed: disposed)
         
         let dataSource = RxCollectionViewSectionedAnimatedDataSource<Section>(
             animationConfiguration: AnimationConfiguration(insertAnimation: .fade, reloadAnimation: .fade, deleteAnimation: .left),
@@ -97,7 +97,7 @@ extension DCTCollectionsBridge {
         
         endHeaderRefreshing
             .map({ _ in return true })
-            .drive(vc.collectionView.mj_header!.rx.DCTEndRefreshing)
+            .drive(vc.collectionView.mj_header!.rx.EDTEndRefreshing)
             .disposed(by: disposed)
         
         endHeaderRefreshing
@@ -106,7 +106,7 @@ extension DCTCollectionsBridge {
                 case .fetchList:
                     vc.loadingStatus = .succ
                 case let .failed(msg):
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                     vc.loadingStatus = .fail
                     
                 case .empty:
@@ -123,7 +123,7 @@ extension DCTCollectionsBridge {
         
         endFooterRefreshing
             .map({ _ in return true })
-            .drive(vc.collectionView.mj_footer!.rx.DCTEndRefreshing)
+            .drive(vc.collectionView.mj_footer!.rx.EDTEndRefreshing)
             .disposed(by: disposed)
         
         self.dataSource = dataSource
@@ -145,9 +145,9 @@ extension DCTCollectionsBridge {
     }
 }
 
-extension DCTCollectionsBridge {
+extension EDTCollectionsBridge {
     
-    @objc public func insertCollectionData(_ collectionData: DCTCircleBean) {
+    @objc public func insertCollectionData(_ collectionData: EDTCircleBean) {
         
         var values = viewModel.output.collectionData.value
         
@@ -156,14 +156,14 @@ extension DCTCollectionsBridge {
         viewModel.output.collectionData.accept(values)
     }
     
-    @objc public func fetchObj(_ ip: IndexPath) -> DCTCircleBean? {
+    @objc public func fetchObj(_ ip: IndexPath) -> EDTCircleBean? {
         
         guard let dataSource = dataSource else { return nil }
         
         return dataSource[ip]
     }
     
-    @objc public func fetchIp(_ circle: DCTCircleBean) -> IndexPath {
+    @objc public func fetchIp(_ circle: EDTCircleBean) -> IndexPath {
         
         let values = viewModel.output.collectionData.value
         
@@ -174,7 +174,7 @@ extension DCTCollectionsBridge {
         return IndexPath(item: 0, section: 0)
         
     }
-    @objc public func converToJson(_ circle: DCTCircleBean) -> [String: Any] {
+    @objc public func converToJson(_ circle: EDTCircleBean) -> [String: Any] {
         
         return circle.toJSON()
     }
@@ -199,22 +199,22 @@ extension DCTCollectionsBridge {
         }
     }
     
-    @objc public func addBlack(_ OUsEncoded: String,targetEncoded: String ,content: String ,collectionsAction: @escaping DCTCollectionsAction ) {
+    @objc public func addBlack(_ OUsEncoded: String,targetEncoded: String ,content: String ,collectionsAction: @escaping EDTCollectionsAction ) {
         
-        if !DCTAccountCache.default.isLogin() {
+        if !EDTAccountCache.default.isLogin() {
             
             collectionsAction(.unLogin, nil,nil)
             
             return
         }
         
-        DCTHud.show(withStatus: "添加黑名单中...")
+        EDTHud.show(withStatus: "添加黑名单中...")
         
-        DCTCollectionsViewModel
+        EDTCollectionsViewModel
             .addBlack(OUsEncoded, targetEncoded: targetEncoded, content: content)
             .drive(onNext: { (result) in
                 
-                DCTHud.pop()
+                EDTHud.pop()
                 
                 switch result {
                 case .ok(let msg):
@@ -223,10 +223,10 @@ extension DCTCollectionsBridge {
                     
                     collectionsAction(.black, nil, nil)
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 case .failed(let msg):
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 default:
                     break
                 }
@@ -234,22 +234,22 @@ extension DCTCollectionsBridge {
             .disposed(by: disposed)
     }
     
-    @objc public func focus(_ uid: String ,encode: String ,isFocus: Bool ,collectionsAction: @escaping DCTCollectionsAction ) {
+    @objc public func focus(_ uid: String ,encode: String ,isFocus: Bool ,collectionsAction: @escaping EDTCollectionsAction ) {
         
-        if !DCTAccountCache.default.isLogin() {
+        if !EDTAccountCache.default.isLogin() {
             
             collectionsAction(.unLogin, nil,nil)
             
             return
         }
         
-        DCTHud.show(withStatus: isFocus ? "取消关注中..." : "关注中...")
+        EDTHud.show(withStatus: isFocus ? "取消关注中..." : "关注中...")
         
-        DCTCollectionsViewModel
+        EDTCollectionsViewModel
             .focus(uid, encode: encode)
             .drive(onNext: { (result) in
                 
-                DCTHud.pop()
+                EDTHud.pop()
                 
                 switch result {
                 case .ok(_):
@@ -267,11 +267,11 @@ extension DCTCollectionsBridge {
                         collectionsAction(.focus, circle,nil)
                     }
                     
-                    DCTHud.showInfo(isFocus ? "取消关注成功" : "关注成功")
+                    EDTHud.showInfo(isFocus ? "取消关注成功" : "关注成功")
                     
                 case .failed(let msg):
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 default:
                     break
                 }
@@ -282,23 +282,23 @@ extension DCTCollectionsBridge {
     
     @objc public func operation(_ encoded: String ,isLike: Bool ,status: String ,aMsg: String,collectionsAction: @escaping () -> () ) {
         
-        DCTHud.show(withStatus: status)
+        EDTHud.show(withStatus: status)
         
-        DCTCollectionsViewModel
+        EDTCollectionsViewModel
             .like(encoded, isLike: isLike)
             .drive(onNext: { (result) in
                 
-                DCTHud.pop()
+                EDTHud.pop()
                 
                 switch result {
                 case .ok(_):
                     
                     collectionsAction()
                     
-                    DCTHud.showInfo(aMsg)
+                    EDTHud.showInfo(aMsg)
                 case .failed(let msg):
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 default:
                     break
                 }
@@ -306,22 +306,22 @@ extension DCTCollectionsBridge {
             .disposed(by: disposed)
     }
     
-    @objc public func like(_ encoded: String ,isLike: Bool ,collectionsAction: @escaping DCTCollectionsAction) {
+    @objc public func like(_ encoded: String ,isLike: Bool ,collectionsAction: @escaping EDTCollectionsAction) {
         
-        if !DCTAccountCache.default.isLogin() {
+        if !EDTAccountCache.default.isLogin() {
             
             collectionsAction(.unLogin, nil,nil)
             
             return
         }
         
-        DCTHud.show(withStatus: isLike ? "取消点赞中..." : "点赞中...")
+        EDTHud.show(withStatus: isLike ? "取消点赞中..." : "点赞中...")
         
-        DCTCollectionsViewModel
+        EDTCollectionsViewModel
             .like(encoded, isLike: isLike)
             .drive(onNext: { (result) in
                 
-                DCTHud.pop()
+                EDTHud.pop()
                 
                 switch result {
                 case .ok(let msg):
@@ -342,10 +342,10 @@ extension DCTCollectionsBridge {
                         collectionsAction(.like, circle,nil)
                     }
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 case .failed(let msg):
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 default:
                     break
                 }
@@ -353,11 +353,11 @@ extension DCTCollectionsBridge {
             .disposed(by: disposed)
     }
     
-    @objc public func removeMyCircle(_ encoded: String ,ip: IndexPath,collectionsAction: @escaping DCTCollectionsAction)  {
+    @objc public func removeMyCircle(_ encoded: String ,ip: IndexPath,collectionsAction: @escaping EDTCollectionsAction)  {
         
-        DCTHud.show(withStatus: "移除内容中...")
+        EDTHud.show(withStatus: "移除内容中...")
         
-        DCTCollectionsViewModel
+        EDTCollectionsViewModel
             .removeMyCircle(encoded)
             
             .drive(onNext: { [weak self] (result) in
@@ -366,9 +366,9 @@ extension DCTCollectionsBridge {
                 switch result {
                 case .ok:
                     
-                    DCTHud.pop()
+                    EDTHud.pop()
                     
-                    DCTHud.showInfo("移除当前内容成功")
+                    EDTHud.showInfo("移除当前内容成功")
                     
                     var value = self.viewModel.output.collectionData.value
                     
@@ -386,9 +386,9 @@ extension DCTCollectionsBridge {
                     collectionsAction(.remove, circle, ip)
                 case .failed:
                     
-                    DCTHud.pop()
+                    EDTHud.pop()
                     
-                    DCTHud.showInfo("移除当前内容失败")
+                    EDTHud.showInfo("移除当前内容失败")
                     
                 default: break
                     

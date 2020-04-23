@@ -1,29 +1,29 @@
 //
-//  DCTSettingViewModel.swift
-//  DCTBridge
+//  EDTSettingViewModel.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/26.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTCache
-import DCTSign
+import EDTCache
+import EDTSign
 
-@objc public final class DCTSettingBean: NSObject {
+@objc public final class EDTSettingBean: NSObject {
     
-    @objc public var type: DCTSettingType = .space
+    @objc public var type: EDTSettingType = .space
     
     @objc public var title: String = ""
     
     @objc public var subTitle: String = ""
     
-    @objc public static func createSetting(_ type: DCTSettingType ,title: String ,sub: String) -> DCTSettingBean {
+    @objc public static func createSetting(_ type: EDTSettingType ,title: String ,sub: String) -> EDTSettingBean {
         
-        let setting = DCTSettingBean()
+        let setting = EDTSettingBean()
         
         setting.type = type
         
@@ -34,22 +34,22 @@ import DCTSign
         return setting
     }
     
-    static func createTabledata(_ hasspace: Bool ) -> [DCTSettingBean] {
+    static func createTabledata(_ hasspace: Bool ) -> [EDTSettingBean] {
         
-        var result: [DCTSettingBean] = []
+        var result: [EDTSettingBean] = []
         
         if hasspace {
             
-            for item in DCTSettingType.spaceTypes {
+            for item in EDTSettingType.spaceTypes {
                 
-                result += [DCTSettingBean.createSetting(item, title: item.title, sub: "")]
+                result += [EDTSettingBean.createSetting(item, title: item.title, sub: "")]
             }
             
         } else {
             
-            for item in DCTSettingType.types {
+            for item in EDTSettingType.types {
                 
-                result += [DCTSettingBean.createSetting(item, title: item.title, sub: "")]
+                result += [EDTSettingBean.createSetting(item, title: item.title, sub: "")]
             }
         }
         
@@ -58,8 +58,8 @@ import DCTSign
     private override init() { }
 }
 
-@objc (DCTSettingType)
-public enum DCTSettingType: Int {
+@objc (EDTSettingType)
+public enum EDTSettingType: Int {
     
     case pwd  = 0 // 未登录
     
@@ -76,24 +76,24 @@ public enum DCTSettingType: Int {
     case black = 6
 }
 
-extension DCTSettingType {
+extension EDTSettingType {
     
-    static var spaceTypes: [DCTSettingType] {
+    static var spaceTypes: [EDTSettingType] {
         
-        if DCTAccountCache.default.isLogin() {
+        if EDTAccountCache.default.isLogin() {
             
-            if DCTConfigure.fetchPType() == .thermal {
+            if EDTConfigure.fetchPType() == .thermal {
                 
                 return [.space,.password,.space,.clear,.push,.space,.logout]
             }
         }
         return [.space,.pwd,.space,.clear,.push]
     }
-    static var types: [DCTSettingType] {
+    static var types: [EDTSettingType] {
         
-        if DCTAccountCache.default.isLogin() {
+        if EDTAccountCache.default.isLogin() {
             
-            if DCTConfigure.fetchPType() == .thermal {
+            if EDTConfigure.fetchPType() == .thermal {
                 
                 return [.password,.black,.clear,.push,.logout]
             }
@@ -134,7 +134,7 @@ extension DCTSettingType {
     }
 }
 
-public struct DCTSettingViewModel: DCTViewModel {
+public struct EDTSettingViewModel: EDTViewModel {
     
     public var input: WLInput
     
@@ -142,7 +142,7 @@ public struct DCTSettingViewModel: DCTViewModel {
     
     public struct WLInput {
         
-        let modelSelect: ControlEvent<DCTSettingBean>
+        let modelSelect: ControlEvent<EDTSettingBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -150,9 +150,9 @@ public struct DCTSettingViewModel: DCTViewModel {
     }
     public struct WLOutput {
         
-        let zip: Observable<(DCTSettingBean,IndexPath)>
+        let zip: Observable<(EDTSettingBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[DCTSettingBean]> = BehaviorRelay<[DCTSettingBean]>(value: [])
+        let tableData: BehaviorRelay<[EDTSettingBean]> = BehaviorRelay<[EDTSettingBean]>(value: [])
     }
     
     init(_ input: WLInput) {
@@ -163,7 +163,7 @@ public struct DCTSettingViewModel: DCTViewModel {
         
         self.output = WLOutput(zip: zip)
         
-        self.output.tableData.accept(DCTSettingBean.createTabledata(input.hasSpace))
+        self.output.tableData.accept(EDTSettingBean.createTabledata(input.hasSpace))
     }
 }
 

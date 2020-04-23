@@ -1,5 +1,5 @@
 //
-//  DCTAddressEditViewModel.swift
+//  EDTAddressEditViewModel.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/20.
@@ -7,25 +7,25 @@
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTResult
-import DCTBean
+import EDTResult
+import EDTBean
 import RxDataSources
-import DCTApi
-import DCTRReq
+import EDTApi
+import EDTRReq
 import WLToolsKit
-import DCTOM
-import DCTError
+import EDTOM
+import EDTError
 
-@objc (DCTAddressEditBean)
-public class DCTAddressEditBean: NSObject ,IdentifiableType{
+@objc (EDTAddressEditBean)
+public class EDTAddressEditBean: NSObject ,IdentifiableType{
     public var identity: String = NSUUID().uuidString
     
     public typealias Identity = String
     
-    @objc public var type: DCTAddressEditType = .name
+    @objc public var type: EDTAddressEditType = .name
     
     @objc public var title: String {
         
@@ -34,11 +34,11 @@ public class DCTAddressEditBean: NSObject ,IdentifiableType{
     
     @objc public var value: String = ""
     
-    @objc public var pArea: DCTAreaBean = DCTAreaBean()
+    @objc public var pArea: EDTAreaBean = EDTAreaBean()
     
-    @objc public var cArea: DCTAreaBean = DCTAreaBean()
+    @objc public var cArea: EDTAreaBean = EDTAreaBean()
     
-    @objc public var rArea: DCTAreaBean = DCTAreaBean()
+    @objc public var rArea: EDTAreaBean = EDTAreaBean()
     
     @objc public var isDef: Bool = true
     
@@ -47,25 +47,25 @@ public class DCTAddressEditBean: NSObject ,IdentifiableType{
         return type.placeholder
     }
     
-    public static var editTypes: [DCTAddressEditBean] {
+    public static var editTypes: [EDTAddressEditBean] {
         
-        let name = DCTAddressEditBean()
+        let name = EDTAddressEditBean()
         
         name.type = .name
         
-        let phone = DCTAddressEditBean()
+        let phone = EDTAddressEditBean()
         
         phone.type = .phone
         
-        let area = DCTAddressEditBean()
+        let area = EDTAddressEditBean()
         
         area.type = .area
         
-        let detail = DCTAddressEditBean()
+        let detail = EDTAddressEditBean()
         
         detail.type = .detail
         
-        let def = DCTAddressEditBean()
+        let def = EDTAddressEditBean()
         
         def.type = .def
         
@@ -75,8 +75,8 @@ public class DCTAddressEditBean: NSObject ,IdentifiableType{
     }
 }
 
-@objc (DCTAddressEditType)
-public enum DCTAddressEditType:Int {
+@objc (EDTAddressEditType)
+public enum EDTAddressEditType:Int {
     case name
     
     case phone
@@ -88,7 +88,7 @@ public enum DCTAddressEditType:Int {
     case def
 }
 
-extension DCTAddressEditType {
+extension EDTAddressEditType {
     
     public var title: String {
         
@@ -105,7 +105,7 @@ extension DCTAddressEditType {
         }
     }
     
-    public static var types: [DCTAddressEditType] {
+    public static var types: [EDTAddressEditType] {
         
         return [.name,.phone,.area,.detail,.def]
     }
@@ -133,7 +133,7 @@ extension DCTAddressEditType {
 }
 
 
-struct DCTAddressEditViewModel: DCTViewModel {
+struct EDTAddressEditViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -141,7 +141,7 @@ struct DCTAddressEditViewModel: DCTViewModel {
     
     struct WLInput {
         
-        let modelSelect: ControlEvent<DCTAddressEditBean>
+        let modelSelect: ControlEvent<EDTAddressEditBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -155,24 +155,24 @@ struct DCTAddressEditViewModel: DCTViewModel {
         
         let detail: Driver<String>
         
-        let province: Driver<DCTAreaBean>
+        let province: Driver<EDTAreaBean>
         
-        let city: Driver<DCTAreaBean>
+        let city: Driver<EDTAreaBean>
         
-        let region: Driver<DCTAreaBean>
+        let region: Driver<EDTAreaBean>
         
         let def: Driver<Bool>
     }
     
     struct WLOutput {
         
-        let zip: Observable<(DCTAddressEditBean,IndexPath)>
+        let zip: Observable<(EDTAddressEditBean,IndexPath)>
         
         let completing: Driver<Void>
         
-        let completed: Driver<DCTResult>
+        let completed: Driver<EDTResult>
         
-        let tableData: BehaviorRelay<[DCTAddressEditBean]> = BehaviorRelay<[DCTAddressEditBean]>(value: DCTAddressEditBean.editTypes)
+        let tableData: BehaviorRelay<[EDTAddressEditBean]> = BehaviorRelay<[EDTAddressEditBean]>(value: EDTAddressEditBean.editTypes)
     }
     init(_ input: WLInput ,disposed: DisposeBag) {
         
@@ -185,38 +185,38 @@ struct DCTAddressEditViewModel: DCTViewModel {
         let uap = Driver.combineLatest(input.name
             ,input.phone,input.detail,input.province, input.city,input.region,input.def)
         
-        let completed: Driver<DCTResult> = input
+        let completed: Driver<EDTResult> = input
             .completeTaps
             .withLatestFrom(uap)
             .flatMapLatest {
                 
                 if $0.0.wl_isEmpty {
                     
-                    return Driver<DCTResult>.just(DCTResult.failed("请填写收货人姓名"))
+                    return Driver<EDTResult>.just(EDTResult.failed("请填写收货人姓名"))
                 }
                 if $0.1.wl_isEmpty {
                     
-                    return Driver<DCTResult>.just(DCTResult.failed("请填写收货人手机号"))
+                    return Driver<EDTResult>.just(EDTResult.failed("请填写收货人手机号"))
                 }
                 if !String.validPhone(phone: $0.1) {
                     
-                    return Driver<DCTResult>.just(DCTResult.failed("请填写收货人11位手机号"))
+                    return Driver<EDTResult>.just(EDTResult.failed("请填写收货人11位手机号"))
                 }
                 
                 if $0.3.name.wl_isEmpty {
                     
-                    return Driver<DCTResult>.just(DCTResult.failed("请选择所在地区"))
+                    return Driver<EDTResult>.just(EDTResult.failed("请选择所在地区"))
                 }
                 
                 if $0.2.wl_isEmpty {
                     
-                    return Driver<DCTResult>.just(DCTResult.failed("请填写详细地址"))
+                    return Driver<EDTResult>.just(EDTResult.failed("请填写详细地址"))
                 }
                 
-                return DCTDictResp(DCTApi.editAddress(input.encode, name: $0.0, phone: $0.1, plcl: $0.3.areaId, plclne: $0.3.name, city: $0.4.areaId, cityne: $0.4.name, region: $0.5.areaId, regionne: $0.5.name, addr: $0.2, isdef: $0.6, zipCode: ""))
-                    .mapObject(type: DCTAddressBean.self)
-                    .map({ DCTResult.operation($0) })
-                    .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                return EDTDictResp(EDTApi.editAddress(input.encode, name: $0.0, phone: $0.1, plcl: $0.3.areaId, plclne: $0.3.name, city: $0.4.areaId, cityne: $0.4.name, region: $0.5.areaId, regionne: $0.5.name, addr: $0.2, isdef: $0.6, zipCode: ""))
+                    .mapObject(type: EDTAddressBean.self)
+                    .map({ EDTResult.operation($0) })
+                    .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
         }
         self.output = WLOutput(zip: zip, completing: completing,completed: completed)
         

@@ -1,23 +1,23 @@
 //
-//  DCTUserCenterBridge.swift
-//  DCTBridge
+//  EDTUserCenterBridge.swift
+//  EDTBridge
 //
 //  Created by 王磊 on 2020/3/30.
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
 import Foundation
-import DCTCollection
+import EDTCollection
 import RxDataSources
-import DCTCocoa
-import DCTCache
+import EDTCocoa
+import EDTCache
 import RxCocoa
 import RxSwift
-import DCTBean
+import EDTBean
 import RxGesture
 
-@objc(DCTUserCenterActionType)
-public enum DCTUserCenterActionType: Int ,Codable {
+@objc(EDTUserCenterActionType)
+public enum EDTUserCenterActionType: Int ,Codable {
     
     case header
     
@@ -54,15 +54,15 @@ public enum DCTUserCenterActionType: Int ,Codable {
     case version
 }
 
-public typealias DCTUserCenterAction = (_ action: DCTUserCenterActionType ) -> ()
+public typealias EDTUserCenterAction = (_ action: EDTUserCenterActionType ) -> ()
 
 private var key: Void?
 
-extension DCTCollectionHeaderView {
+extension EDTCollectionHeaderView {
     
-    @objc public var user: DCTUserBean? {
+    @objc public var user: EDTUserBean? {
         get {
-            return objc_getAssociatedObject(self, &key) as? DCTUserBean
+            return objc_getAssociatedObject(self, &key) as? EDTUserBean
         }
         set{
             objc_setAssociatedObject(self, &key,newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -70,9 +70,9 @@ extension DCTCollectionHeaderView {
     }
 }
 
-extension Reactive where Base: DCTCollectionHeaderView {
+extension Reactive where Base: EDTCollectionHeaderView {
     
-    var user: Binder<DCTUserBean?> {
+    var user: Binder<EDTUserBean?> {
         
         return Binder(base) { view, user in
             
@@ -81,34 +81,34 @@ extension Reactive where Base: DCTCollectionHeaderView {
     }
 }
 
-@objc (DCTUserCenterBridge)
-public final class DCTUserCenterBridge: DCTBaseBridge {
+@objc (EDTUserCenterBridge)
+public final class EDTUserCenterBridge: EDTBaseBridge {
     
-    typealias Section = DCTSectionModel<(), DCTUserCenterBean>
+    typealias Section = EDTSectionModel<(), EDTUserCenterBean>
     
     var dataSource: RxCollectionViewSectionedReloadDataSource<Section>!
     
-    var viewModel: DCTUserCenterViewModel!
+    var viewModel: EDTUserCenterViewModel!
     
-    weak var vc: DCTCollectionNoLoadingViewController!
+    weak var vc: EDTCollectionNoLoadingViewController!
     
-    @objc public var headerView: DCTCollectionHeaderView!
+    @objc public var headerView: EDTCollectionHeaderView!
 }
 
-extension DCTUserCenterBridge {
+extension EDTUserCenterBridge {
     
-    @objc public func createUserCenter(_ vc: DCTCollectionNoLoadingViewController,centerAction:@escaping DCTUserCenterAction) {
+    @objc public func createUserCenter(_ vc: EDTCollectionNoLoadingViewController,centerAction:@escaping EDTUserCenterAction) {
         
         self.vc = vc
         
-        let input = DCTUserCenterViewModel.WLInput(modelSelect: vc.collectionView.rx.modelSelected(DCTUserCenterBean.self),
+        let input = EDTUserCenterViewModel.WLInput(modelSelect: vc.collectionView.rx.modelSelected(EDTUserCenterBean.self),
                                                    itemSelect: vc.collectionView.rx.itemSelected)
         
-        viewModel = DCTUserCenterViewModel(input, disposed: disposed)
+        viewModel = EDTUserCenterViewModel(input, disposed: disposed)
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<Section>(
             configureCell: { ds, cv, ip, item in return vc.configCollectionViewCell(item, for: ip)},
-            configureSupplementaryView: { ds, cv, kind, ip in return vc.configCollectionViewHeader(DCTUserInfoCache.default.userBean, for: ip)})
+            configureSupplementaryView: { ds, cv, kind, ip in return vc.configCollectionViewHeader(EDTUserInfoCache.default.userBean, for: ip)})
         
         viewModel
             .output
@@ -127,7 +127,7 @@ extension DCTUserCenterBridge {
                 
                 vc.collectionView.deselectItem(at: ip, animated: true)
                 
-                let isLogin = DCTAccountCache.default.isLogin()
+                let isLogin = EDTAccountCache.default.isLogin()
                 
                 switch type.type {
                 case .setting: centerAction(.setting)
@@ -157,7 +157,7 @@ extension DCTUserCenterBridge {
         
     }
     
-    @objc public func bindUserView(_ headerView: DCTCollectionHeaderView,centerAction:@escaping DCTUserCenterAction) {
+    @objc public func bindUserView(_ headerView: EDTCollectionHeaderView,centerAction:@escaping EDTUserCenterAction) {
         
         self.headerView = headerView
         
@@ -173,7 +173,7 @@ extension DCTUserCenterBridge {
             .when(.recognized)
             .subscribe(onNext: { (_) in
                 
-                let isLogin = DCTAccountCache.default.isLogin()
+                let isLogin = EDTAccountCache.default.isLogin()
                 
                 centerAction(isLogin ? .header : .unLogin)
                 

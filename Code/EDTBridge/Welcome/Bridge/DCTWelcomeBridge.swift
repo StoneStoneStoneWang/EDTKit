@@ -1,42 +1,42 @@
 //
-//  DCTWelcomeBridge.swift
-//  DCTBridge
+//  EDTWelcomeBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/23.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTCollection
+import EDTCollection
 import RxCocoa
 import RxSwift
 import RxDataSources
-import DCTCocoa
+import EDTCocoa
 
-public typealias DCTWelcomeAction = () -> ()
+public typealias EDTWelcomeAction = () -> ()
 
-@objc (DCTWelcomeBridge)
-public final class DCTWelcomeBridge: DCTBaseBridge {
+@objc (EDTWelcomeBridge)
+public final class EDTWelcomeBridge: EDTBaseBridge {
     
-    public var viewModel: DCTWelcomViewModel!
+    public var viewModel: EDTWelcomViewModel!
     
-    typealias Section = DCTSectionModel<(), String>
+    typealias Section = EDTSectionModel<(), String>
     
     var dataSource: RxCollectionViewSectionedReloadDataSource<Section>!
 }
 
 // MARK: skip item 101 pagecontrol 102
-extension DCTWelcomeBridge {
+extension EDTWelcomeBridge {
     
-    @objc public func createWelcome(_ vc: DCTCollectionNoLoadingViewController ,welcomeImgs: [String],canPageHidden: Bool ,welcomeAction: @escaping DCTWelcomeAction) {
+    @objc public func createWelcome(_ vc: EDTCollectionNoLoadingViewController ,welcomeImgs: [String],canPageHidden: Bool ,welcomeAction: @escaping EDTWelcomeAction) {
         
         if let skipItem = vc.view.viewWithTag(101) as? UIButton ,let pageControl = vc.view.viewWithTag(102) as? UIPageControl {
             
-            let input = DCTWelcomViewModel.WLInput(contentoffSetX: vc.collectionView.rx.contentOffset.map({ $0.x }),
+            let input = EDTWelcomViewModel.WLInput(contentoffSetX: vc.collectionView.rx.contentOffset.map({ $0.x }),
                                                  skipTap: skipItem.rx.tap.asSignal(),
                                                  welcomeImgs:welcomeImgs )
             
-            viewModel = DCTWelcomViewModel(input, disposed: disposed)
+            viewModel = EDTWelcomViewModel(input, disposed: disposed)
             
             let dataSource = RxCollectionViewSectionedReloadDataSource<Section>(
                 configureCell: { ds, cv, ip, item in return vc.configCollectionViewCell(item, for: ip) })
@@ -83,7 +83,7 @@ extension DCTWelcomeBridge {
                 viewModel
                     .output
                     .timered
-                    .bind(to: skipItem.rx.DCTSkipTitle)
+                    .bind(to: skipItem.rx.EDTSkipTitle)
                     .disposed(by: disposed)
             }
             

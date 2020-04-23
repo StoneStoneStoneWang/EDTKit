@@ -1,28 +1,28 @@
 //
-//  DCTAboutViewModel.swift
-//  DCTBridge
+//  EDTAboutViewModel.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/27.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
 import WLToolsKit
 
-@objc public final class DCTAboutBean: NSObject {
+@objc public final class EDTAboutBean: NSObject {
     
-    @objc public var type: DCTAboutType = .space
+    @objc public var type: EDTAboutType = .space
     
     @objc public var title: String = ""
     
     @objc public var subTitle: String = ""
     
-    @objc public static func createAbout(_ type: DCTAboutType ,title: String ,subTitle: String) -> DCTAboutBean {
+    @objc public static func createAbout(_ type: EDTAboutType ,title: String ,subTitle: String) -> EDTAboutBean {
         
-        let about = DCTAboutBean()
+        let about = EDTAboutBean()
         
         about.type = type
         
@@ -35,8 +35,8 @@ import WLToolsKit
     private override init() { }
 }
 
-@objc (DCTAboutType)
-public enum DCTAboutType: Int {
+@objc (EDTAboutType)
+public enum EDTAboutType: Int {
     
     case version
     
@@ -49,14 +49,14 @@ public enum DCTAboutType: Int {
     case check
 }
 
-extension DCTAboutType {
+extension EDTAboutType {
     
-    static var types: [DCTAboutType] {
+    static var types: [EDTAboutType] {
         
         return [.version,.email,.wechat,.check]
     }
     
-    static var spaceTypes: [DCTAboutType] {
+    static var spaceTypes: [EDTAboutType] {
         
         return [.space,.version,.email,.wechat,.check]
     }
@@ -110,7 +110,7 @@ extension DCTAboutType {
     }
 }
 
-struct DCTAboutViewModel: DCTViewModel {
+struct EDTAboutViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -118,7 +118,7 @@ struct DCTAboutViewModel: DCTViewModel {
     
     struct WLInput {
         
-        let modelSelect: ControlEvent<DCTAboutType>
+        let modelSelect: ControlEvent<EDTAboutType>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -126,9 +126,9 @@ struct DCTAboutViewModel: DCTViewModel {
     }
     struct WLOutput {
         
-        let zip: Observable<(DCTAboutType,IndexPath)>
+        let zip: Observable<(EDTAboutType,IndexPath)>
         
-        let tableData: BehaviorRelay<[DCTAboutType]> = BehaviorRelay<[DCTAboutType]>(value: [])
+        let tableData: BehaviorRelay<[EDTAboutType]> = BehaviorRelay<[EDTAboutType]>(value: [])
     }
     init(_ input: WLInput) {
         
@@ -138,6 +138,6 @@ struct DCTAboutViewModel: DCTViewModel {
         
         self.output = WLOutput(zip: zip)
         
-        self.output.tableData.accept(input.hasSpace ? DCTAboutType.spaceTypes : DCTAboutType.types)
+        self.output.tableData.accept(input.hasSpace ? EDTAboutType.spaceTypes : EDTAboutType.types)
     }
 }

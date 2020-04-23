@@ -1,31 +1,31 @@
 //
-//  DCTProfileViewModel.swift
-//  DCTBridge
+//  EDTProfileViewModel.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/27.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTBean
-import DCTSign
-import DCTApi
-import DCTRReq
-import DCTCache
-import DCTOM
+import EDTBean
+import EDTSign
+import EDTApi
+import EDTRReq
+import EDTCache
+import EDTOM
 
-@objc public final class DCTProfileBean: NSObject {
+@objc public final class EDTProfileBean: NSObject {
     
-    @objc public var type: DCTProfileType = .space
+    @objc public var type: EDTProfileType = .space
     
     @objc public var title: String = ""
     
-    @objc public static func createProfile(_ type: DCTProfileType ,title: String) -> DCTProfileBean {
+    @objc public static func createProfile(_ type: EDTProfileType ,title: String) -> EDTProfileBean {
         
-        let profile = DCTProfileBean()
+        let profile = EDTProfileBean()
         
         profile.type = type
         
@@ -34,22 +34,22 @@ import DCTOM
         return profile
     }
     
-    static public func createProfileTypes(_ hasSpace: Bool) -> [DCTProfileBean] {
+    static public func createProfileTypes(_ hasSpace: Bool) -> [EDTProfileBean] {
         
-        var result: [DCTProfileBean] = []
+        var result: [EDTProfileBean] = []
         
         if hasSpace {
             
-            for item in DCTProfileType.spaceTypes {
+            for item in EDTProfileType.spaceTypes {
                 
-                result += [DCTProfileBean.createProfile(item, title: item.title)]
+                result += [EDTProfileBean.createProfile(item, title: item.title)]
             }
             
         } else {
             
-            for item in DCTProfileType.types {
+            for item in EDTProfileType.types {
                 
-                result += [DCTProfileBean.createProfile(item, title: item.title)]
+                result += [EDTProfileBean.createProfile(item, title: item.title)]
             }
         }
         
@@ -60,8 +60,8 @@ import DCTOM
     }
 }
 
-@objc (DCTProfileType)
-public enum DCTProfileType : Int{
+@objc (EDTProfileType)
+public enum EDTProfileType : Int{
     
     case about
     
@@ -90,11 +90,11 @@ public enum DCTProfileType : Int{
     case favor
 }
 
-extension DCTProfileType {
+extension EDTProfileType {
     
-    static var spaceTypes: [DCTProfileType] {
+    static var spaceTypes: [EDTProfileType] {
         
-        if DCTConfigure.fetchPType() == .swimming {
+        if EDTConfigure.fetchPType() == .swimming {
             
             return [.space,userInfo,.order,.address,.favor,.space,.contactUS,.privacy,.about,.space,.feedBack,.setting]
         }
@@ -103,9 +103,9 @@ extension DCTProfileType {
         
     }
     
-    static var types: [DCTProfileType] {
+    static var types: [EDTProfileType] {
         
-        if DCTConfigure.fetchPType() == .swimming {
+        if EDTConfigure.fetchPType() == .swimming {
             
             return [userInfo,.order,.address,.favor,.contactUS,.privacy,.about,.feedBack,.setting]
         }
@@ -156,7 +156,7 @@ extension DCTProfileType {
     }
 }
 
-struct DCTProfileViewModel: DCTViewModel {
+struct EDTProfileViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -164,7 +164,7 @@ struct DCTProfileViewModel: DCTViewModel {
     
     struct WLInput {
         
-        let modelSelect: ControlEvent<DCTProfileBean>
+        let modelSelect: ControlEvent<EDTProfileBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -173,23 +173,23 @@ struct DCTProfileViewModel: DCTViewModel {
     
     struct WLOutput {
         
-        let zip: Observable<(DCTProfileBean,IndexPath)>
+        let zip: Observable<(EDTProfileBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[DCTProfileBean]> = BehaviorRelay<[DCTProfileBean]>(value: [])
+        let tableData: BehaviorRelay<[EDTProfileBean]> = BehaviorRelay<[EDTProfileBean]>(value: [])
         
-        let userInfo: Observable<DCTUserBean?>
+        let userInfo: Observable<EDTUserBean?>
     }
     init(_ input: WLInput ,disposed: DisposeBag) {
         
         self.input = input
         
-        let userInfo: Observable<DCTUserBean?> = DCTUserInfoCache.default.rx.observe(DCTUserBean.self, "userBean")
+        let userInfo: Observable<EDTUserBean?> = EDTUserInfoCache.default.rx.observe(EDTUserBean.self, "userBean")
         
-        DCTUserInfoCache.default.userBean = DCTUserInfoCache.default.queryUser()
+        EDTUserInfoCache.default.userBean = EDTUserInfoCache.default.queryUser()
         
-        DCTDictResp(DCTApi.fetchProfile)
-            .mapObject(type: DCTUserBean.self)
-            .map({ DCTUserInfoCache.default.saveUser(data: $0) })
+        EDTDictResp(EDTApi.fetchProfile)
+            .mapObject(type: EDTUserBean.self)
+            .map({ EDTUserInfoCache.default.saveUser(data: $0) })
             .subscribe(onNext: { (_) in })
             .disposed(by: disposed)
         
@@ -197,7 +197,7 @@ struct DCTProfileViewModel: DCTViewModel {
         
         self.output = WLOutput(zip: zip, userInfo: userInfo)
         
-        self.output.tableData.accept(DCTProfileBean.createProfileTypes(input.hasSpace))
+        self.output.tableData.accept(EDTProfileBean.createProfileTypes(input.hasSpace))
     }
 }
 

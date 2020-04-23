@@ -1,5 +1,5 @@
 //
-//  DCTAreaViewModel.swift
+//  EDTAreaViewModel.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2020/3/13.
@@ -7,12 +7,12 @@
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTBean
+import EDTBean
 
-struct DCTAreaViewModel: DCTViewModel {
+struct EDTAreaViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -20,18 +20,18 @@ struct DCTAreaViewModel: DCTViewModel {
     
     struct WLInput {
         
-        let areas: [DCTAreaBean]
+        let areas: [EDTAreaBean]
         
-        let modelSelect: ControlEvent<DCTAreaBean>
+        let modelSelect: ControlEvent<EDTAreaBean>
         
         let itemSelect: ControlEvent<IndexPath>
     }
     
     struct WLOutput {
         
-        let zip: Observable<(DCTAreaBean,IndexPath)>
+        let zip: Observable<(EDTAreaBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[DCTAreaBean]> = BehaviorRelay<[DCTAreaBean]>(value: [])
+        let tableData: BehaviorRelay<[EDTAreaBean]> = BehaviorRelay<[EDTAreaBean]>(value: [])
     }
     init(_ input: WLInput ,disposed: DisposeBag) {
         

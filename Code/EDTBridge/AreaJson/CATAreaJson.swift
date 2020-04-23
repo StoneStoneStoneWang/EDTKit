@@ -1,6 +1,6 @@
 //
-//  DCTAreaJson.swift
-//  DCTBridge
+//  EDTAreaJson.swift
+//  EDTBridge
 //
 //  Created by 王磊 on 2020/4/10.
 //  Copyright © 2020 王磊. All rights reserved.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-@objc (DCTAreaJson)
-public final class DCTAreaJsonBridge: DCTBaseBridge { }
+@objc (EDTAreaJson)
+public final class EDTAreaJsonBridge: EDTBaseBridge { }
 
-extension DCTAreaJsonBridge {
+extension EDTAreaJsonBridge {
     @objc (fetchAreas)
     public func fetchAreas() {
         
-        DCTAreaManager
+        EDTAreaManager
             .default
             .fetchAreas()
             .drive(onNext: { (result) in

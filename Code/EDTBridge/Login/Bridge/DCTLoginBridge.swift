@@ -1,19 +1,19 @@
 //
-//  DCTLoginBridge.swift
-//  DCTBridge
+//  EDTLoginBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/25.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTBase
-import DCTHud
+import EDTBase
+import EDTHud
 import RxCocoa
 import RxSwift
 
-@objc(DCTLoginActionType)
-public enum DCTLoginActionType: Int ,Codable {
+@objc(EDTLoginActionType)
+public enum EDTLoginActionType: Int ,Codable {
     
     case swiftLogin = 0
     
@@ -24,31 +24,31 @@ public enum DCTLoginActionType: Int ,Codable {
     case backItem = 3
 }
 
-public typealias DCTLoginAction = (_ action: DCTLoginActionType) -> ()
+public typealias EDTLoginAction = (_ action: EDTLoginActionType) -> ()
 
-@objc (DCTLoginBridge)
-public final class DCTLoginBridge: DCTBaseBridge {
+@objc (EDTLoginBridge)
+public final class EDTLoginBridge: EDTBaseBridge {
     
-    public var viewModel: DCTLoginViewModel!
+    public var viewModel: EDTLoginViewModel!
 }
 
 // MARK: 201 手机号 202 密码 203 登陆按钮 204 快捷登录按钮 205 忘记密码按钮 206
-extension DCTLoginBridge {
+extension EDTLoginBridge {
     
-    @objc public func createLogin(_ vc: DCTBaseViewController ,loginAction: @escaping DCTLoginAction) {
+    @objc public func createLogin(_ vc: EDTBaseViewController ,loginAction: @escaping EDTLoginAction) {
         
         if let phone = vc.view.viewWithTag(201) as? UITextField ,let password = vc.view.viewWithTag(202) as? UITextField ,let loginItem = vc.view.viewWithTag(203) as? UIButton
             , let swiftLoginItem = vc.view.viewWithTag(204) as? UIButton ,let forgetItem = vc.view.viewWithTag(205) as? UIButton , let passwordItem = password.rightView
             as? UIButton ,let backItem = vc.navigationItem.leftBarButtonItem?.customView as? UIButton {
             
-            let input = DCTLoginViewModel.WLInput(username: phone.rx.text.orEmpty.asDriver(),
+            let input = EDTLoginViewModel.WLInput(username: phone.rx.text.orEmpty.asDriver(),
                                                 password: password.rx.text.orEmpty.asDriver() ,
                                                 loginTaps: loginItem.rx.tap.asSignal(),
                                                 swiftLoginTaps: swiftLoginItem.rx.tap.asSignal(),
                                                 forgetTaps: forgetItem.rx.tap.asSignal(),
                                                 passwordItemTaps: passwordItem.rx.tap.asSignal())
             
-            viewModel = DCTLoginViewModel(input)
+            viewModel = EDTLoginViewModel(input)
             
             backItem
                 .rx
@@ -67,7 +67,7 @@ extension DCTLoginBridge {
                     
                     vc.view.endEditing(true)
                     
-                    DCTHud.show(withStatus: "登录中...")
+                    EDTHud.show(withStatus: "登录中...")
                 })
                 .disposed(by: disposed)
             
@@ -77,15 +77,15 @@ extension DCTLoginBridge {
                 .logined
                 .drive(onNext: {
                     
-                    DCTHud.pop()
+                    EDTHud.pop()
                     
                     switch $0 {
                         
-                    case let .failed(msg): DCTHud.showInfo(msg)
+                    case let .failed(msg): EDTHud.showInfo(msg)
                         
                     case .logined:
                         
-                        DCTHud.showInfo("登录成功")
+                        EDTHud.showInfo("登录成功")
                         
                         loginAction(.loginSucc)
 

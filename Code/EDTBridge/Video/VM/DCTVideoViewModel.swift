@@ -1,5 +1,5 @@
 //
-//  DCTVideoViewModel.swift
+//  EDTVideoViewModel.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/22.
@@ -7,15 +7,15 @@
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTResult
-import DCTRReq
-import DCTApi
-import DCTError
+import EDTResult
+import EDTRReq
+import EDTApi
+import EDTError
 
-struct DCTVideoViewModel: DCTViewModel {
+struct EDTVideoViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -35,23 +35,23 @@ struct DCTVideoViewModel: DCTViewModel {
         self.output = WLOutput()
     }
     
-    static func addBlack(_ OUsEncoded: String,targetEncoded: String ,content: String) -> Driver<DCTResult> {
+    static func addBlack(_ OUsEncoded: String,targetEncoded: String ,content: String) -> Driver<EDTResult> {
         
-        return DCTVoidResp(DCTApi.addBlack(OUsEncoded, targetEncoded: targetEncoded, content: content))
-            .map({ _ in DCTResult.ok("添加黑名单成功")})
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTVoidResp(EDTApi.addBlack(OUsEncoded, targetEncoded: targetEncoded, content: content))
+            .map({ _ in EDTResult.ok("添加黑名单成功")})
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
-    static func focus(_ uid: String ,encode: String) -> Driver<DCTResult> {
+    static func focus(_ uid: String ,encode: String) -> Driver<EDTResult> {
         
-        return DCTVoidResp(DCTApi.focus(uid, targetEncoded: encode))
-            .flatMapLatest({ return Driver.just(DCTResult.ok("关注或取消关注成功")) })
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTVoidResp(EDTApi.focus(uid, targetEncoded: encode))
+            .flatMapLatest({ return Driver.just(EDTResult.ok("关注或取消关注成功")) })
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
     
-    static func like(_ encoded: String ,isLike: Bool) -> Driver<DCTResult> {
+    static func like(_ encoded: String ,isLike: Bool) -> Driver<EDTResult> {
         
-        return DCTVoidResp(DCTApi.like(encoded))
-            .flatMapLatest({ return Driver.just(DCTResult.ok( isLike ? "点赞成功" : "取消点赞成功")) })
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTVoidResp(EDTApi.like(encoded))
+            .flatMapLatest({ return Driver.just(EDTResult.ok( isLike ? "点赞成功" : "取消点赞成功")) })
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
 }

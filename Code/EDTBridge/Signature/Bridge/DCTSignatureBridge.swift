@@ -1,6 +1,6 @@
 //
-//  DCTSignatureBridge.swift
-//  DCTBridge
+//  EDTSignatureBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/28.
 //  Copyright © 2019 three stone 王. All rights reserved.
@@ -9,41 +9,41 @@
 import Foundation
 import RxCocoa
 import RxSwift
-import DCTBase
-import DCTHud
-import DCTCache
+import EDTBase
+import EDTHud
+import EDTCache
 
-@objc(DCTSignatureActionType)
-public enum DCTSignatureActionType: Int ,Codable {
+@objc(EDTSignatureActionType)
+public enum EDTSignatureActionType: Int ,Codable {
     
     case signature = 0
     
     case back = 1
 }
 
-public typealias DCTSignatureAction = (_ action: DCTSignatureActionType ) -> ()
+public typealias EDTSignatureAction = (_ action: EDTSignatureActionType ) -> ()
 
-@objc (DCTSignatureBridge)
-public final class DCTSignatureBridge: DCTBaseBridge {
+@objc (EDTSignatureBridge)
+public final class EDTSignatureBridge: EDTBaseBridge {
     
-    var viewModel: DCTSignatureViewModel!
+    var viewModel: EDTSignatureViewModel!
     
-    let signature: BehaviorRelay<String> = BehaviorRelay<String>(value: DCTUserInfoCache.default.userBean.signature)
+    let signature: BehaviorRelay<String> = BehaviorRelay<String>(value: EDTUserInfoCache.default.userBean.signature)
 }
 
-extension DCTSignatureBridge {
+extension EDTSignatureBridge {
     
-    @objc public func createSignature(_ vc: DCTBaseViewController ,signatureAction: @escaping DCTSignatureAction ) {
+    @objc public func createSignature(_ vc: EDTBaseViewController ,signatureAction: @escaping EDTSignatureAction ) {
         
         if let completeItem = vc.navigationItem.rightBarButtonItem?.customView as? UIButton ,let signaturetv = vc.view.viewWithTag(201) as? UITextView ,let backItem = vc.navigationItem.leftBarButtonItem?.customView as? UIButton ,let placeholder = vc.view.viewWithTag(202) {
             
-            let inputs = DCTSignatureViewModel.WLInput(orignal: signature.asDriver(),
+            let inputs = EDTSignatureViewModel.WLInput(orignal: signature.asDriver(),
                                                        updated: signaturetv.rx.text.orEmpty.asDriver(),
                                                        completTaps: completeItem.rx.tap.asSignal())
             
             signaturetv.text = signature.value
             
-            viewModel = DCTSignatureViewModel(inputs)
+            viewModel = EDTSignatureViewModel(inputs)
             
             viewModel
                 .output
@@ -56,7 +56,7 @@ extension DCTSignatureBridge {
                 .completing
                 .drive(onNext: { (_) in
                     
-                    DCTHud.show(withStatus: "修改个性签名...")
+                    EDTHud.show(withStatus: "修改个性签名...")
                     
                     signaturetv.resignFirstResponder()
                 })
@@ -67,18 +67,18 @@ extension DCTSignatureBridge {
                 .completed
                 .drive(onNext: { (result) in
                     
-                    DCTHud.pop()
+                    EDTHud.pop()
                     
                     switch result {
                     case let .updateUserInfoSucc(_, msg: msg):
                         
-                        DCTHud.showInfo(msg)
+                        EDTHud.showInfo(msg)
                         
                         signatureAction(.signature)
                         
                     case let .failed(msg):
                         
-                        DCTHud.showInfo(msg)
+                        EDTHud.showInfo(msg)
                     default: break
                         
                     }

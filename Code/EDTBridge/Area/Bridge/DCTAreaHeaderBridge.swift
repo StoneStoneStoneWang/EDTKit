@@ -1,5 +1,5 @@
 //
-//  DCTAreaHeaderBridge.swift
+//  EDTAreaHeaderBridge.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/19.
@@ -7,30 +7,30 @@
 //
 
 import Foundation
-import DCTCollection
+import EDTCollection
 import RxCocoa
 import RxSwift
 import RxDataSources
-import DCTCocoa
+import EDTCocoa
 
-@objc (DCTAreaHeaderBridge)
-public final class DCTAreaHeaderBridge: DCTBaseBridge {
+@objc (EDTAreaHeaderBridge)
+public final class EDTAreaHeaderBridge: EDTBaseBridge {
     
-    var viewModel: DCTAreaHeaderViewModel!
+    var viewModel: EDTAreaHeaderViewModel!
     
-    typealias Section = DCTSectionModel<(), DCTAreaHeaderBean>
+    typealias Section = EDTSectionModel<(), EDTAreaHeaderBean>
     
     var dataSource: RxCollectionViewSectionedReloadDataSource<Section>!
 }
 // MARK: skip item 101 pagecontrol 102
-extension DCTAreaHeaderBridge {
+extension EDTAreaHeaderBridge {
     
-    @objc public func createAreaHeader(_ vc: DCTCollectionNoLoadingViewController) {
+    @objc public func createAreaHeader(_ vc: EDTCollectionNoLoadingViewController) {
         
-        let input = DCTAreaHeaderViewModel.WLInput(modelSelect: vc.collectionView.rx.modelSelected(DCTAreaHeaderBean.self),
+        let input = EDTAreaHeaderViewModel.WLInput(modelSelect: vc.collectionView.rx.modelSelected(EDTAreaHeaderBean.self),
                                                  itemSelect: vc.collectionView.rx.itemSelected)
         
-        viewModel = DCTAreaHeaderViewModel(input, disposed: disposed)
+        viewModel = EDTAreaHeaderViewModel(input, disposed: disposed)
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<Section>(
             configureCell: { ds, cv, ip, item in return vc.configCollectionViewCell(item, for: ip) })
@@ -57,7 +57,7 @@ extension DCTAreaHeaderBridge {
             .disposed(by: disposed)
     }
     
-    @objc public func addheader(_ header: DCTAreaHeaderBean) {
+    @objc public func addheader(_ header: EDTAreaHeaderBean) {
         
         var values = viewModel.output.tableData.value
         
@@ -70,7 +70,7 @@ extension DCTAreaHeaderBridge {
         
         return viewModel.output.tableData.value.count
     }
-    @objc public func removeHeader(_ header: DCTAreaHeaderBean) {
+    @objc public func removeHeader(_ header: EDTAreaHeaderBean) {
         
         var values = viewModel.output.tableData.value
         

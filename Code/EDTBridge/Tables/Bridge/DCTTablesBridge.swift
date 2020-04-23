@@ -1,21 +1,21 @@
 //
-//  DCTTablesBridge.swift
-//  DCTBridge
+//  EDTTablesBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/29.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTTable
+import EDTTable
 import RxDataSources
-import DCTCocoa
-import DCTBean
-import DCTHud
-import DCTCache
+import EDTCocoa
+import EDTBean
+import EDTHud
+import EDTCache
 
-@objc(DCTTablesActionType)
-public enum DCTTablesActionType: Int ,Codable {
+@objc(EDTTablesActionType)
+public enum EDTTablesActionType: Int ,Codable {
     
     case myCircle = 0
     
@@ -40,37 +40,37 @@ public enum DCTTablesActionType: Int ,Codable {
     case share = 10
 }
 
-public typealias DCTTablesAction = (_ actionType: DCTTablesActionType ,_ circle: DCTCircleBean? ,_ ip: IndexPath?) -> ()
+public typealias EDTTablesAction = (_ actionType: EDTTablesActionType ,_ circle: EDTCircleBean? ,_ ip: IndexPath?) -> ()
 
-@objc (DCTTablesBridge)
-public final class DCTTablesBridge: DCTBaseBridge {
+@objc (EDTTablesBridge)
+public final class EDTTablesBridge: EDTBaseBridge {
     
-    typealias Section = DCTAnimationSetionModel<DCTCircleBean>
+    typealias Section = EDTAnimationSetionModel<EDTCircleBean>
     
     var dataSource: RxTableViewSectionedAnimatedDataSource<Section>!
     
-    var viewModel: DCTTablesViewModel!
+    var viewModel: EDTTablesViewModel!
     
-    weak var vc: DCTTableLoadingViewController!
+    weak var vc: EDTTableLoadingViewController!
     
-    var tablesAction: DCTTablesAction!
+    var tablesAction: EDTTablesAction!
 }
-extension DCTTablesBridge {
+extension EDTTablesBridge {
     
-    @objc public func createTables(_ vc: DCTTableLoadingViewController ,isMy: Bool ,tag: String ,tablesAction: @escaping DCTTablesAction) {
+    @objc public func createTables(_ vc: EDTTableLoadingViewController ,isMy: Bool ,tag: String ,tablesAction: @escaping EDTTablesAction) {
         
         self.vc = vc
         
         self.tablesAction = tablesAction
         
-        let input = DCTTablesViewModel.WLInput(isMy: isMy,
-                                            modelSelect: vc.tableView.rx.modelSelected(DCTCircleBean.self),
+        let input = EDTTablesViewModel.WLInput(isMy: isMy,
+                                            modelSelect: vc.tableView.rx.modelSelected(EDTCircleBean.self),
                                             itemSelect: vc.tableView.rx.itemSelected,
-                                            headerRefresh: vc.tableView.mj_header!.rx.DCTRefreshing.asDriver(),
-                                            footerRefresh: vc.tableView.mj_footer!.rx.DCTRefreshing.asDriver(),
+                                            headerRefresh: vc.tableView.mj_header!.rx.EDTRefreshing.asDriver(),
+                                            footerRefresh: vc.tableView.mj_footer!.rx.EDTRefreshing.asDriver(),
                                             tag: tag)
         
-        viewModel = DCTTablesViewModel(input, disposed: disposed)
+        viewModel = EDTTablesViewModel(input, disposed: disposed)
         
         let dataSource = RxTableViewSectionedAnimatedDataSource<Section>(
             animationConfiguration: AnimationConfiguration(insertAnimation: .fade, reloadAnimation: .fade, deleteAnimation: .left),
@@ -90,7 +90,7 @@ extension DCTTablesBridge {
         
         endHeaderRefreshing
             .map({ _ in return true })
-            .drive(vc.tableView.mj_header!.rx.DCTEndRefreshing)
+            .drive(vc.tableView.mj_header!.rx.EDTEndRefreshing)
             .disposed(by: disposed)
         
         endHeaderRefreshing
@@ -99,7 +99,7 @@ extension DCTTablesBridge {
                 case .fetchList:
                     vc.loadingStatus = .succ
                 case let .failed(msg):
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                     vc.loadingStatus = .fail
                     
                 case .empty:
@@ -117,7 +117,7 @@ extension DCTTablesBridge {
         
         endFooterRefreshing
             .map({ _ in return true })
-            .drive(vc.tableView.mj_footer!.rx.DCTEndRefreshing)
+            .drive(vc.tableView.mj_footer!.rx.EDTEndRefreshing)
             .disposed(by: disposed)
         
         self.dataSource = dataSource
@@ -145,7 +145,7 @@ extension DCTTablesBridge {
             .disposed(by: disposed)
     }
     
-    @objc public func updateCircle(_ circle: DCTCircleBean ,ip: IndexPath) {
+    @objc public func updateCircle(_ circle: EDTCircleBean ,ip: IndexPath) {
         
         var values = viewModel.output.tableData.value
         
@@ -154,7 +154,7 @@ extension DCTTablesBridge {
         viewModel.output.tableData.accept(values)
     }
     
-    @objc public func insertCircle(_ circle: DCTCircleBean) {
+    @objc public func insertCircle(_ circle: EDTCircleBean) {
         
         var values = viewModel.output.tableData.value
         
@@ -169,7 +169,7 @@ extension DCTTablesBridge {
     }
 }
 
-extension DCTTablesBridge: UITableViewDelegate {
+extension EDTTablesBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -194,9 +194,9 @@ extension DCTTablesBridge: UITableViewDelegate {
     }
 }
 
-extension DCTTablesBridge {
+extension EDTTablesBridge {
     
-    @objc public func insertTableData(_ tableData: DCTCircleBean) {
+    @objc public func insertTableData(_ tableData: EDTCircleBean) {
         
         var values = viewModel.output.tableData.value
         
@@ -205,57 +205,57 @@ extension DCTTablesBridge {
         viewModel.output.tableData.accept(values)
     }
     
-    @objc public func addBlack(_ OUsEncoded: String,targetEncoded: String ,content: String ,tablesAction: @escaping DCTTablesAction) {
+    @objc public func addBlack(_ OUsEncoded: String,targetEncoded: String ,content: String ,tablesAction: @escaping EDTTablesAction) {
         
-        if !DCTAccountCache.default.isLogin() {
+        if !EDTAccountCache.default.isLogin() {
             
             tablesAction(.unLogin, nil,nil)
             
             return
         }
         
-        DCTHud.show(withStatus: "添加黑名单中...")
+        EDTHud.show(withStatus: "添加黑名单中...")
         
-        DCTTablesViewModel
+        EDTTablesViewModel
             .addBlack(OUsEncoded, targetEncoded: targetEncoded, content: content)
             .drive(onNext: { (result) in
                 
-                DCTHud.pop()
+                EDTHud.pop()
                 
                 switch result {
                 case .ok(let msg):
                     
                     self.vc.tableView.mj_header!.beginRefreshing()
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                     
                     tablesAction(.black, nil,nil)
                     
                 case .failed(let msg):
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 default:
                     break
                 }
             })
             .disposed(by: disposed)
     }
-    @objc public func focus(_ uid: String ,encode: String ,isFocus: Bool,tablesAction: @escaping DCTTablesAction) {
+    @objc public func focus(_ uid: String ,encode: String ,isFocus: Bool,tablesAction: @escaping EDTTablesAction) {
         
-        if !DCTAccountCache.default.isLogin() {
+        if !EDTAccountCache.default.isLogin() {
             
             tablesAction(.unLogin, nil,nil)
             
             return
         }
         
-        DCTHud.show(withStatus: isFocus ? "取消关注中..." : "关注中...")
+        EDTHud.show(withStatus: isFocus ? "取消关注中..." : "关注中...")
         
-        DCTTablesViewModel
+        EDTTablesViewModel
             .focus(uid, encode: encode)
             .drive(onNext: { (result) in
                 
-                DCTHud.pop()
+                EDTHud.pop()
                 
                 switch result {
                 case .ok:
@@ -273,10 +273,10 @@ extension DCTTablesBridge {
                         tablesAction(.focus, circle,nil)
                     }
                     
-                    DCTHud.showInfo(isFocus ? "取消关注成功" : "关注成功")
+                    EDTHud.showInfo(isFocus ? "取消关注成功" : "关注成功")
                 case .failed(let msg):
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 default:
                     break
                 }
@@ -284,7 +284,7 @@ extension DCTTablesBridge {
             .disposed(by: disposed)
         
     }
-    @objc public func fetchIp(_ circle: DCTCircleBean) -> IndexPath {
+    @objc public func fetchIp(_ circle: EDTCircleBean) -> IndexPath {
         
         let values = viewModel.output.tableData.value
         
@@ -295,38 +295,38 @@ extension DCTTablesBridge {
         return IndexPath(item: 0, section: 0)
         
     }
-    @objc public func fetchSingleData(_ ip: IndexPath) -> DCTCircleBean? {
+    @objc public func fetchSingleData(_ ip: IndexPath) -> EDTCircleBean? {
         
         guard let dataSource = dataSource else { return nil }
         
         return dataSource[ip]
     }
-    @objc public func fetchTableDatas() -> [DCTCircleBean] {
+    @objc public func fetchTableDatas() -> [EDTCircleBean] {
         
         return viewModel.output.tableData.value
     }
     
-    @objc public func converToJson(_ circle: DCTCircleBean) -> [String: Any] {
+    @objc public func converToJson(_ circle: EDTCircleBean) -> [String: Any] {
         
         return circle.toJSON()
     }
     
-    @objc public func like(_ encoded: String,isLike: Bool,tablesAction: @escaping DCTTablesAction) {
+    @objc public func like(_ encoded: String,isLike: Bool,tablesAction: @escaping EDTTablesAction) {
         
-        if !DCTAccountCache.default.isLogin() {
+        if !EDTAccountCache.default.isLogin() {
             
             tablesAction(.unLogin, nil,nil)
             
             return
         }
         
-        DCTHud.show(withStatus: isLike ? "取消点赞中..." : "点赞中...")
+        EDTHud.show(withStatus: isLike ? "取消点赞中..." : "点赞中...")
         
-        DCTTablesViewModel
+        EDTTablesViewModel
             .like(encoded, isLike: !isLike)
             .drive(onNext: { [unowned self] (result) in
                 
-                DCTHud.pop()
+                EDTHud.pop()
                 
                 switch result {
                 case .ok(let msg):
@@ -347,10 +347,10 @@ extension DCTTablesBridge {
                         tablesAction(.like, circle,nil)
                     }
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 case .failed(let msg):
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                 default:
                     break
                 }
@@ -358,11 +358,11 @@ extension DCTTablesBridge {
             .disposed(by: disposed)
     }
     
-    @objc public func removeMyCircle(_ encoded: String ,ip: IndexPath,tablesAction: @escaping DCTTablesAction )  {
+    @objc public func removeMyCircle(_ encoded: String ,ip: IndexPath,tablesAction: @escaping EDTTablesAction )  {
         
-        DCTHud.show(withStatus: "移除内容中...")
+        EDTHud.show(withStatus: "移除内容中...")
 
-        DCTTablesViewModel
+        EDTTablesViewModel
             .removeMyCircle(encoded)
 
             .drive(onNext: { [weak self] (result) in
@@ -371,9 +371,9 @@ extension DCTTablesBridge {
                 switch result {
                 case .ok:
 
-                    DCTHud.pop()
+                    EDTHud.pop()
 
-                    DCTHud.showInfo("移除当前内容成功")
+                    EDTHud.showInfo("移除当前内容成功")
 
                     var value = self.viewModel.output.tableData.value
 
@@ -392,9 +392,9 @@ extension DCTTablesBridge {
 
                 case .failed:
 
-                    DCTHud.pop()
+                    EDTHud.pop()
 
-                    DCTHud.showInfo("移除当前内容失败")
+                    EDTHud.showInfo("移除当前内容失败")
 
                 default: break
 

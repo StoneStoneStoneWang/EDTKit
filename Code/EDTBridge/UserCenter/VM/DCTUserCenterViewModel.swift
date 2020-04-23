@@ -1,31 +1,31 @@
 //
-//  DCTUserCenterViewModel.swift
-//  DCTBridge
+//  EDTUserCenterViewModel.swift
+//  EDTBridge
 //
 //  Created by 王磊 on 2020/3/30.
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTBean
-import DCTSign
-import DCTApi
-import DCTRReq
-import DCTCache
-import DCTOM
+import EDTBean
+import EDTSign
+import EDTApi
+import EDTRReq
+import EDTCache
+import EDTOM
 
-@objc public final class DCTUserCenterBean: NSObject {
+@objc public final class EDTUserCenterBean: NSObject {
     
-    @objc public var type: DCTUserCenterType = .userInfo
+    @objc public var type: EDTUserCenterType = .userInfo
     
     @objc public var title: String = ""
     
-    @objc public static func createUserCenter(_ type: DCTUserCenterType ,title: String) -> DCTUserCenterBean {
+    @objc public static func createUserCenter(_ type: EDTUserCenterType ,title: String) -> EDTUserCenterBean {
         
-        let profile = DCTUserCenterBean()
+        let profile = EDTUserCenterBean()
         
         profile.type = type
         
@@ -34,13 +34,13 @@ import DCTOM
         return profile
     }
     
-    static public func createUserCenterTypes() -> [DCTUserCenterBean] {
+    static public func createUserCenterTypes() -> [EDTUserCenterBean] {
         
-        var result: [DCTUserCenterBean] = []
+        var result: [EDTUserCenterBean] = []
         
-        for item in DCTUserCenterType.types {
+        for item in EDTUserCenterType.types {
             
-            result += [DCTUserCenterBean.createUserCenter(item, title: item.title)]
+            result += [EDTUserCenterBean.createUserCenter(item, title: item.title)]
         }
         
         return result
@@ -50,8 +50,8 @@ import DCTOM
     }
 }
 
-@objc (DCTUserCenterType)
-public enum DCTUserCenterType : Int{
+@objc (EDTUserCenterType)
+public enum EDTUserCenterType : Int{
     
     case about
     
@@ -84,11 +84,11 @@ public enum DCTUserCenterType : Int{
     case version
 }
 
-extension DCTUserCenterType {
+extension EDTUserCenterType {
     
-    static var types: [DCTUserCenterType] {
+    static var types: [EDTUserCenterType] {
         
-        if DCTConfigure.fetchPType() == .thermal {
+        if EDTConfigure.fetchPType() == .thermal {
             
             return [userInfo,.privacy,.share,.feedBack,.service,.setting]
         }
@@ -143,7 +143,7 @@ extension DCTUserCenterType {
     }
 }
 
-struct DCTUserCenterViewModel: DCTViewModel {
+struct EDTUserCenterViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -151,30 +151,30 @@ struct DCTUserCenterViewModel: DCTViewModel {
     
     struct WLInput {
         
-        let modelSelect: ControlEvent<DCTUserCenterBean>
+        let modelSelect: ControlEvent<EDTUserCenterBean>
         
         let itemSelect: ControlEvent<IndexPath>
     }
     
     struct WLOutput {
         
-        let zip: Observable<(DCTUserCenterBean,IndexPath)>
+        let zip: Observable<(EDTUserCenterBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[DCTUserCenterBean]> = BehaviorRelay<[DCTUserCenterBean]>(value: [])
+        let tableData: BehaviorRelay<[EDTUserCenterBean]> = BehaviorRelay<[EDTUserCenterBean]>(value: [])
         
-        let userInfo: Observable<DCTUserBean?>
+        let userInfo: Observable<EDTUserBean?>
     }
     init(_ input: WLInput ,disposed: DisposeBag) {
         
         self.input = input
         
-        let userInfo: Observable<DCTUserBean?> = DCTUserInfoCache.default.rx.observe(DCTUserBean.self, "userBean")
+        let userInfo: Observable<EDTUserBean?> = EDTUserInfoCache.default.rx.observe(EDTUserBean.self, "userBean")
         
-        DCTUserInfoCache.default.userBean = DCTUserInfoCache.default.queryUser()
+        EDTUserInfoCache.default.userBean = EDTUserInfoCache.default.queryUser()
         
-        DCTDictResp(DCTApi.fetchProfile)
-            .mapObject(type: DCTUserBean.self)
-            .map({ DCTUserInfoCache.default.saveUser(data: $0) })
+        EDTDictResp(EDTApi.fetchProfile)
+            .mapObject(type: EDTUserBean.self)
+            .map({ EDTUserInfoCache.default.saveUser(data: $0) })
             .subscribe(onNext: { (_) in })
             .disposed(by: disposed)
         
@@ -182,7 +182,7 @@ struct DCTUserCenterViewModel: DCTViewModel {
         
         self.output = WLOutput(zip: zip, userInfo: userInfo)
         
-        self.output.tableData.accept(DCTUserCenterBean.createUserCenterTypes())
+        self.output.tableData.accept(EDTUserCenterBean.createUserCenterTypes())
     }
 }
 

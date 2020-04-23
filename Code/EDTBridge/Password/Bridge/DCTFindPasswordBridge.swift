@@ -1,41 +1,41 @@
 //
-//  DCTFindPwdBridge.swift
-//  DCTBridge
+//  EDTFindPwdBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/26.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTBase
-import DCTHud
+import EDTBase
+import EDTHud
 import RxCocoa
 import RxSwift
-import DCTCocoa
+import EDTCocoa
 
-public typealias DCTFindPasswordAction = () -> ()
+public typealias EDTFindPasswordAction = () -> ()
 
-@objc (DCTFindPasswordBridge)
-public final class DCTFindPasswordBridge: DCTBaseBridge {
+@objc (EDTFindPasswordBridge)
+public final class EDTFindPasswordBridge: EDTBaseBridge {
     
-    public var viewModel: DCTFindPasswordModel!
+    public var viewModel: EDTFindPasswordModel!
 }
 // MARK:  手机号 201  验证码 202  密码 203  完成按钮 204
-extension DCTFindPasswordBridge {
+extension EDTFindPasswordBridge {
     
-    @objc public func createPassword(_ vc: DCTBaseViewController,passwordAction: @escaping DCTFindPasswordAction ) {
+    @objc public func createPassword(_ vc: EDTBaseViewController,passwordAction: @escaping EDTFindPasswordAction ) {
         
         if let phone = vc.view.viewWithTag(201) as? UITextField ,let vcode = vc.view.viewWithTag(202) as? UITextField ,let vcodeItem = vcode.rightView as? UIButton,let password = vc.view.viewWithTag(203) as? UITextField, let passwordItem = password.rightView
             as? UIButton ,let completeItem = vc.view.viewWithTag(204) as? UIButton {
             
-            let input = DCTFindPasswordModel.WLInput(username: phone.rx.text.orEmpty.asDriver(),
+            let input = EDTFindPasswordModel.WLInput(username: phone.rx.text.orEmpty.asDriver(),
                                               vcode: vcode.rx.text.orEmpty.asDriver() ,
                                               password: password.rx.text.orEmpty.asDriver(),
                                               verifyTaps: vcodeItem.rx.tap.asSignal(),
                                               completeTaps: completeItem.rx.tap.asSignal(),
                                               passwordItemTaps: passwordItem.rx.tap.asSignal())
             
-            viewModel = DCTFindPasswordModel(input, disposed: disposed)
+            viewModel = EDTFindPasswordModel(input, disposed: disposed)
             
             // MARK: 完成点击中序列
             viewModel
@@ -45,7 +45,7 @@ extension DCTFindPasswordBridge {
                     
                     vc.view.endEditing(true)
                     
-                    DCTHud.show(withStatus: "找回密码中...")
+                    EDTHud.show(withStatus: "找回密码中...")
                     
                 })
                 .disposed(by: disposed)
@@ -56,15 +56,15 @@ extension DCTFindPasswordBridge {
                 .completed
                 .drive(onNext: {
                     
-                    DCTHud.pop()
+                    EDTHud.pop()
                     
                     switch $0 {
                         
-                    case let .failed(msg): DCTHud.showInfo(msg)
+                    case let .failed(msg): EDTHud.showInfo(msg)
                         
                     case let .ok(msg):
                         
-                        DCTHud.showInfo(msg)
+                        EDTHud.showInfo(msg)
                         
                         passwordAction()
                         
@@ -80,7 +80,7 @@ extension DCTFindPasswordBridge {
                     
                     vc.view.endEditing(true)
                     
-                    DCTHud.show(withStatus: "获取验证码中...")
+                    EDTHud.show(withStatus: "获取验证码中...")
                 })
                 .disposed(by: disposed)
             // 验证码结果序列
@@ -88,7 +88,7 @@ extension DCTFindPasswordBridge {
                 .output
                 .smsRelay
                 .asObservable()
-                .bind(to: vcodeItem.rx.DCTSms)
+                .bind(to: vcodeItem.rx.EDTSms)
                 .disposed(by: disposed)
             // 验证码结果序列
             viewModel
@@ -100,11 +100,11 @@ extension DCTFindPasswordBridge {
                     
                     switch result {
                     case let .failed(message: msg):
-                        DCTHud.pop()
-                        DCTHud.showInfo(msg)
+                        EDTHud.pop()
+                        EDTHud.showInfo(msg)
                     case let .ok(msg):
-                        DCTHud.pop()
-                        DCTHud.showInfo(msg)
+                        EDTHud.pop()
+                        EDTHud.showInfo(msg)
                     case let .smsOk(isEnabled: isEnabled, title: title):
                         
                         self.viewModel.output.smsRelay.accept((isEnabled,title))

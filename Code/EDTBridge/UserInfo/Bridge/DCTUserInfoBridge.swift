@@ -1,48 +1,48 @@
 //
-//  DCTUserInfoBridge.swift
-//  DCTBridge
+//  EDTUserInfoBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/28.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTTable
-import DCTHud
-import DCTBean
+import EDTTable
+import EDTHud
+import EDTBean
 import RxCocoa
-import DCTCache
+import EDTCache
 import RxSwift
 import RxDataSources
-import DCTCocoa
-import DCTRReq
-import DCTUpload
+import EDTCocoa
+import EDTRReq
+import EDTUpload
 
-public typealias DCTUserInfoAction = () -> ()
+public typealias EDTUserInfoAction = () -> ()
 
-@objc (DCTUserInfoBridge)
-public final class DCTUserInfoBridge: DCTBaseBridge {
+@objc (EDTUserInfoBridge)
+public final class EDTUserInfoBridge: EDTBaseBridge {
     
-    typealias Section = DCTSectionModel<(), DCTUserInfoBean>
+    typealias Section = EDTSectionModel<(), EDTUserInfoBean>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    var viewModel: DCTUserInfoViewModel!
+    var viewModel: EDTUserInfoViewModel!
     
-    weak var vc: DCTTableNoLoadingViewController!
+    weak var vc: EDTTableNoLoadingViewController!
 }
 
-extension DCTUserInfoBridge {
+extension EDTUserInfoBridge {
     
-    @objc public func createUserInfo(_ vc: DCTTableNoLoadingViewController ,hasSpace: Bool) {
+    @objc public func createUserInfo(_ vc: EDTTableNoLoadingViewController ,hasSpace: Bool) {
         
         self.vc = vc
         
-        let input = DCTUserInfoViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(DCTUserInfoBean.self),
+        let input = EDTUserInfoViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(EDTUserInfoBean.self),
                                                  itemSelect: vc.tableView.rx.itemSelected,
                                                  hasSpace: hasSpace)
         
-        viewModel = DCTUserInfoViewModel(input, disposed: disposed)
+        viewModel = EDTUserInfoViewModel(input, disposed: disposed)
         
         let dataSource = RxTableViewSectionedReloadDataSource<Section>(
             configureCell: { ds, tv, ip, item in return vc.configTableViewCell(item, for: ip)})
@@ -74,7 +74,7 @@ extension DCTUserInfoBridge {
             .disposed(by: disposed)
     }
     
-    @objc public func updateUserInfo(_ type: DCTUserInfoType,value: String ) {
+    @objc public func updateUserInfo(_ type: EDTUserInfoType,value: String ) {
         
         let values =  viewModel.output.tableData.value
         
@@ -84,34 +84,34 @@ extension DCTUserInfoBridge {
         }
     }
     
-    @objc public func updateUserInfo(type: DCTUserInfoType,value: String,action: @escaping DCTUserInfoAction) {
+    @objc public func updateUserInfo(type: EDTUserInfoType,value: String,action: @escaping EDTUserInfoAction) {
         
-        DCTHud.show(withStatus: "修改\(type.title)中...")
+        EDTHud.show(withStatus: "修改\(type.title)中...")
         
-        DCTUserInfoViewModel
+        EDTUserInfoViewModel
             .updateUserInfo(type: type, value: value)
             .drive(onNext: { (result) in
                 
-                DCTHud.pop()
+                EDTHud.pop()
                 switch result {
                     
                 case .ok(_):
                     
                     action()
                     
-                    DCTHud.showInfo(type == .header ? "上传头像成功" : "修改\(type.title)成功")
+                    EDTHud.showInfo(type == .header ? "上传头像成功" : "修改\(type.title)成功")
                     
-                case .failed(let msg): DCTHud.showInfo(msg)
+                case .failed(let msg): EDTHud.showInfo(msg)
                 default: break
                 }
             })
             .disposed(by: disposed)
     }
-    @objc public func updateHeader(_ data: Data ,action: @escaping DCTUserInfoAction) {
+    @objc public func updateHeader(_ data: Data ,action: @escaping EDTUserInfoAction) {
         
-        DCTHud.show(withStatus: "上传头像中...")
+        EDTHud.show(withStatus: "上传头像中...")
         
-        DCTUserInfoViewModel
+        EDTUserInfoViewModel
             .fetchAliToken()
             .drive(onNext: { (result) in
                 
@@ -120,30 +120,30 @@ extension DCTUserInfoBridge {
                     
                     DispatchQueue.global().async {
                         
-                        DCTUploadImgResp(data, file: "headerImg", param: obj as! DCTALCredentialsBean)
+                        EDTUploadImgResp(data, file: "headerImg", param: obj as! EDTALCredentialsBean)
                             .subscribe(onNext: { [weak self] (value) in
                                 
                                 guard let `self` = self else { return }
                                 
                                 DispatchQueue.main.async {
                                     
-                                    self.updateUserInfo(type: DCTUserInfoType.header, value: value, action: action)
+                                    self.updateUserInfo(type: EDTUserInfoType.header, value: value, action: action)
                                 }
                                 
                                 }, onError: { (error) in
                                     
-                                    DCTHud.pop()
+                                    EDTHud.pop()
                                     
-                                    DCTHud.showInfo("上传头像失败")
+                                    EDTHud.showInfo("上传头像失败")
                             })
                             .disposed(by: self.disposed)
                     }
                     
                 case let .failed(msg):
                     
-                    DCTHud.pop()
+                    EDTHud.pop()
                     
-                    DCTHud.showInfo(msg)
+                    EDTHud.showInfo(msg)
                     
                 default: break
                     
@@ -152,7 +152,7 @@ extension DCTUserInfoBridge {
             .disposed(by: disposed)
     }
 }
-extension DCTUserInfoBridge: UITableViewDelegate {
+extension EDTUserInfoBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         

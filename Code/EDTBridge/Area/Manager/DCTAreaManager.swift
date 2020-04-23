@@ -1,5 +1,5 @@
 //
-//  DCTAreaManager.swift
+//  EDTAreaManager.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/19.
@@ -7,36 +7,36 @@
 //
 
 import Foundation
-import DCTBean
-import DCTYY
+import EDTBean
+import EDTYY
 import RxCocoa
-import DCTResult
+import EDTResult
 import RxSwift
-import DCTReq
-import DCTApi
+import EDTReq
+import EDTApi
 import Alamofire
-import DCTRReq
-import DCTOM
-import DCTError
+import EDTRReq
+import EDTOM
+import EDTError
 
-@objc (DCTAreaManager)
-public class DCTAreaManager: NSObject {
+@objc (EDTAreaManager)
+public class EDTAreaManager: NSObject {
     
     @objc (shared)
-    public static let `default`: DCTAreaManager = DCTAreaManager()
+    public static let `default`: EDTAreaManager = EDTAreaManager()
     
     private override init() { }
     // 全部地区
-    @objc public var allAreas: [DCTAreaBean] = []
+    @objc public var allAreas: [EDTAreaBean] = []
 }
 
-extension DCTAreaManager {
+extension EDTAreaManager {
     
-      public func fetchAreas() -> Driver<DCTResult> {
+      public func fetchAreas() -> Driver<EDTResult> {
         
         if allAreas.count > 0 {
             
-            return Driver.just(DCTResult.fetchList(allAreas))
+            return Driver.just(EDTResult.fetchList(allAreas))
         } else {
             
             if isAreaFileExist() {
@@ -47,34 +47,34 @@ extension DCTAreaManager {
                 
                 if let arr = NSArray(contentsOfFile: targetPath) {
                     
-                    var mutable: [DCTAreaBean] = []
+                    var mutable: [EDTAreaBean] = []
                     
                     for item in arr {
                         
-                        mutable += [DCTAreaBean(JSON: item as! [String: Any])!]
+                        mutable += [EDTAreaBean(JSON: item as! [String: Any])!]
                     }
                     
                     allAreas += mutable
                     
-                    return Driver.just(DCTResult.fetchList(mutable))
+                    return Driver.just(EDTResult.fetchList(mutable))
                 }
                 
-                return Driver.just(DCTResult.failed("获取本地数据失败!"))
+                return Driver.just(EDTResult.failed("获取本地数据失败!"))
             } else {
                 
-                return DCTAreaResp(DCTApi.fetchAreaJson)
-                    .map({ DCTAreaManager.default.saveArea($0) })
-                    .map({ _ in DCTResult.fetchList(DCTAreaManager.default.allAreas)  })
-                    .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                return EDTAreaResp(EDTApi.fetchAreaJson)
+                    .map({ EDTAreaManager.default.saveArea($0) })
+                    .map({ _ in EDTResult.fetchList(EDTAreaManager.default.allAreas)  })
+                    .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
             }
         }
     }
     
-   @objc public func fetchSomeArea(_ id: Int)  -> DCTAreaBean {
+   @objc public func fetchSomeArea(_ id: Int)  -> EDTAreaBean {
         
         assert(allAreas.count > 0, "请先调用 fetchArea")
         
-        var result: DCTAreaBean!
+        var result: EDTAreaBean!
         
         for item in allAreas {
             
@@ -86,14 +86,14 @@ extension DCTAreaManager {
             }
         }
         
-        return result ?? DCTAreaBean()
+        return result ?? EDTAreaBean()
     }
     
    @objc public func saveArea(_ areas: [Any]) -> [Any] {
         
         for item in areas {
             
-            allAreas += [DCTAreaBean(JSON: item as! [String: Any])!]
+            allAreas += [EDTAreaBean(JSON: item as! [String: Any])!]
         }
         
         let mutable = NSMutableArray()

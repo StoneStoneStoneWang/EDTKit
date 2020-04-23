@@ -1,25 +1,25 @@
 //
-//  DCTLoginViewModel.swift
-//  DCTBridge
+//  EDTLoginViewModel.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/25.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxSwift
 import RxCocoa
-import DCTResult
-import DCTApi
-import DCTRReq
-import DCTBean
-import DCTCheck
-import DCTCache
-import DCTError
-import DCTOM
+import EDTResult
+import EDTApi
+import EDTRReq
+import EDTBean
+import EDTCheck
+import EDTCache
+import EDTError
+import EDTOM
 
-public struct DCTLoginViewModel: DCTViewModel {
+public struct EDTLoginViewModel: EDTViewModel {
     
     public var input: WLInput
     
@@ -47,7 +47,7 @@ public struct DCTLoginViewModel: DCTViewModel {
         /* 登录中... 序列*/
         let logining: Driver<Void>
         /* 登录结果... 序列*/
-        let logined: Driver<DCTResult>
+        let logined: Driver<EDTResult>
         // 忘记密码点击回掉
         let swiftLogined: Driver<Void>
         
@@ -66,26 +66,26 @@ public struct DCTLoginViewModel: DCTViewModel {
         
         let logining = input.loginTaps.flatMap { Driver.just($0) }
         
-        let logined: Driver<DCTResult> = input
+        let logined: Driver<EDTResult> = input
             .loginTaps
             .withLatestFrom(uap)
             .flatMapLatest {
   
-                switch DCTCheckUsernameAndPassword($0.0, password: $0.1) {
+                switch EDTCheckUsernameAndPassword($0.0, password: $0.1) {
                 case .ok:
 
-                    return DCTDictResp(DCTApi.login($0.0,password: $0.1))
-                        .mapObject(type: DCTAccountBean.self)
-                        .map({ DCTAccountCache.default.saveAccount(acc: $0) }) // 存储account
+                    return EDTDictResp(EDTApi.login($0.0,password: $0.1))
+                        .mapObject(type: EDTAccountBean.self)
+                        .map({ EDTAccountCache.default.saveAccount(acc: $0) }) // 存储account
                         .map({ $0.toJSON()})
-                        .mapObject(type: DCTUserBean.self)
-                        .map({ DCTUserInfoCache.default.saveUser(data: $0) })
-                        .map({ _ in DCTResult.logined })
-                        .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                        .mapObject(type: EDTUserBean.self)
+                        .map({ EDTUserInfoCache.default.saveUser(data: $0) })
+                        .map({ _ in EDTResult.logined })
+                        .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
                     
-                case let .failed(msg): return Driver<DCTResult>.just(DCTResult.failed(msg))
+                case let .failed(msg): return Driver<EDTResult>.just(EDTResult.failed(msg))
                     
-                default: return Driver<DCTResult>.empty()
+                default: return Driver<EDTResult>.empty()
                 }
         }
         

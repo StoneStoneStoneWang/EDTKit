@@ -1,6 +1,6 @@
 //
-//  DCTFeedBackBridge.swift
-//  DCTBridge
+//  EDTFeedBackBridge.swift
+//  EDTBridge
 //
 //  Created by 王磊 on 2020/3/30.
 //  Copyright © 2020 王磊. All rights reserved.
@@ -9,20 +9,20 @@
 import Foundation
 import RxCocoa
 import RxSwift
-import DCTBase
-import DCTHud
+import EDTBase
+import EDTHud
 
-public typealias DCTFeedBackAction = () -> ()
+public typealias EDTFeedBackAction = () -> ()
 
-@objc (DCTFeedBackBridge)
-public final class DCTFeedBackBridge: DCTBaseBridge {
+@objc (EDTFeedBackBridge)
+public final class EDTFeedBackBridge: EDTBaseBridge {
     
-    var viewModel: DCTFeedBackViewModel!
+    var viewModel: EDTFeedBackViewModel!
 }
 
-extension DCTFeedBackBridge {
+extension EDTFeedBackBridge {
     
-    @objc public func createFeedBack(_ vc: DCTBaseViewController ,feedBackAction: @escaping DCTFeedBackAction ) {
+    @objc public func createFeedBack(_ vc: EDTBaseViewController ,feedBackAction: @escaping EDTFeedBackAction ) {
         
         if let feedBack = vc.view.viewWithTag(201) as? UITextView ,let placeholder = vc.view.viewWithTag(202) ,let phone = vc.view.viewWithTag(203) as? UITextField{
             
@@ -39,11 +39,11 @@ extension DCTFeedBackBridge {
             
             if let completeItem = completeItem {
                 
-                let inputs = DCTFeedBackViewModel.WLInput(feedBack: feedBack.rx.text.orEmpty.asDriver(),
+                let inputs = EDTFeedBackViewModel.WLInput(feedBack: feedBack.rx.text.orEmpty.asDriver(),
                                                           phone: phone.rx.text.orEmpty.asDriver(),
                                                           completTaps: completeItem.rx.tap.asSignal())
                 
-                viewModel = DCTFeedBackViewModel(inputs)
+                viewModel = EDTFeedBackViewModel(inputs)
                 
                 viewModel
                     .output
@@ -56,7 +56,7 @@ extension DCTFeedBackBridge {
                     .completing
                     .drive(onNext: { (_) in
                         
-                        DCTHud.show(withStatus: "意见建议提交中...")
+                        EDTHud.show(withStatus: "意见建议提交中...")
                         
                         vc.view.endEditing(true)
                     })
@@ -67,18 +67,18 @@ extension DCTFeedBackBridge {
                     .completed
                     .drive(onNext: { (result) in
                         
-                        DCTHud.pop()
+                        EDTHud.pop()
                         
                         switch result {
                         case let .ok(msg):
                             
-                            DCTHud.showInfo(msg)
+                            EDTHud.showInfo(msg)
                             
                             feedBackAction()
                             
                         case let .failed(msg):
                             
-                            DCTHud.showInfo(msg)
+                            EDTHud.showInfo(msg)
                         default: break
                             
                         }

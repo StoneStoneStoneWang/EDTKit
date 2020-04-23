@@ -1,28 +1,28 @@
 //
-//  DCTTableSectionViewModel.swift
-//  DCTBridge
+//  EDTTableSectionViewModel.swift
+//  EDTBridge
 //
 //  Created by 王磊 on 2020/3/31.
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxSwift
 import RxCocoa
 
-@objc (DCTTableSectionBean)
-public final class DCTTableSectionBean: NSObject {
+@objc (EDTTableSectionBean)
+public final class EDTTableSectionBean: NSObject {
     
     @objc public var sTag: Int = 0
     
-    @objc public var items: [DCTTableRowBean] = []
+    @objc public var items: [EDTTableRowBean] = []
     
     @objc public var title: String = ""
     
-    @objc public static func createSection(_ sTag: Int,title: String ,items: [DCTTableRowBean]) -> DCTTableSectionBean {
+    @objc public static func createSection(_ sTag: Int,title: String ,items: [EDTTableRowBean]) -> EDTTableSectionBean {
         
-        let section = DCTTableSectionBean()
+        let section = EDTTableSectionBean()
         
         section.sTag = sTag
         
@@ -35,8 +35,8 @@ public final class DCTTableSectionBean: NSObject {
     private override init() { }
 }
 
-@objc (DCTTableRowBean)
-public final class DCTTableRowBean: NSObject {
+@objc (EDTTableRowBean)
+public final class EDTTableRowBean: NSObject {
     
     @objc public var iTag: Int = 0
     
@@ -50,9 +50,9 @@ public final class DCTTableRowBean: NSObject {
     
     @objc public var isSelected: Bool = false
     
-    @objc public static func createRow(_ iTag: Int,title: String ,icon: String) -> DCTTableRowBean {
+    @objc public static func createRow(_ iTag: Int,title: String ,icon: String) -> EDTTableRowBean {
         
-        let item = DCTTableRowBean()
+        let item = EDTTableRowBean()
         
         item.iTag = iTag
         
@@ -62,9 +62,9 @@ public final class DCTTableRowBean: NSObject {
         
         return item
     }
-    @objc public static func createRow(_ iTag: Int,title: String ,icon: String ,isSelected: Bool ,placeholder: String) -> DCTTableRowBean {
+    @objc public static func createRow(_ iTag: Int,title: String ,icon: String ,isSelected: Bool ,placeholder: String) -> EDTTableRowBean {
         
-        let item = DCTTableRowBean()
+        let item = EDTTableRowBean()
         
         item.iTag = iTag
         
@@ -81,7 +81,7 @@ public final class DCTTableRowBean: NSObject {
     private override init() { }
 }
 
-struct DCTTableSectionViewModel: DCTViewModel {
+struct EDTTableSectionViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -89,18 +89,18 @@ struct DCTTableSectionViewModel: DCTViewModel {
     
     struct WLInput {
         
-        let modelSelect: ControlEvent<DCTTableRowBean>
+        let modelSelect: ControlEvent<EDTTableRowBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
-        let sections: [DCTTableSectionBean]
+        let sections: [EDTTableSectionBean]
     }
     
     struct WLOutput {
         // 获取轮播图序列
-        let zip: Observable<(DCTTableRowBean,IndexPath)>
+        let zip: Observable<(EDTTableRowBean,IndexPath)>
         
-        let tableData: BehaviorRelay<[DCTTableSectionBean]> = BehaviorRelay<[DCTTableSectionBean]>(value:[])
+        let tableData: BehaviorRelay<[EDTTableSectionBean]> = BehaviorRelay<[EDTTableSectionBean]>(value:[])
     }
     
     init(_ input: WLInput ) {

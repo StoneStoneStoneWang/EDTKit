@@ -1,43 +1,43 @@
 //
-//  DCTCollectionSectionBridge.swift
-//  DCTBridge
+//  EDTCollectionSectionBridge.swift
+//  EDTBridge
 //
 //  Created by 王磊 on 2020/3/31.
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
 import Foundation
-import DCTCollection
+import EDTCollection
 import RxCocoa
 import RxSwift
 import RxDataSources
-import DCTCocoa
+import EDTCocoa
 
-public typealias DCTCollectionSectionAction = (_ item: DCTCollectionItemBean) -> ()
+public typealias EDTCollectionSectionAction = (_ item: EDTCollectionItemBean) -> ()
 
-@objc (DCTCollectionSectionBridge)
-public final class DCTCollectionSectionBridge: DCTBaseBridge {
+@objc (EDTCollectionSectionBridge)
+public final class EDTCollectionSectionBridge: EDTBaseBridge {
     
-    var viewModel: DCTCollectionSectionViewModel!
+    var viewModel: EDTCollectionSectionViewModel!
     
-    typealias Section = DCTSectionModel<DCTCollectionSectionBean, DCTCollectionItemBean>
+    typealias Section = EDTSectionModel<EDTCollectionSectionBean, EDTCollectionItemBean>
     
     var dataSource: RxCollectionViewSectionedReloadDataSource<Section>!
     
-    var vc: DCTCollectionNoLoadingViewController!
+    var vc: EDTCollectionNoLoadingViewController!
     
 }
 
 // MARK: skip item 101 pagecontrol 102
-extension DCTCollectionSectionBridge {
+extension EDTCollectionSectionBridge {
     
-    @objc public func createCollectionSection(_ vc: DCTCollectionNoLoadingViewController ,sections: [DCTCollectionSectionBean],sectionAction: @escaping DCTCollectionSectionAction) {
+    @objc public func createCollectionSection(_ vc: EDTCollectionNoLoadingViewController ,sections: [EDTCollectionSectionBean],sectionAction: @escaping EDTCollectionSectionAction) {
         
-        let input = DCTCollectionSectionViewModel.WLInput(modelSelect: vc.collectionView.rx.modelSelected(DCTCollectionItemBean.self),
+        let input = EDTCollectionSectionViewModel.WLInput(modelSelect: vc.collectionView.rx.modelSelected(EDTCollectionItemBean.self),
                                                           itemSelect: vc.collectionView.rx.itemSelected,
                                                           sections: sections)
         
-        viewModel = DCTCollectionSectionViewModel(input)
+        viewModel = EDTCollectionSectionViewModel(input)
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<Section>(
             configureCell: { ds, cv, ip, item in return vc.configCollectionViewCell(item, for: ip) },
@@ -63,18 +63,18 @@ extension DCTCollectionSectionBridge {
         
     }
     
-    @objc public func fetchSingleData(_ ip: IndexPath) -> DCTCollectionItemBean! {
+    @objc public func fetchSingleData(_ ip: IndexPath) -> EDTCollectionItemBean! {
         
         guard let dataSource = dataSource else { return nil }
         
         return dataSource[ip]
     }
     
-    @objc public func fetchCollectionDatas() -> [DCTCollectionItemBean] {
+    @objc public func fetchCollectionDatas() -> [EDTCollectionItemBean] {
         
         guard let viewModel = viewModel else { return [] }
         
-        var mutable: [DCTCollectionItemBean] = []
+        var mutable: [EDTCollectionItemBean] = []
         
         for item in viewModel.output.collectionData.value {
             

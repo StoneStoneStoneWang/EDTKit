@@ -1,5 +1,5 @@
 //
-//  DCTAreaBridge.swift
+//  EDTAreaBridge.swift
 //  ZBridge
 //
 //  Created by three stone 王 on 2020/3/13.
@@ -7,13 +7,13 @@
 //
 
 import Foundation
-import DCTCocoa
+import EDTCocoa
 import RxDataSources
-import DCTTable
-import DCTBean
+import EDTTable
+import EDTBean
 
-@objc (DCTAreaType)
-public enum DCTAreaType: Int {
+@objc (EDTAreaType)
+public enum EDTAreaType: Int {
     
     case province
     
@@ -22,35 +22,35 @@ public enum DCTAreaType: Int {
     case region
 }
 
-public typealias DCTAreaAction = (_ selectedArea: DCTAreaBean ,_ type: DCTAreaType ,_ hasNext: Bool) -> ()
+public typealias EDTAreaAction = (_ selectedArea: EDTAreaBean ,_ type: EDTAreaType ,_ hasNext: Bool) -> ()
 
-@objc (DCTAreaBridge)
-public final class DCTAreaBridge: DCTBaseBridge {
+@objc (EDTAreaBridge)
+public final class EDTAreaBridge: EDTBaseBridge {
     
-    var viewModel: DCTAreaViewModel!
+    var viewModel: EDTAreaViewModel!
     
-    typealias Section = DCTSectionModel<(), DCTAreaBean>
+    typealias Section = EDTSectionModel<(), EDTAreaBean>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    var type: DCTAreaType = .province
+    var type: EDTAreaType = .province
     
-    var areas: [DCTAreaBean] = []
+    var areas: [EDTAreaBean] = []
     
-    var selectedArea: DCTAreaBean!
+    var selectedArea: EDTAreaBean!
 }
 
-extension DCTAreaBridge {
+extension EDTAreaBridge {
     
-    @objc public func createArea(_ vc: DCTTableNoLoadingViewController ,type: DCTAreaType,areaAction: @escaping DCTAreaAction) {
+    @objc public func createArea(_ vc: EDTTableNoLoadingViewController ,type: EDTAreaType,areaAction: @escaping EDTAreaAction) {
         
         self.type = type
         
-        let input = DCTAreaViewModel.WLInput(areas: areas,
-                                             modelSelect: vc.tableView.rx.modelSelected(DCTAreaBean.self),
+        let input = EDTAreaViewModel.WLInput(areas: areas,
+                                             modelSelect: vc.tableView.rx.modelSelected(EDTAreaBean.self),
                                              itemSelect: vc.tableView.rx.itemSelected)
         
-        viewModel = DCTAreaViewModel(input, disposed: disposed)
+        viewModel = EDTAreaViewModel(input, disposed: disposed)
         
         let dataSource = RxTableViewSectionedReloadDataSource<Section>(
             configureCell: { ds, tv, ip, item in return vc.configTableViewCell(item, for: ip)})
@@ -98,7 +98,7 @@ extension DCTAreaBridge {
             .setDelegate(self)
             .disposed(by: disposed)
         
-        DCTAreaManager
+        EDTAreaManager
             .default
             .fetchAreas()
             .drive(onNext: { [unowned self ](result) in
@@ -106,12 +106,12 @@ extension DCTAreaBridge {
                 switch result {
                 case .fetchList(let list):
                     
-                    var mutable: [DCTAreaBean] = []
+                    var mutable: [EDTAreaBean] = []
                     
                     switch type {
                     case .province:
                         
-                        mutable += self.fetchProvices(list as! [DCTAreaBean])
+                        mutable += self.fetchProvices(list as! [EDTAreaBean])
                     case .city:
                         
                         //                        mutable += self.fetchCitys(<#T##id: Int##Int#>)
@@ -131,7 +131,7 @@ extension DCTAreaBridge {
     
     @objc public func fetchAreas() {
         
-        DCTAreaManager
+        EDTAreaManager
             .default
             .fetchAreas()
             .drive(onNext: { (result) in
@@ -141,7 +141,7 @@ extension DCTAreaBridge {
             .disposed(by: disposed)
     }
     
-    @objc public func updateDatas(_ id: Int ,areas: [DCTAreaBean]) {
+    @objc public func updateDatas(_ id: Int ,areas: [EDTAreaBean]) {
         
         switch type {
         case .city:
@@ -156,7 +156,7 @@ extension DCTAreaBridge {
             self.viewModel.output.tableData.accept(self.fetchProvices(areas))
         }
     }
-    @objc public func fetchProvice(pName: String) -> DCTAreaBean {
+    @objc public func fetchProvice(pName: String) -> EDTAreaBean {
         
         let values = self.viewModel.output.tableData.value
         
@@ -166,9 +166,9 @@ extension DCTAreaBridge {
         
     }
     
-    @objc public func fetchArea(id: Int) -> DCTAreaBean {
+    @objc public func fetchArea(id: Int) -> EDTAreaBean {
         
-        return DCTAreaManager.default.fetchSomeArea(id)
+        return EDTAreaManager.default.fetchSomeArea(id)
         
     }
     @objc public func fetchIp(id: Int) -> IndexPath {
@@ -179,9 +179,9 @@ extension DCTAreaBridge {
         
         return IndexPath(row: idx, section: 0)
     }
-    @objc public func fetchProvices(_ areas: [DCTAreaBean]) -> [DCTAreaBean] {
+    @objc public func fetchProvices(_ areas: [EDTAreaBean]) -> [EDTAreaBean] {
         
-        var result: [DCTAreaBean] = []
+        var result: [EDTAreaBean] = []
         
         for item in areas {
             
@@ -193,11 +193,11 @@ extension DCTAreaBridge {
         return result
     }
     
-    @objc public func fetchCitys(_ id: Int) -> [DCTAreaBean] {
+    @objc public func fetchCitys(_ id: Int) -> [EDTAreaBean] {
         
-        var result: [DCTAreaBean] = []
+        var result: [EDTAreaBean] = []
         
-        for item in DCTAreaManager.default.allAreas {
+        for item in EDTAreaManager.default.allAreas {
             
             if item.arealevel == 2 {
                 
@@ -210,11 +210,11 @@ extension DCTAreaBridge {
         return result
     }
     
-    @objc public func fetchRegions(_ id: Int) -> [DCTAreaBean] {
+    @objc public func fetchRegions(_ id: Int) -> [EDTAreaBean] {
         
-        var result: [DCTAreaBean] = []
+        var result: [EDTAreaBean] = []
         
-        for item in DCTAreaManager.default.allAreas {
+        for item in EDTAreaManager.default.allAreas {
             
             if item.arealevel == 3 {
                 
@@ -228,7 +228,7 @@ extension DCTAreaBridge {
     }
 }
 
-extension DCTAreaBridge: UITableViewDelegate {
+extension EDTAreaBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         

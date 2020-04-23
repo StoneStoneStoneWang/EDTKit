@@ -1,38 +1,38 @@
 //
-//  DCTModifyPwdBridge.swift
-//  DCTBridge
+//  EDTModifyPwdBridge.swift
+//  EDTBridge
 //
 //  Created by three stone 王 on 2019/8/26.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
 
 import Foundation
-import DCTBase
-import DCTHud
+import EDTBase
+import EDTHud
 import RxCocoa
 import RxSwift
-import DCTCocoa
+import EDTCocoa
 
-public typealias DCTModifyPasswordAction = () -> ()
+public typealias EDTModifyPasswordAction = () -> ()
 
-@objc (DCTModifyPasswordBridge)
-public final class DCTModifyPasswordBridge: DCTBaseBridge {
+@objc (EDTModifyPasswordBridge)
+public final class EDTModifyPasswordBridge: EDTBaseBridge {
     
-    public var viewModel: DCTModifyPasswordViewModel!
+    public var viewModel: EDTModifyPasswordViewModel!
 }
 // MARK:  旧密码201 新密码 202 确认密码 203 修改密码
-extension DCTModifyPasswordBridge {
+extension EDTModifyPasswordBridge {
     
-    @objc public func createPassword(_ vc: DCTBaseViewController ,passwordAction: @escaping DCTModifyPasswordAction) {
+    @objc public func createPassword(_ vc: EDTBaseViewController ,passwordAction: @escaping EDTModifyPasswordAction) {
         
         if let oldpassword = vc.view.viewWithTag(201) as? UITextField ,let password = vc.view.viewWithTag(202) as? UITextField ,let passwordAgain = vc.view.viewWithTag(203) as? UITextField ,let completeItem = vc.view.viewWithTag(204) as? UIButton {
             
-            let input = DCTModifyPasswordViewModel.WLInput(oldpassword: oldpassword.rx.text.orEmpty.asDriver(),
+            let input = EDTModifyPasswordViewModel.WLInput(oldpassword: oldpassword.rx.text.orEmpty.asDriver(),
                                                            password: password.rx.text.orEmpty.asDriver() ,
                                                            passwordAgain: passwordAgain.rx.text.orEmpty.asDriver(),
                                                            completeTaps: completeItem.rx.tap.asSignal())
             
-            viewModel = DCTModifyPasswordViewModel(input, disposed: disposed)
+            viewModel = EDTModifyPasswordViewModel(input, disposed: disposed)
             
             // MARK: 修改密码 点击
             viewModel
@@ -42,7 +42,7 @@ extension DCTModifyPasswordBridge {
                     
                     vc.view.endEditing(true)
                     
-                    DCTHud.show(withStatus: "修改密码中...")
+                    EDTHud.show(withStatus: "修改密码中...")
                     
                 })
                 .disposed(by: disposed)
@@ -53,15 +53,15 @@ extension DCTModifyPasswordBridge {
                 .completed
                 .drive(onNext: {
                     
-                    DCTHud.pop()
+                    EDTHud.pop()
                     
                     switch $0 {
                         
-                    case let .failed(msg): DCTHud.showInfo(msg)
+                    case let .failed(msg): EDTHud.showInfo(msg)
                         
                     case let .ok(msg):
                         
-                        DCTHud.showInfo(msg)
+                        EDTHud.showInfo(msg)
                         
                         passwordAction()
                         

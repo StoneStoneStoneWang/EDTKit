@@ -1,5 +1,5 @@
 //
-//  DCTMessageBridge.swift
+//  EDTMessageBridge.swift
 //  ZBombBridge
 //
 //  Created by three stone 王 on 2020/3/20.
@@ -7,39 +7,39 @@
 //
 
 import Foundation
-import DCTCollection
+import EDTCollection
 import RxDataSources
-import DCTCocoa
+import EDTCocoa
 import RxCocoa
 import RxSwift
-import DCTBean
+import EDTBean
 
-public typealias DCTMessageAction = (_ ip: IndexPath,_ message: DCTMessageBean) -> ()
+public typealias EDTMessageAction = (_ ip: IndexPath,_ message: EDTMessageBean) -> ()
 
-@objc (DCTMessageBridge)
-public final class DCTMessageBridge: DCTBaseBridge {
+@objc (EDTMessageBridge)
+public final class EDTMessageBridge: EDTBaseBridge {
     
-    typealias Section = DCTAnimationSetionModel<DCTMessageBean>
+    typealias Section = EDTAnimationSetionModel<EDTMessageBean>
     
     var dataSource: RxCollectionViewSectionedAnimatedDataSource<Section>!
     
-    var viewModel: DCTMessageViewModel!
+    var viewModel: EDTMessageViewModel!
     
-    weak var vc: DCTCollectionLoadingViewController!
+    weak var vc: EDTCollectionLoadingViewController!
     
 }
 
-extension DCTMessageBridge {
+extension EDTMessageBridge {
     
-    @objc public func createMessage(_ vc: DCTCollectionLoadingViewController ,messageAction: @escaping DCTMessageAction ) {
+    @objc public func createMessage(_ vc: EDTCollectionLoadingViewController ,messageAction: @escaping EDTMessageAction ) {
         
         self.vc = vc
         
-        let input = DCTMessageViewModel.WLInput(modelSelect: vc.collectionView.rx.modelSelected(DCTMessageBean.self),
+        let input = EDTMessageViewModel.WLInput(modelSelect: vc.collectionView.rx.modelSelected(EDTMessageBean.self),
                                                 itemSelect: vc.collectionView.rx.itemSelected,
-                                                headerRefresh: vc.collectionView.mj_header!.rx.DCTRefreshing.asDriver())
+                                                headerRefresh: vc.collectionView.mj_header!.rx.EDTRefreshing.asDriver())
         
-        viewModel = DCTMessageViewModel(input, disposed: disposed)
+        viewModel = EDTMessageViewModel(input, disposed: disposed)
         
         let dataSource = RxCollectionViewSectionedAnimatedDataSource<Section>(
             animationConfiguration: AnimationConfiguration(insertAnimation: .fade, reloadAnimation: .fade, deleteAnimation: .left),
@@ -69,7 +69,7 @@ extension DCTMessageBridge {
         
         endHeaderRefreshing
             .map({ _ in return true })
-            .drive(vc.collectionView.mj_header!.rx.DCTEndRefreshing)
+            .drive(vc.collectionView.mj_header!.rx.EDTEndRefreshing)
             .disposed(by: disposed)
         
         endHeaderRefreshing
@@ -103,11 +103,11 @@ extension DCTMessageBridge {
         vc.collectionView.reloadItems(at: [ip])
     }
 }
-extension DCTMessageBridge: UITableViewDelegate {
+extension EDTMessageBridge: UITableViewDelegate {
     
-    @objc public func messageReadReq(_ message: DCTMessageBean ,_ ip: IndexPath) {
+    @objc public func messageReadReq(_ message: EDTMessageBean ,_ ip: IndexPath) {
         
-        DCTMessageViewModel
+        EDTMessageViewModel
             .messageRead("\(message.mid)")
             .drive(onNext: { [unowned self] (result) in
                 
@@ -123,9 +123,9 @@ extension DCTMessageBridge: UITableViewDelegate {
             .disposed(by: disposed)
     }
     
-    @objc public func fetchFirstMessage(_ messageAction: @escaping (_ message: DCTMessageBean) -> ()) {
+    @objc public func fetchFirstMessage(_ messageAction: @escaping (_ message: EDTMessageBean) -> ()) {
         
-        DCTMessageViewModel
+        EDTMessageViewModel
             .fetchFirstMessage()
             .drive(onNext: { (result) in
                 
@@ -134,7 +134,7 @@ extension DCTMessageBridge: UITableViewDelegate {
                     
                     if list.count > 0{
                         
-                        messageAction(list.first as! DCTMessageBean)
+                        messageAction(list.first as! EDTMessageBean)
                     }
                 default:
                     

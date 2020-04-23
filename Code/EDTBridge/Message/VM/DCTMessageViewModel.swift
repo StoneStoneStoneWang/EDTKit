@@ -1,23 +1,23 @@
 //
-//  DCTMessageViewModel.swift
-//  DCTBridge
+//  EDTMessageViewModel.swift
+//  EDTBridge
 //
 //  Created by 王磊 on 2020/4/13.
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
 import Foundation
-import DCTViewModel
+import EDTViewModel
 import RxCocoa
 import RxSwift
-import DCTResult
-import DCTApi
-import DCTBean
-import DCTRReq
-import DCTError
-import DCTOM
+import EDTResult
+import EDTApi
+import EDTBean
+import EDTRReq
+import EDTError
+import EDTOM
 
-struct DCTMessageViewModel: DCTViewModel {
+struct EDTMessageViewModel: EDTViewModel {
     
     var input: WLInput
     
@@ -25,7 +25,7 @@ struct DCTMessageViewModel: DCTViewModel {
     
     struct WLInput {
         
-        let modelSelect: ControlEvent<DCTMessageBean>
+        let modelSelect: ControlEvent<EDTMessageBean>
         
         let itemSelect: ControlEvent<IndexPath>
         
@@ -35,11 +35,11 @@ struct DCTMessageViewModel: DCTViewModel {
     
     struct WLOutput {
         
-        let zip: Observable<(DCTMessageBean,IndexPath)>
+        let zip: Observable<(EDTMessageBean,IndexPath)>
         
-        let collectionData: BehaviorRelay<[DCTMessageBean]> = BehaviorRelay<[DCTMessageBean]>(value: [])
+        let collectionData: BehaviorRelay<[EDTMessageBean]> = BehaviorRelay<[EDTMessageBean]>(value: [])
         
-        let endHeaderRefreshing: Driver<DCTResult>
+        let endHeaderRefreshing: Driver<EDTResult>
     }
     init(_ input: WLInput ,disposed: DisposeBag) {
         
@@ -51,10 +51,10 @@ struct DCTMessageViewModel: DCTViewModel {
             .headerRefresh
             .startWith(())
             .flatMapLatest({_ in
-                return DCTArrayResp(DCTApi.fetchSystemMsg(1))
-                    .mapArray(type: DCTMessageBean.self)
-                    .map({ return $0.count > 0 ? DCTResult.fetchList($0) : DCTResult.empty })
-                    .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+                return EDTArrayResp(EDTApi.fetchSystemMsg(1))
+                    .mapArray(type: EDTMessageBean.self)
+                    .map({ return $0.count > 0 ? EDTResult.fetchList($0) : EDTResult.empty })
+                    .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
             })
         
         let endHeaderRefreshing = headerRefreshData.map { $0 }
@@ -67,7 +67,7 @@ struct DCTMessageViewModel: DCTViewModel {
                 switch result {
                 case let .fetchList(items):
                     
-                    output.collectionData.accept(items as! [DCTMessageBean])
+                    output.collectionData.accept(items as! [EDTMessageBean])
                     
                 default: break
                 }
@@ -77,20 +77,20 @@ struct DCTMessageViewModel: DCTViewModel {
         self.output = output
     }
 }
-extension DCTMessageViewModel {
+extension EDTMessageViewModel {
     
-    static func messageRead(_ encode: String) -> Driver<DCTResult> {
+    static func messageRead(_ encode: String) -> Driver<EDTResult> {
         
-        return DCTVoidResp(DCTApi.readMsg(encode))
-            .flatMapLatest({ return Driver.just(DCTResult.ok("")) })
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTVoidResp(EDTApi.readMsg(encode))
+            .flatMapLatest({ return Driver.just(EDTResult.ok("")) })
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
     
-    static func fetchFirstMessage() -> Driver<DCTResult> {
+    static func fetchFirstMessage() -> Driver<EDTResult> {
         
-        return DCTArrayResp(DCTApi.fetchFirstMsg)
-            .mapArray(type: DCTMessageBean.self)
-            .flatMapLatest({ return Driver.just(DCTResult.fetchList($0)) })
-            .asDriver(onErrorRecover: { return Driver.just(DCTResult.failed(($0 as! DCTError).description.0)) })
+        return EDTArrayResp(EDTApi.fetchFirstMsg)
+            .mapArray(type: EDTMessageBean.self)
+            .flatMapLatest({ return Driver.just(EDTResult.fetchList($0)) })
+            .asDriver(onErrorRecover: { return Driver.just(EDTResult.failed(($0 as! EDTError).description.0)) })
     }
 }

@@ -1,44 +1,44 @@
 //
-//  DCTTableSectionBridge.swift
-//  DCTBridge
+//  EDTTableSectionBridge.swift
+//  EDTBridge
 //
 //  Created by 王磊 on 2020/3/31.
 //  Copyright © 2020 王磊. All rights reserved.
 //
 
 import Foundation
-import DCTTable
+import EDTTable
 import RxCocoa
 import RxSwift
 import RxDataSources
-import DCTCocoa
+import EDTCocoa
 
-public typealias DCTTableSectionAction = (_ item: DCTTableRowBean ,_ ip: IndexPath) -> ()
+public typealias EDTTableSectionAction = (_ item: EDTTableRowBean ,_ ip: IndexPath) -> ()
 
-@objc (DCTTableSectionBridge)
-public final class DCTTableSectionBridge: DCTBaseBridge {
+@objc (EDTTableSectionBridge)
+public final class EDTTableSectionBridge: EDTBaseBridge {
     
-    var viewModel: DCTTableSectionViewModel!
+    var viewModel: EDTTableSectionViewModel!
     
-    typealias Section = DCTSectionModel<DCTTableSectionBean, DCTTableRowBean>
+    typealias Section = EDTSectionModel<EDTTableSectionBean, EDTTableRowBean>
     
     var dataSource: RxTableViewSectionedReloadDataSource<Section>!
     
-    var vc: DCTTableNoLoadingViewController!
+    var vc: EDTTableNoLoadingViewController!
     
 }
 
-extension DCTTableSectionBridge {
+extension EDTTableSectionBridge {
     
-    @objc public func createTableSection(_ vc: DCTTableNoLoadingViewController ,sections: [DCTTableSectionBean],sectionAction: @escaping DCTTableSectionAction ) {
+    @objc public func createTableSection(_ vc: EDTTableNoLoadingViewController ,sections: [EDTTableSectionBean],sectionAction: @escaping EDTTableSectionAction ) {
         
         self.vc = vc
         
-        let input = DCTTableSectionViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(DCTTableRowBean.self),
+        let input = EDTTableSectionViewModel.WLInput(modelSelect: vc.tableView.rx.modelSelected(EDTTableRowBean.self),
                                                      itemSelect: vc.tableView.rx.itemSelected,
                                                      sections: sections)
         
-        viewModel = DCTTableSectionViewModel(input)
+        viewModel = EDTTableSectionViewModel(input)
         
         let dataSource = RxTableViewSectionedReloadDataSource<Section>(
             configureCell: { ds, tv, ip, item in return vc.configTableViewCell(item, for: ip) },
@@ -66,7 +66,7 @@ extension DCTTableSectionBridge {
         
     }
 }
-extension DCTTableSectionBridge: UITableViewDelegate {
+extension EDTTableSectionBridge: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
