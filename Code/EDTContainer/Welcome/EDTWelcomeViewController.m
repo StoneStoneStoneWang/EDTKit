@@ -187,11 +187,11 @@
     
     [self.skipItem setTitleColor: [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]] forState:UIControlStateHighlighted];
     
-    self.pageControl.pageIndiEDTorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]];
+    self.pageControl.pageIndicatorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]];
     
     self.pageControl.numberOfPages = EDTWelcomeImgs.count;
     
-    self.pageControl.currentPageIndiEDTorTintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.pageControl.currentPageIndicatorTintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
     
 #elif EDTWelcomeTwo
     

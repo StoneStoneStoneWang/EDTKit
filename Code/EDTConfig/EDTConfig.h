@@ -12,7 +12,7 @@
 
 #if EDTCONFIGURETYPESWIMMING
 
-#import "DCTSwimmingConfig.h"
+#import "EDTSwimmingConfig.h"
 
 #elif EDTCONFIGURETYPETHERMAL
 

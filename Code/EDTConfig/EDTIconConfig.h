@@ -62,8 +62,6 @@
 
 #define EDTFavorIcon "我的收藏"
 
-#param -- mark ----- 温泉
-
 #elif EDTCONFIGURETYPETHERMAL
 
 #define EDTBackIcon "返回灰"
