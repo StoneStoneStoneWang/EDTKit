@@ -99,7 +99,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTCheck'
       vm.dependency 'EDTRReq'
       vm.dependency 'EDTApi'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
       vm.dependency 'EDTError'
     end
     
@@ -122,7 +122,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTCheck'
       vm.dependency 'EDTRReq'
       vm.dependency 'EDTApi'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
       vm.dependency 'EDTError'
     end
     
@@ -146,7 +146,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTCheck'
       vm.dependency 'EDTRReq'
       vm.dependency 'EDTApi'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
       vm.dependency 'EDTError'
     end
     
@@ -212,7 +212,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTApi'
       vm.dependency 'EDTViewModel'
       vm.dependency 'EDTResult'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
       vm.dependency 'EDTError'
     end
     
@@ -235,7 +235,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTApi'
       vm.dependency 'EDTViewModel'
       vm.dependency 'EDTResult'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
       vm.dependency 'EDTError'
     end
     
@@ -259,7 +259,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTCache/User'
       vm.dependency 'EDTApi'
       vm.dependency 'EDTRReq'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
       vm.dependency 'EDTError'
     end
     
@@ -335,7 +335,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTApi'
       vm.dependency 'EDTResult'
       vm.dependency 'EDTError'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
     end
     
     black.subspec 'Bridge' do |bridge|
@@ -361,7 +361,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTApi'
       vm.dependency 'EDTResult'
       vm.dependency 'EDTError'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
     end
     
     focus.subspec 'Bridge' do |bridge|
@@ -386,7 +386,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTCache/User'
       vm.dependency 'EDTResult'
       vm.dependency 'EDTViewModel'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
     end
     
     profile.subspec 'Bridge' do |bridge|
@@ -411,7 +411,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTCache/User'
       vm.dependency 'EDTResult'
       vm.dependency 'EDTViewModel'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
     end
     
     userCenter.subspec 'Bridge' do |bridge|
@@ -458,7 +458,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTApi'
       vm.dependency 'EDTResult'
       vm.dependency 'EDTError'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
     end
     
     comment.subspec 'Bridge' do |bridge|
@@ -486,7 +486,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTApi'
       vm.dependency 'EDTResult'
       vm.dependency 'EDTError'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
     end
     
     collections.subspec 'Bridge' do |bridge|
@@ -513,7 +513,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTApi'
       vm.dependency 'EDTResult'
       vm.dependency 'EDTError'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
     end
     
     tables.subspec 'Bridge' do |bridge|
@@ -584,7 +584,7 @@ Pod::Spec.new do |spec|
       manager.dependency 'EDTBean/Area'
       manager.dependency 'EDTRReq'
       manager.dependency 'EDTError'
-      manager.dependency 'EDTOM'
+      manager.dependency 'EDTObservableMapper'
     end
     area.subspec 'VM' do |vm|
       
@@ -628,7 +628,7 @@ Pod::Spec.new do |spec|
       vm.dependency 'EDTBean/Address'
       vm.dependency 'WLToolsKit/String'
       vm.dependency 'EDTError'
-      vm.dependency 'EDTOM'
+      vm.dependency 'EDTObservableMapper'
     end
     
     address.subspec 'Bridge' do |bridge|

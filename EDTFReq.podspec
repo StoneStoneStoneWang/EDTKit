@@ -26,7 +26,7 @@ Pod::Spec.new do |spec|
   
   spec.source_files = "Code/EDTFReq/*.{swift}"
   
-  spec.dependency 'EDTOR'
+  spec.dependency 'EDTObservableReq'
   
   spec.dependency 'RxSwift'
   

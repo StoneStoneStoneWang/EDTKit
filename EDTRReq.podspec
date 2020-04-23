@@ -28,7 +28,7 @@ Pod::Spec.new do |spec|
   
   spec.dependency 'EDTCache/Account'
   
-  spec.dependency 'EDTOR'
+  spec.dependency 'EDTObservableReq'
   
   spec.dependency 'RxSwift'
   

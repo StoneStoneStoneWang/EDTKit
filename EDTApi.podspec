@@ -28,7 +28,7 @@ Pod::Spec.new do |spec|
   
   spec.dependency 'EDTSign'
   spec.dependency 'Alamofire'
-  spec.dependency 'EDTOR'
+  spec.dependency 'EDTObservableReq.podspec'
   spec.dependency 'WLToolsKit/Common'
   
 end

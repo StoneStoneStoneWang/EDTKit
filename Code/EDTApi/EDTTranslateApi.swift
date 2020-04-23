@@ -69,7 +69,7 @@ public enum EDTTranslateApi {
     case translateToCN(_ text: String ,style: EDTTranslateStyle)
 }
 
-extension EDTTranslateApi: EDTOR {
+extension EDTTranslateApi: EDTObservableReq {
     
     public var host: String { return "" }
     

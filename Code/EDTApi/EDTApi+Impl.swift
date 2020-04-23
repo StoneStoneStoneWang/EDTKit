@@ -12,7 +12,7 @@ import Alamofire
 import WLToolsKit
 import EDTSign
 
-extension EDTApi: EDTOR {
+extension EDTApi: EDTObservableReq {
     public var reqName: String {
         
         switch self {
