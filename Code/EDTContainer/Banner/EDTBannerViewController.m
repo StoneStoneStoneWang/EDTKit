@@ -369,9 +369,9 @@
     
 #if EDTCarouselOne
     
-    self.pageControl.pageIndiEDTorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];
+    self.pageControl.pageIndicatorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];
     
-    self.pageControl.pageIndiEDTorTintColor = [UIColor s_transformToColorByHexColorStr:@"#ffffff"];
+    self.pageControl.currentPageIndicatorTintColor = [UIColor s_transformToColorByHexColorStr:@"#ffffff"];
     
     [self.pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
         
