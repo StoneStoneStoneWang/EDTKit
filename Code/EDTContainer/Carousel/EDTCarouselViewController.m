@@ -192,7 +192,21 @@
         make.height.mas_equalTo(30);
     }];
 #elif EDTCarouselOne
+    [self.titleLabelBackground mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.bottom.equalTo(self);
+        
+        make.height.mas_equalTo(30);
+    }];
     
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.bottom.equalTo(self);
+        
+        make.left.mas_equalTo(15);
+        
+        make.height.mas_equalTo(30);
+    }];
 #elif EDTCarouselThree
     
     [self.titleLabelBackground mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -218,7 +232,7 @@
 
 #if EDTCarouselOne || EDTCarouselThree
 
-#define EDTCarouselHeight KSSCREEN_WIDTH / 6
+#define EDTCarouselHeight KSSCREEN_WIDTH/  3
 
 @interface EDTCarouselFormOneLayout : UICollectionViewFlowLayout
 

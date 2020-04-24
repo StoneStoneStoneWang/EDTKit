@@ -24,6 +24,8 @@
 @{@"title": @"",@"icon": @"banner2"} ,\
 @{@"title": @"",@"icon": @"banner3"} ,\
 @{@"title": @"",@"icon": @"banner4"} ,\
+@{@"title": @"",@"icon": @"banner5"} ,\
+@{@"title": @"",@"icon": @"banner6"} ,\
 ]
 
 #define EDTLoginIcon "登陆"
