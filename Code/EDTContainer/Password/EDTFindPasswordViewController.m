@@ -15,6 +15,10 @@
 
 @import EDTDraw;
 
+#elif EDTLoginOne
+
+@import EDTDraw;
+
 #endif
 
 @interface EDTFindPasswordViewController ()
@@ -38,6 +42,8 @@
 @property (nonatomic ,strong) UIImageView *logoImgView;
 
 @property (nonatomic ,strong) UIImageView *backgroundImageView;
+
+@property (nonatomic ,strong) EDTDrawView *drawView;
 
 #elif EDTLoginTwo
 
@@ -197,9 +203,11 @@
     
 #if EDTLoginOne
     
-    [self.view addSubview:self.logoImgView];
-    
     [self.view insertSubview:self.backgroundImageView atIndex:0];
+    
+    [self.view insertSubview:self.drawView atIndex:1];
+    
+    [self.view insertSubview:self.logoImgView atIndex:2];
 #elif EDTLoginTwo
     [self.view insertSubview:self.backgroundImageView atIndex:0];
     
@@ -243,7 +251,18 @@
     }
     return _logoImgView;
 }
-
+- (EDTDrawView *)drawView {
+    
+    if (!_drawView) {
+        
+        _drawView = [EDTDrawView createDraw:EDTDrawTypeShape];
+        
+        _drawView.backgroundColor = [UIColor clearColor];
+        
+        _drawView.fillColor = [UIColor s_transformToColorByHexColorStr:@"#bdc5ce"];
+    }
+    return _drawView;
+}
 #elif EDTLoginTwo
 - (UIImageView *)logoImgView {
     
@@ -353,40 +372,51 @@
     
 #if EDTLoginOne
     
-    self.backgroundImageView.frame = self.view.bounds;
-    
     CGFloat w = CGRectGetWidth(self.view.bounds);
     
-    [self.logoImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+    CGFloat h = w - 60;
+    
+    self.backgroundImageView.frame = self.view.bounds;
+    
+    [self.drawView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.mas_equalTo(30);
         
-        make.centerX.mas_equalTo(self.view);
+        make.right.mas_equalTo(-30);
         
-        make.top.mas_equalTo(60);
+        make.centerY.equalTo(self.view).offset(-30);
         
-        make.width.height.mas_equalTo(@80);
+        make.height.mas_equalTo(h * 5 / 4);
     }];
     
     self.logoImgView.layer.cornerRadius = 40;
     
     self.logoImgView.layer.masksToBounds = true;
     
-    self.logoImgView.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
-    
-    self.logoImgView.layer.borderWidth = 1;
+    [self.logoImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.width.height.mas_equalTo(80);
+        
+        make.centerX.equalTo(self.view.mas_centerX);
+        
+        make.centerY.equalTo(self.drawView.mas_top);
+    }];
     
     [self.phone mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.logoImgView.mas_bottom).offset(60);
+        make.top.mas_equalTo(self.drawView.mas_top).offset(60);
         
-        make.left.mas_equalTo(@15);
+        make.left.equalTo(self.drawView.mas_left).offset(15);
         
-        make.right.mas_equalTo(@-15);
+        make.right.equalTo(self.drawView.mas_right).offset(-15);
         
         make.height.mas_equalTo(@48);
     }];
     
     self.phone.backgroundColor = [UIColor whiteColor];
-
+    
+    self.phone.layer.cornerRadius = 24;
+    
     self.phone.layer.masksToBounds = true;
     
     [self.phone EDT_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
@@ -418,6 +448,8 @@
     
     self.vcode.backgroundColor = [UIColor whiteColor];
     
+    self.vcode.layer.cornerRadius = 24;
+    
     self.vcode.layer.masksToBounds = true;
     
     [self.vcode EDT_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
@@ -434,30 +466,37 @@
     }];
     
     self.password.backgroundColor = [UIColor whiteColor];
-
+    
+    self.password.layer.cornerRadius = 24;
+    
     self.password.layer.masksToBounds = true;
     
     [self.password EDT_bottomLineFrame:CGRectMake(0, 47, w - 30, 1)];
     
     [self.completeItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.password.mas_bottom).offset(30);
+        make.bottom.equalTo(self.drawView.mas_bottom).offset(-30);
         
-        make.left.mas_equalTo(self.phone.mas_left);
+        make.right.equalTo(self.phone.mas_right);
         
-        make.right.mas_equalTo(self.phone.mas_right);
-        
-        make.height.mas_equalTo(self.phone.mas_height);
-        
+        make.height.width.mas_equalTo(80);
     }];
     
+    [self.completeItem setImage:[UIImage imageNamed:@EDTLoginIcon] forState:UIControlStateNormal];
+    
+    [self.completeItem setImage:[UIImage imageNamed:@EDTLoginIcon] forState:UIControlStateHighlighted];
+    
+    [self.completeItem setTitle:@"" forState:UIControlStateNormal];
+
+    [self.completeItem setTitle:@"" forState:UIControlStateHighlighted];
+    
+    self.completeItem.layer.cornerRadius = 40;
+    
+    self.completeItem.layer.masksToBounds = true;
+    
     [self.completeItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
-    
+
     [self.completeItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
-    
-    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
-    
-    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
     
     [_vcode setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
     

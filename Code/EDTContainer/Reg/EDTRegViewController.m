@@ -14,6 +14,10 @@
 
 @import EDTDraw;
 
+#elif EDTLoginOne
+
+@import EDTDraw;
+
 #endif
 
 @interface EDTRegViewController ()
@@ -35,6 +39,8 @@
 @property (nonatomic ,strong) UIImageView *logoImgView;
 
 @property (nonatomic ,strong) UIImageView *backgroundImageView;
+
+@property (nonatomic ,strong) EDTDrawView *drawView;
 
 #elif EDTLoginTwo
 
@@ -220,9 +226,12 @@
     
 #if EDTLoginOne
     
-    [self.view addSubview:self.logoImgView];
-    
     [self.view insertSubview:self.backgroundImageView atIndex:0];
+    
+    [self.view insertSubview:self.drawView atIndex:1];
+    
+    [self.view insertSubview:self.logoImgView atIndex:2];
+    
 #elif EDTLoginTwo
     
     [self.view insertSubview:self.backgroundImageView atIndex:0];
@@ -267,7 +276,18 @@
     }
     return _logoImgView;
 }
-
+- (EDTDrawView *)drawView {
+    
+    if (!_drawView) {
+        
+        _drawView = [EDTDrawView createDraw:EDTDrawTypeShape];
+        
+        _drawView.backgroundColor = [UIColor clearColor];
+        
+        _drawView.fillColor = [UIColor s_transformToColorByHexColorStr:@"#bdc5ce"];
+    }
+    return _drawView;
+}
 #elif EDTLoginTwo
 - (UIImageView *)logoImgView {
     
@@ -404,30 +424,43 @@
     
 #if EDTLoginOne
     
-    self.backgroundImageView.frame = self.view.bounds;
-    
     CGFloat w = CGRectGetWidth(self.view.bounds);
     
-    [self.logoImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+    CGFloat h = w - 60;
+    
+    self.backgroundImageView.frame = self.view.bounds;
+    
+    [self.drawView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.mas_equalTo(30);
         
-        make.centerX.mas_equalTo(self.view);
+        make.right.mas_equalTo(-30);
         
-        make.top.mas_equalTo(60);
+        make.centerY.equalTo(self.view).offset(-30);
         
-        make.width.height.mas_equalTo(@80);
+        make.height.mas_equalTo(h * 5 / 4);
     }];
     
     self.logoImgView.layer.cornerRadius = 40;
     
     self.logoImgView.layer.masksToBounds = true;
     
+    [self.logoImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.width.height.mas_equalTo(80);
+        
+        make.centerX.equalTo(self.view.mas_centerX);
+        
+        make.centerY.equalTo(self.drawView.mas_top);
+    }];
+    
     [self.phone mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.logoImgView.mas_bottom).offset(60);
+        make.top.mas_equalTo(self.drawView.mas_top).offset(60);
         
-        make.left.mas_equalTo(@15);
+        make.left.equalTo(self.drawView.mas_left).offset(15);
         
-        make.right.mas_equalTo(@-15);
+        make.right.equalTo(self.drawView.mas_right).offset(-15);
         
         make.height.mas_equalTo(@48);
     }];
@@ -435,6 +468,8 @@
     [self.phone setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
     
     self.phone.backgroundColor = [UIColor whiteColor];
+    
+    self.phone.layer.cornerRadius = 24;
     
     self.phone.layer.masksToBounds = true;
     //
@@ -453,6 +488,8 @@
     [self.vcode setLeftImageFrame:CGRectMake(0, 0, 80, 48)];
     
     self.vcode.backgroundColor = [UIColor whiteColor];
+    
+    self.vcode.layer.cornerRadius = 24;
     
     self.vcode.layer.masksToBounds = true;
     
@@ -487,53 +524,58 @@
     
     [mutable setAttributedString: [[NSAttributedString alloc] initWithString:displayname ? displayname : @""
                                                                   attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                               NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#ffffff"]}]];
+                                                                               NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#333333"]}]];
     [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                                     NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#e1e1e1"]}] ];
+                                                                                                     NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#999999"]}] ];
     [self.proItem setAttributedTitle:mutable forState:UIControlStateNormal];
     
     [mutable setAttributedString: [[NSAttributedString alloc] initWithString:displayname ? displayname : @""
                                                                   attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                               NSForegroundColorAttributeName: [UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] }]];
+                                                                               NSForegroundColorAttributeName: [UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#333333"]] }]];
     [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                                     NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#e1e1e1"]}] ];
+                                                                                                     NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#999999"]}] ];
     [self.proItem setAttributedTitle:mutable forState:UIControlStateHighlighted];
     
     [self.proItem setNeedsDisplay];
     
     [self.loginItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.proItem.mas_bottom).offset(10);
+        make.bottom.equalTo(self.drawView.mas_bottom).offset(-30);
         
-        make.left.mas_equalTo(self.phone.mas_left);
+        make.right.equalTo(self.phone.mas_right);
         
-        make.right.mas_equalTo(self.phone.mas_right);
-        
-        make.height.mas_equalTo(self.phone.mas_height);
-        
+        make.height.width.mas_equalTo(80);
     }];
     
+    [self.loginItem setImage:[UIImage imageNamed:@EDTLoginIcon] forState:UIControlStateNormal];
+    
+    [self.loginItem setImage:[UIImage imageNamed:@EDTLoginIcon] forState:UIControlStateHighlighted];
+    
+    [self.loginItem setTitle:@"" forState:UIControlStateNormal];
+
+    [self.loginItem setTitle:@"" forState:UIControlStateHighlighted];
+    
+    self.loginItem.layer.cornerRadius = 40;
+    
+    self.loginItem.layer.masksToBounds = true;
+    
     [self.loginItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
-    
+
     [self.loginItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
-    
-    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
-    
-    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
     
     [self.backLoginItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.mas_equalTo(self.vcode.mas_bottom).offset(10);
+        make.bottom.mas_equalTo(-60);
         
-        make.left.mas_equalTo(self.phone.mas_left);
+        make.centerX.equalTo(self.view);
         
         make.height.mas_equalTo(self.phone.mas_height);
         
     }];
     
-    [self.backLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    [self.backLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#333333"] forState:UIControlStateNormal];
     
-    [self.backLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    [self.backLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#333333"]] forState:UIControlStateHighlighted];
     
     self.backLoginItem.layer.borderColor = [UIColor clearColor].CGColor;
 #elif EDTLoginTwo

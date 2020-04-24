@@ -51,6 +51,7 @@
     }
     return _subTitleLabel;
 }
+
 - (UISwitch *)swiItem {
     if (!_swiItem) {
         
@@ -69,7 +70,7 @@
     
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     
-    self.titleLabel.textColor =  [UIColor s_transformToColorByHexColorStr:@"#ffffff"];
+    self.titleLabel.textColor =  [UIColor s_transformToColorByHexColorStr:@"#333333"];
     
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
     
@@ -81,7 +82,7 @@
     
     self.subTitleLabel.text = setting.subTitle;
     
-    self.backgroundColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];
+    self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@"#ffffff"];
     
     switch (setting.type) {
         case EDTSettingTypeLogout:
@@ -276,7 +277,6 @@
 #elif EDTUserInfoThree
     [super configOwnProperties];
 #endif
-    
     
 }
 - (void)updateCache {

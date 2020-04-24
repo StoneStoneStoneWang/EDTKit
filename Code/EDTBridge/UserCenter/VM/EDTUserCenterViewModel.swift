@@ -90,7 +90,7 @@ extension EDTUserCenterType {
         
         if EDTConfigure.fetchPType() == .swimming {
             
-            return [userInfo,.privacy,.share,.feedBack,.service,.setting]
+            return [userInfo,.privacy,.about,.feedBack,.version,.setting]
         }
         
         return [userInfo,.contactUS,.feedBack,.setting]

@@ -16,6 +16,8 @@
 @property (nonatomic ,strong) UILabel *titleLabel;
 #if EDTUserInfoOne
 
+@property (nonatomic ,strong) UIView *topLine;
+
 #elif EDTUserInfoTwo
 
 #elif EDTUserInfoThree
@@ -31,7 +33,14 @@
 @implementation EDTAboutTableHeaderView
 
 #if EDTUserInfoOne
-
+- (UIView *)topLine {
+    
+    if (!_topLine) {
+        
+        _topLine = [UIView new];
+    }
+    return _topLine;
+}
 #elif EDTUserInfoTwo
 
 #elif EDTUserInfoThree
@@ -90,9 +99,10 @@
     
     [self addSubview:self.titleLabel];
     
-    
 #if EDTUserInfoOne
     self.backgroundColor = [UIColor whiteColor];
+    [self addSubview:self.topLine];
+    self.topLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@"#e1e1e1"];
 #elif EDTUserInfoTwo
     self.backgroundColor = [UIColor whiteColor];
 #elif EDTUserInfoThree
@@ -127,6 +137,13 @@
         
         make.left.equalTo(self.iconImageView.mas_right).offset(15);
     }];
+    [self.topLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.height.mas_equalTo(1);
+        
+        make.left.right.top.equalTo(self);
+    }];
+    
 #elif EDTUserInfoTwo
     [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -286,7 +303,7 @@
         
         make.left.mas_equalTo(15);
         
-        make.right.mas_equalTo(15);
+        make.right.mas_equalTo(-15);
         
         make.centerY.equalTo(self);
     }];

@@ -58,7 +58,7 @@ extension EDTAboutType {
     
     static var spaceTypes: [EDTAboutType] {
         
-        return [.space,.version,.email,.wechat,.check]
+        return [.space,.email,.wechat]
     }
     
     var cellHeight: CGFloat {
@@ -78,7 +78,7 @@ extension EDTAboutType {
             
         case .email: return "官方邮箱"
             
-        case .wechat: return "官方微信"
+        case .wechat: return "官方公众号"
             
         case .check: return "检查更新"
             
@@ -96,7 +96,7 @@ extension EDTAboutType {
             
             guard let info = Bundle.main.infoDictionary else { return "" }
             
-            return (info["CFBundleDisplayName"] as? String ?? "").transformToPinYin() + "@163.com"
+            return (info["CFBundleDisplayName"] as? String ?? "").transformToPinYin() + "@gmail.com"
             
         case .wechat:
             

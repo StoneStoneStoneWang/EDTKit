@@ -218,7 +218,7 @@
 
 #if EDTCarouselOne || EDTCarouselThree
 
-#define EDTCarouselHeight KSSCREEN_WIDTH / 2
+#define EDTCarouselHeight KSSCREEN_WIDTH / 6
 
 @interface EDTCarouselFormOneLayout : UICollectionViewFlowLayout
 
@@ -233,7 +233,7 @@
     
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    CGSize itemSize = CGSizeMake(KSSCREEN_WIDTH, KSSCREEN_WIDTH / 2);
+    CGSize itemSize = CGSizeMake(KSSCREEN_WIDTH, EDTCarouselHeight);
     
     self.itemSize = itemSize;
     
