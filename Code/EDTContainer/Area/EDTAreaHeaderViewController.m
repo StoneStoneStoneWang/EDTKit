@@ -61,7 +61,7 @@
         
         _titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#333333"];
         
-        _titleLabel.lineBreakMode = NSLineBreakByTrunEDTingMiddle;
+        _titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     }
     return _titleLabel;
     

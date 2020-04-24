@@ -26,6 +26,8 @@
 @{@"title": @"",@"icon": @"banner4"} ,\
 ]
 
+#define EDTLoginIcon "登陆"
+
 #define EDTAboutIcon "关于我们"
 
 #define EDTContactUsIcon "联系我们"

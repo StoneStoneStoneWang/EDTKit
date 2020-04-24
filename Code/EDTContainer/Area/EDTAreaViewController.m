@@ -33,7 +33,7 @@
         
         _titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#666666"];
         
-        _titleLabel.lineBreakMode = NSLineBreakByTrunEDTingMiddle;
+        _titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     }
     return _titleLabel;
     
@@ -49,7 +49,7 @@
         
         self.titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
         
-        self.accessoryType = UITableViewCellAccessoryDisclosureIndiEDTor;
+        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else {
         
         self.titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#666666"];
