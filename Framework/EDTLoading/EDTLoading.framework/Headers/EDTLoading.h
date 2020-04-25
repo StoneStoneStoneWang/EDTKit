@@ -16,6 +16,4 @@ FOUNDATION_EXPORT const unsigned char EDTLoadingVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <EDTLoading/PublicHeader.h>
 
-#import <EDTLoading/EDTLoadingView.h>
-
 #import <EDTLoading/EDTLoadingViewController.h>

@@ -6,15 +6,11 @@
 	<dict>
 		<key>Headers/EDTLoading.h</key>
 		<data>
-		x82FvqdcC6c+WnfrTP7sUi84Bp8=
-		</data>
-		<key>Headers/EDTLoadingView.h</key>
-		<data>
-		ehNZdZv8rFnto5fxUPmGEg4y8KM=
+		2HsnyjaUbJOB/b4NoZ8MFmvjR3E=
 		</data>
 		<key>Headers/EDTLoadingViewController.h</key>
 		<data>
-		My6C54Q4iaSYgej+30tz5HyGbww=
+		7uGKcn8RbY8l78F5kmTlvdEIUrY=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -31,33 +27,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			x82FvqdcC6c+WnfrTP7sUi84Bp8=
+			2HsnyjaUbJOB/b4NoZ8MFmvjR3E=
 			</data>
 			<key>hash2</key>
 			<data>
-			B9/KnOsKS/BMgDuUxKavfdIImWN06CB3V+xnm0criUM=
-			</data>
-		</dict>
-		<key>Headers/EDTLoadingView.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			ehNZdZv8rFnto5fxUPmGEg4y8KM=
-			</data>
-			<key>hash2</key>
-			<data>
-			hgYiGtb/osRQbNW7SxNwEvf+Wgn/o0RheQFuxHr7IpA=
+			EHph6mkuul8HD6O8Vco26JcDXzBWrjns4qFiG+UnAEI=
 			</data>
 		</dict>
 		<key>Headers/EDTLoadingViewController.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			My6C54Q4iaSYgej+30tz5HyGbww=
+			7uGKcn8RbY8l78F5kmTlvdEIUrY=
 			</data>
 			<key>hash2</key>
 			<data>
-			c3nS7HLtLrl1ioyUXgXb+wUa5oahdW55Bph8LSzsMh4=
+			HQRiLDN5qE9l4Crh7FE4636znt+umJY1fTWwbwzOD/w=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

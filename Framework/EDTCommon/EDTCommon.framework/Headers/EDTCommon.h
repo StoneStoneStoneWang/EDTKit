@@ -52,9 +52,10 @@ FOUNDATION_EXPORT const unsigned char EDTCommonVersionString[];
 
 #define EDT_DEVICEID EDT_DEVICE.identifierForVendor.UUIDString
 
-#define EDT_IMAGEVIEW [UIImageView new]
+#define EDT_IMAGEVIEW_NEW [UIImageView new]
 
-#define EDT_LABEL [UILabel new]
+#define EDT_LABEL_NEW [UILabel new]
 
-#define EDT_VIEW [UIView new]
+#define EDT_VIEW_NEW [UIView new]
 
+#define EDT_BUTTON_NEW [UIButton buttonWithType:UIButtonTypeCustom]
