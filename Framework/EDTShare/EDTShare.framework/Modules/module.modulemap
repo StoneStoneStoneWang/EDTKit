@@ -1,0 +1,6 @@
+framework module EDTShare {
+  umbrella header "EDTShare.h"
+
+  export *
+  module * { export * }
+}
