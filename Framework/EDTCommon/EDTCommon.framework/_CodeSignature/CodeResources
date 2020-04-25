@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/EDTCommon.h</key>
 		<data>
-		zyDRtWBWfFN88K+pWSr4zGfIzsw=
+		0vR6IuEu3ptxC/iiUI4ctvWuTU8=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -23,11 +23,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zyDRtWBWfFN88K+pWSr4zGfIzsw=
+			0vR6IuEu3ptxC/iiUI4ctvWuTU8=
 			</data>
 			<key>hash2</key>
 			<data>
-			45lKKo2PCcNqCnLuEMBStl2nTHbWPXKtEGJWgSdsdrY=
+			+hyhwBazCpwRL8O8KUYY65uJzIR2XIRDnZ3Ah/Vt7ok=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
