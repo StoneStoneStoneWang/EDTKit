@@ -28,6 +28,6 @@ Pod::Spec.new do |spec|
   
   spec.dependency 'EDTBase'
   spec.dependency 'EDTNavi'
-  spec.dependency 'SToolsKit'
-  
+  spec.dependency 'EDTColor'
+  spec.dependency 'EDTCommon'
 end
