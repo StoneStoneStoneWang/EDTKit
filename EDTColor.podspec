@@ -1,10 +1,10 @@
 Pod::Spec.new do |spec|
   
-  spec.name         = "EDT_transform"
+  spec.name         = "EDTColor"
   spec.version      = "0.0.1"
   spec.summary      = "A Lib For Base view controller."
   spec.description  = <<-DESC
-  EDT_transform是颜色
+  EDTColor是颜色
   DESC
   
   spec.homepage     = "https://github.com/StoneStoneStoneWang/EDTKit.git"
@@ -23,6 +23,6 @@ Pod::Spec.new do |spec|
   
   spec.source = { :git => "https://github.com/StoneStoneStoneWang/EDTKit.git", :tag => "#{spec.version}" }
   
-  spec.vendored_frameworks = 'Framework/EDT_transform/EDT_transform.framework'
+  spec.vendored_frameworks = 'Framework/EDTColor/EDTColor.framework'
   
 end
