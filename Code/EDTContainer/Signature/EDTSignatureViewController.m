@@ -8,7 +8,7 @@
 
 #import "EDTSignatureViewController.h"
 @import Masonry;
-@import SToolsKit;
+@import EDTColor;
 
 @interface EDTSignatureViewController ()
 
@@ -99,7 +99,7 @@
         
         _placeholder.text = @"请输入个性昵称";
         
-        _placeholder.textColor = [UIColor s_transformToColorByHexColorStr:@"#999999"];
+        _placeholder.textColor = EDTColor(@"#999999");
     }
     return _placeholder;
 }

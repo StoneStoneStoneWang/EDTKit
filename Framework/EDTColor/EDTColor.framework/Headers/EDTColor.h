@@ -18,6 +18,6 @@ FOUNDATION_EXPORT const unsigned char EDTColorVersionString[];
 
 #import <EDTColor/UIColor+EDT.h>
 
-#define EDTColor(hexValue) [UIColor EDT_transformToColorByHexValue:hexValue]
+#define EDTColorCreate(hexValue) [UIColor EDT_transformToColorByHexValue:hexValue]
 
-#define EDTAlphaColor(hexValue) [UIColor EDT_transformTo_AlphaColorByHexValue:hexValue]
+#define EDTAlphaColorCreate(hexValue) [UIColor EDT_transformTo_AlphaColorByHexValue:hexValue]
