@@ -1,0 +1,6 @@
+framework module EDTImage {
+  umbrella header "EDTImage.h"
+
+  export *
+  module * { export * }
+}

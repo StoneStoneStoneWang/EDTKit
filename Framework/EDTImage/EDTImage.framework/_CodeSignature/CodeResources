@@ -4,56 +4,56 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Headers/EDTString.h</key>
+		<key>Headers/EDTImage.h</key>
 		<data>
-		8ElWHSV8Ycafhere+rM/aPU1rdc=
+		IYCleUcPau1B2TgRz9MbtE5VOLI=
 		</data>
-		<key>Headers/EDTStringCata.h</key>
+		<key>Headers/EDTImageCata.h</key>
 		<data>
-		JRpRTi+pZv+cnFtHzr8D0xDGQEQ=
+		mjNxzgV8B6ctBsEYWCx2LlaaFqA=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		vfjkdmz6SqtXDV+KcrMAhSXsQIA=
+		owPHmHsI3KEtnM5XBw2IIHb+6HU=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		5FU5bhS5kHueQr4QkZTabyIszRw=
+		0NJPY/Qsq4ncbrehNCpIvdjxanQ=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Headers/EDTString.h</key>
+		<key>Headers/EDTImage.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			8ElWHSV8Ycafhere+rM/aPU1rdc=
+			IYCleUcPau1B2TgRz9MbtE5VOLI=
 			</data>
 			<key>hash2</key>
 			<data>
-			C/29YSCt9fZdsRPu05+ipbE0XKp3z2HMAoghWX5iN58=
+			ZJEnpm017m/U9rQ5xi47cvcYWsnbWR+bhsIMGmmROpI=
 			</data>
 		</dict>
-		<key>Headers/EDTStringCata.h</key>
+		<key>Headers/EDTImageCata.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			JRpRTi+pZv+cnFtHzr8D0xDGQEQ=
+			mjNxzgV8B6ctBsEYWCx2LlaaFqA=
 			</data>
 			<key>hash2</key>
 			<data>
-			yz/MPsDrxp5/EDUlm5g205PRDW41nMV6Wt8QzkiO5Eo=
+			cxcgKfsOOPlZfEquSp85N46hKL6czZDQrCMQ56hryuY=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			5FU5bhS5kHueQr4QkZTabyIszRw=
+			0NJPY/Qsq4ncbrehNCpIvdjxanQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			TO7NfAtudsSAtqovOSeydkuiSuf+t5FGQpOE65p7Vkw=
+			la6adgjN8gKc0TmS1JJud6EKcuDUkwCI0iN/5pO/TTw=
 			</data>
 		</dict>
 	</dict>
