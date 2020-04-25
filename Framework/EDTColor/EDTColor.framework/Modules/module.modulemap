@@ -1,0 +1,6 @@
+framework module EDTColor {
+  umbrella header "EDTColor.h"
+
+  export *
+  module * { export * }
+}

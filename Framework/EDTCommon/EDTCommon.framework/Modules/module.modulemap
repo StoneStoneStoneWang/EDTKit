@@ -1,0 +1,6 @@
+framework module EDTCommon {
+  umbrella header "EDTCommon.h"
+
+  export *
+  module * { export * }
+}
