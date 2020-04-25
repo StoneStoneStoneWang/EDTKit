@@ -59,3 +59,7 @@ FOUNDATION_EXPORT const unsigned char EDTCommonVersionString[];
 #define EDT_VIEW_NEW [UIView new]
 
 #define EDT_BUTTON_NEW [UIButton buttonWithType:UIButtonTypeCustom]
+
+#define EDTSYSTEMFONT(fontSize) [UIFont systemFontOfSize:fontSize]
+
+#define EDTBOLDFONT(fontSize) [UIFont boldSystemFontOfSize:fontSize]
