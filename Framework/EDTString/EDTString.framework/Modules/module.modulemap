@@ -1,0 +1,6 @@
+framework module EDTString {
+  umbrella header "EDTString.h"
+
+  export *
+  module * { export * }
+}
