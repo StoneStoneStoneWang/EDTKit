@@ -10,8 +10,9 @@
 @import Masonry;
 @import EDTCommon;
 @import EDTColor;
-@import EDTBridge;
 @import EDTImage;
+@import EDTString;
+@import EDTBridge;
 
 @interface EDTWelcomeCollectionViewCell ()
 
@@ -97,7 +98,7 @@
         
         _skipItem.layer.cornerRadius = 5;
         
-        _skipItem.titleLabel.font = [UIFont systemFontOfSize:15];
+        _skipItem.titleLabel.font = EDTSYSTEMFONT(15);
     }
     return _skipItem;
 }
@@ -187,17 +188,13 @@
     
     [self.skipItem setTitleColor: EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    NSString *s = ;
+    [self.skipItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"50"))  forState:UIControlStateHighlighted];
     
-    EDTAlphaColorCreate([NSString stringWithFormat:@"%@50",@EDTProjectColor]);
-    
-    [self.skipItem setTitleColor:  forState:UIControlStateHighlighted];
-    
-    self.pageControl.pageIndicatorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]];
+    self.pageControl.pageIndicatorTintColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"50"));
     
     self.pageControl.numberOfPages = EDTWelcomeImgs.count;
     
-    self.pageControl.currentPageIndicatorTintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.pageControl.currentPageIndicatorTintColor = EDTColorCreate(@EDTProjectColor);
     
 #elif EDTWelcomeTwo
     
@@ -216,9 +213,9 @@
     
     [self.skipItem setTitle:@"立即体验" forState:UIControlStateHighlighted];
     
-    self.skipItem.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+    self.skipItem.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
     
-    [self.skipItem setTitleColor: [UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [self.skipItem setTitleColor: EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
     [self.skipItem setTitleColor: [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]] forState:UIControlStateHighlighted];
     
@@ -226,7 +223,7 @@
     
     self.pageControl.numberOfPages = EDTWelcomeImgs.count;
     
-    self.pageControl.currentPageIndicatorTintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.pageControl.currentPageIndicatorTintColor = EDTColorCreate(@EDTProjectColor);
     
 #elif EDTWelcomeThree
     
@@ -245,21 +242,21 @@
     
     [self.skipItem setTitle:@"立即体验" forState:UIControlStateHighlighted];
     
-    self.skipItem.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+    self.skipItem.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
     
-    [self.skipItem setTitleColor: [UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [self.skipItem setTitleColor: EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
     [self.skipItem setTitleColor: [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]] forState:UIControlStateHighlighted];
     
-    [self.skipItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
+    [self.skipItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@"#ffffff"] forState:UIControlStateNormal];
     
-    [self.skipItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateHighlighted];
+    [self.skipItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@"#ffffff"] forState:UIControlStateHighlighted];
     
     self.pageControl.pageIndiEDTorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]];
     
     self.pageControl.numberOfPages = EDTWelcomeImgs.count;
     
-    self.pageControl.currentPageIndiEDTorTintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.pageControl.currentPageIndiEDTorTintColor = EDTColorCreate(@EDTProjectColor);
 #elif EDTWelcomeFour
     
     [self.skipItem mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -277,13 +274,13 @@
     
     [self.skipItem setTitle:@"立即体验" forState:UIControlStateHighlighted];
     
-    self.skipItem.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+    self.skipItem.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
     
-    [self.skipItem setTitleColor: [UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [self.skipItem setTitleColor: EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    [self.skipItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
+    [self.skipItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@"#ffffff"] forState:UIControlStateNormal];
     
-    [self.skipItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateHighlighted];
+    [self.skipItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@"#ffffff"] forState:UIControlStateHighlighted];
     
     [self.skipItem setTitleColor: [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]] forState:UIControlStateHighlighted];
     
@@ -291,7 +288,7 @@
     
     self.pageControl.numberOfPages = EDTWelcomeImgs.count;
     
-    self.pageControl.currentPageIndiEDTorTintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.pageControl.currentPageIndiEDTorTintColor = EDTColorCreate(@EDTProjectColor);
 #elif EDTWelcomeFive
     
     [self.skipItem mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -309,21 +306,21 @@
     
     [self.skipItem setTitle:@"立即体验" forState:UIControlStateHighlighted];
     
-    self.skipItem.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@"#ffffff"].CGColor;
+    self.skipItem.layer.borderColor = EDTColorCreate(@"#ffffff").CGColor;
     
-    [self.skipItem setTitleColor: [UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    [self.skipItem setTitleColor: EDTColorCreate(@"#ffffff") forState:UIControlStateNormal];
     
     [self.skipItem setTitleColor: [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@"#ffffff"]] forState:UIControlStateHighlighted];
     
-    [self.skipItem setBackgroundImage:[UIImage s_transformFromHexColor:@EDTColor] forState:UIControlStateNormal];
+    [self.skipItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@EDTProjectColor] forState:UIControlStateNormal];
     
-    [self.skipItem setBackgroundImage:[UIImage s_transformFromHexColor:@EDTColor] forState:UIControlStateHighlighted];
+    [self.skipItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@EDTProjectColor] forState:UIControlStateHighlighted];
     
     self.pageControl.pageIndiEDTorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]];
     
     self.pageControl.numberOfPages = EDTWelcomeImgs.count;
     
-    self.pageControl.currentPageIndiEDTorTintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.pageControl.currentPageIndiEDTorTintColor = EDTColorCreate(@EDTProjectColor);
 #elif EDTWelcomeSix
     
     [self.skipItem mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -341,13 +338,13 @@
     
     [self.skipItem setTitle:@"立即体验" forState:UIControlStateHighlighted];
     
-    self.skipItem.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+    self.skipItem.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
     
-    [self.skipItem setTitleColor: [UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    [self.skipItem setTitleColor: EDTColorCreate(@"#ffffff") forState:UIControlStateNormal];
     
-    [self.skipItem setBackgroundImage:[UIImage s_transformFromHexColor:@EDTColor] forState:UIControlStateNormal];
+    [self.skipItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@EDTProjectColor] forState:UIControlStateNormal];
     
-    [self.skipItem setBackgroundImage:[UIImage s_transformFromHexColor:@EDTColor] forState:UIControlStateHighlighted];
+    [self.skipItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@EDTProjectColor] forState:UIControlStateHighlighted];
     
     [self.skipItem setTitleColor: [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@"#ffffff"]] forState:UIControlStateHighlighted];
     
@@ -355,7 +352,7 @@
     
     self.pageControl.numberOfPages = EDTWelcomeImgs.count;
     
-    self.pageControl.currentPageIndiEDTorTintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.pageControl.currentPageIndiEDTorTintColor = EDTColorCreate(@EDTProjectColor);
 #endif //
     
 }

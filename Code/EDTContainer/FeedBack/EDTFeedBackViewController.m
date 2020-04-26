@@ -8,9 +8,12 @@
 
 #import "EDTFeedBackViewController.h"
 @import Masonry;
-@import SToolsKit;
 @import EDTTextField;
 @import JXTAlertManager;
+@import EDTColor;
+@import EDTCommon;
+@import EDTImage;
+@import EDTString;
 
 @interface EDTFeedBackViewController ()
 
@@ -36,7 +39,7 @@
 
 @property (nonatomic ,strong) UIImageView *backgroundImageView;
 
-//    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+//    self.view.backgroundColor = EDTColorCreate(@EDTProjectColor);
 
 #elif EDTNameThree
 @property (nonatomic ,strong) UIView *topLine;
@@ -87,7 +90,7 @@
         
         [_textField EDT_maxLength:11];
 #if EDTUPDATEVERSION
-        _textField.tintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+        _textField.tintColor = EDTColorCreate(@EDTProjectColor);
 #endif
     }
     return _textField;
@@ -109,7 +112,7 @@
         
         _signaturetv = [[UITextView alloc] initWithFrame:CGRectZero];
         
-        _signaturetv.font = [UIFont systemFontOfSize:15];
+        _signaturetv.font = EDTSYSTEMFONT(15);
         
         _signaturetv.textContainerInset = UIEdgeInsetsMake(15, 15, 15, 15);
         
@@ -117,7 +120,7 @@
         
         _signaturetv.backgroundColor = [UIColor clearColor];
 #if EDTUPDATEVERSION
-        _signaturetv.tintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+        _signaturetv.tintColor = EDTColorCreate(@EDTProjectColor);
 #endif
     }
     return _signaturetv;
@@ -128,19 +131,17 @@
         
         _placeholder = [[UITextView alloc] initWithFrame:CGRectZero];
         
-        _placeholder.font = [UIFont systemFontOfSize:15];
+        _placeholder.font = EDTSYSTEMFONT(15);
         
         _placeholder.textContainerInset = UIEdgeInsetsMake(15, 15, 15, 15);
         
         _placeholder.tag = 202;
         
-        //        _placeholder.backgroundColor = [UIColor whiteColor];
-        
         _placeholder.userInteractionEnabled = false;
         
         _placeholder.text = @"请输入个性昵称";
         
-        _placeholder.textColor = [UIColor s_transformToColorByHexColorStr:@"#999999"];
+        _placeholder.textColor = EDTColorCreate(@"#999999");
     }
     return _placeholder;
 }
@@ -156,7 +157,7 @@
         
         [_completeItem setTitle:@"完成" forState:UIControlStateDisabled];
         
-        _completeItem.titleLabel.font = [UIFont systemFontOfSize:15];
+        _completeItem.titleLabel.font = EDTSYSTEMFONT(15);
         
         _completeItem.tag = 204;
     }
@@ -228,7 +229,7 @@
         
         make.left.right.mas_equalTo(0);
         
-        make.top.mas_equalTo(KTOPLAYOUTGUARD + 1);
+        make.top.mas_equalTo(EDT_TOPLAYOUTGUARD + 1);
         
         make.height.mas_equalTo(120);
     }];
@@ -237,7 +238,7 @@
         
         make.left.right.mas_equalTo(0);
         
-        make.top.mas_equalTo(KTOPLAYOUTGUARD + 1);
+        make.top.mas_equalTo(EDT_TOPLAYOUTGUARD + 1);
         
         make.height.mas_equalTo(120);
     }];
@@ -246,7 +247,7 @@
         
         make.left.right.mas_equalTo(0);
         
-        make.top.mas_equalTo(KTOPLAYOUTGUARD + 1);
+        make.top.mas_equalTo(EDT_TOPLAYOUTGUARD + 1);
         
         make.height.mas_equalTo(120);
     }];
@@ -270,14 +271,14 @@
         
         make.top.equalTo(self.textField.mas_bottom).offset(10);
     }];
+
+    [self.completeItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@EDTProjectColor] forState:UIControlStateNormal];
     
-    [self.completeItem setBackgroundImage:[UIImage s_transformFromHexColor:@EDTColor] forState:UIControlStateNormal];
-    
-    [self.completeItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [self.completeItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")] forState:UIControlStateHighlighted];
     
     [self.completeItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    [self.completeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80")) forState:UIControlStateHighlighted];
     
     self.completeItem.layer.cornerRadius = 24;
     
@@ -291,12 +292,12 @@
         
         make.left.right.mas_equalTo(0);
         
-        make.top.mas_equalTo(KTOPLAYOUTGUARD + 8);
+        make.top.mas_equalTo(EDT_TOPLAYOUTGUARD + 8);
         
         make.height.mas_equalTo(200);
     }];
     
-    self.whiteView.backgroundColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff80"];
+    self.whiteView.backgroundColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80"));
     
     self.placeholder.backgroundColor = [UIColor clearColor];
     
@@ -304,7 +305,7 @@
         
         make.left.right.mas_equalTo(0);
         
-        make.top.mas_equalTo(KTOPLAYOUTGUARD + 8);
+        make.top.mas_equalTo(EDT_TOPLAYOUTGUARD + 8);
         
         make.height.mas_equalTo(200);
     }];
@@ -313,7 +314,7 @@
         
         make.left.right.mas_equalTo(0);
         
-        make.top.mas_equalTo(KTOPLAYOUTGUARD + 8);
+        make.top.mas_equalTo(EDT_TOPLAYOUTGUARD + 8);
         
         make.height.mas_equalTo(200);
     }];
@@ -327,7 +328,7 @@
         make.height.mas_equalTo(55);
     }];
     
-    self.textField.backgroundColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff80"];
+    self.textField.backgroundColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80"));
     
     [self.completeItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -340,15 +341,15 @@
         make.top.equalTo(self.textField.mas_bottom).offset(10);
     }];
     
-    [self.completeItem setBackgroundImage:[UIImage s_transformFromHexColor:@EDTColor] forState:UIControlStateNormal];
+    [self.completeItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@EDTProjectColor] forState:UIControlStateNormal];
     
-    [self.completeItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [self.completeItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")] forState:UIControlStateHighlighted];
     
-    [self.completeItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateDisabled];
+    [self.completeItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")] forState:UIControlStateDisabled];
     
     [self.completeItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    [self.completeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80")) forState:UIControlStateHighlighted];
     
     self.completeItem.layer.cornerRadius = 24;
     
@@ -356,13 +357,13 @@
     
 #elif EDTNameThree
     
-    self.topLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.topLine.backgroundColor = EDTColorCreate(@EDTProjectColor);
     
     [self.topLine mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.right.mas_equalTo(0);
         
-        make.top.mas_equalTo(KTOPLAYOUTGUARD);
+        make.top.mas_equalTo(EDT_TOPLAYOUTGUARD);
         
         make.height.mas_equalTo(8);
     }];
@@ -371,7 +372,7 @@
         
         make.left.right.mas_equalTo(0);
         
-        make.top.mas_equalTo(KTOPLAYOUTGUARD + 8);
+        make.top.mas_equalTo(EDT_TOPLAYOUTGUARD + 8);
         
         make.height.mas_equalTo(200);
     }];
@@ -380,7 +381,7 @@
         
         make.left.right.mas_equalTo(0);
         
-        make.top.mas_equalTo(KTOPLAYOUTGUARD + 8);
+        make.top.mas_equalTo(EDT_TOPLAYOUTGUARD + 8);
         
         make.height.mas_equalTo(200);
     }];
@@ -389,7 +390,7 @@
         
         make.left.right.mas_equalTo(0);
         
-        make.top.mas_equalTo(KTOPLAYOUTGUARD + 8);
+        make.top.mas_equalTo(EDT_TOPLAYOUTGUARD + 8);
         
         make.height.mas_equalTo(200);
     }];

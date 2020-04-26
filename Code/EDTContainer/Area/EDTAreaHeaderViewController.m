@@ -8,8 +8,8 @@
 
 #import "EDTAreaHeaderViewController.h"
 #import "EDTAreaViewController.h"
-@import SToolsKit;
-
+@import EDTColor;
+@import EDTCommon;
 @interface EDTAreaHeaderLayout: UICollectionViewFlowLayout
 
 @end
@@ -53,13 +53,13 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
-        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.font = EDTSYSTEMFONT(15);
         
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         
-        _titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#333333"];
+        _titleLabel.textColor = EDTColorCreate(@"#333333");
         
         _titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     }
@@ -86,10 +86,10 @@
     
     if (headerBean.isSelected) {
         
-        self.titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+        self.titleLabel.textColor = EDTColorCreate(@EDTProjectColor);
     } else {
         
-        self.titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#666666"];
+        self.titleLabel.textColor = EDTColorCreate(@"#666666");
     }
 }
 - (void)layoutSubviews {
@@ -151,11 +151,11 @@
         
         [_cancleItem setTitle:@"取消" forState:UIControlStateHighlighted];
         
-        _cancleItem.titleLabel.font = [UIFont systemFontOfSize:15];
+        _cancleItem.titleLabel.font = EDTSYSTEMFONT(15);
         
-        [_cancleItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+        [_cancleItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
         
-        [_cancleItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@EDTColor] forState:UIControlStateHighlighted];
+        [_cancleItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateHighlighted];
     }
     return _cancleItem;
 }
@@ -558,9 +558,9 @@
     
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     
-    CGRect finalRect = CGRectMake(0, KSSCREEN_HEIGHT / 4, KSSCREEN_WIDTH, KSSCREEN_HEIGHT * 3 / 4);
+    CGRect finalRect = CGRectMake(0, EDT_SCREEN_HEIGHT / 4, EDT_SCREEN_WIDTH, EDT_SCREEN_HEIGHT * 3 / 4);
     
-    toVC.view.frame = CGRectOffset(finalRect, 0, KSSCREEN_HEIGHT * 3 / 4);
+    toVC.view.frame = CGRectOffset(finalRect, 0, EDT_SCREEN_HEIGHT * 3 / 4);
     
     UIView *snapView = [fromVC.view snapshotViewAfterScreenUpdates:false];
     
@@ -576,7 +576,7 @@
     
     cover.alpha = 0.0;
     
-    cover.backgroundColor = [UIColor s_transformToColorByHexColorStr:@"#333333"];
+    cover.backgroundColor = EDTColorCreate(@"#333333");
     
     [transitionContext.containerView addSubview:snapView];
     
@@ -619,7 +619,7 @@
     
     CGRect initRect = [transitionContext initialFrameForViewController:fromVC];
     
-    CGRect finalRect = CGRectOffset(initRect, 0, KSSCREEN_HEIGHT * 3 / 4);
+    CGRect finalRect = CGRectOffset(initRect, 0, EDT_SCREEN_HEIGHT * 3 / 4);
     
     [transitionContext.containerView addSubview:toVC.view];
     

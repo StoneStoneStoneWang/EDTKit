@@ -7,11 +7,13 @@
 //
 
 #import "EDTAddressEditViewController.h"
-@import SToolsKit;
+
 @import EDTBridge;
 @import Masonry;
 @import JXTAlertManager;
 @import EDTTextField;
+@import EDTCommon;
+@import EDTColor;
 
 @protocol EDTAddressEditTableViewCellDelegate <NSObject>
 
@@ -41,13 +43,13 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
-        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.font = EDTSYSTEMFONT(15);
         
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         
-        _titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#666666"];
+        _titleLabel.textColor = EDTColorCreate(@"#666666");
     }
     return _titleLabel;
 }
@@ -58,11 +60,11 @@
         
         _subTitleLabel = [[EDTBaseTextField alloc] initWithFrame:CGRectZero];
         
-        _subTitleLabel.font = [UIFont systemFontOfSize:15];
+        _subTitleLabel.font = EDTSYSTEMFONT(15);
         
         _subTitleLabel.textAlignment = NSTextAlignmentRight;
         
-        _subTitleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#333333"];
+        _subTitleLabel.textColor = EDTColorCreate(@"#333333");
     }
     return _subTitleLabel;
 }
@@ -110,7 +112,7 @@
             break;
         case EDTAddressEditTypeArea:
             
-            self.accessoryType = UITableViewCellAccessoryDisclosureIndiEDTor;
+            self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
             self.subTitleLabel.userInteractionEnabled = false;
             
@@ -226,24 +228,24 @@
         
         [_completeItem setTitle:@"完成" forState:UIControlStateSelected];
         
-        _completeItem.titleLabel.font = [UIFont systemFontOfSize:15];
+        _completeItem.titleLabel.font = EDTSYSTEMFONT(15);
         
-        if ([@EDTColor isEqualToString:@"#ffffff"]) {
-            
-            [_completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#666666"] forState:UIControlStateNormal];
-            
-            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#66666680"] forState:UIControlStateHighlighted];
-            
-            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#66666650"] forState:UIControlStateDisabled];
-            
-        } else {
-            
-            [_completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
-            
-            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff80"] forState:UIControlStateHighlighted];
-            
-            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff50"] forState:UIControlStateDisabled];
-        }
+//        if ([@EDTColor isEqualToString:@"#ffffff"]) {
+//            
+//            [_completeItem setTitleColor:EDTColorCreate(@"#666666") forState:UIControlStateNormal];
+//            
+//            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#66666680"] forState:UIControlStateHighlighted];
+//            
+//            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#66666650"] forState:UIControlStateDisabled];
+//            
+//        } else {
+//            
+//            [_completeItem setTitleColor:EDTColorCreate(@"#ffffff") forState:UIControlStateNormal];
+//            
+//            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff80"] forState:UIControlStateHighlighted];
+//            
+//            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff50"] forState:UIControlStateDisabled];
+//        }
     }
     return _completeItem;
 }

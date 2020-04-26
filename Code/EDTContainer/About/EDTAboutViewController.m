@@ -7,8 +7,11 @@
 //
 
 #import "EDTAboutViewController.h"
-@import SToolsKit;
+
 @import Masonry;
+@import EDTColor;
+@import EDTCommon;
+
 @interface EDTAboutTableHeaderView()
 
 @property (nonatomic ,strong) UIImageView *iconImageView;
@@ -80,13 +83,13 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
-        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.font = EDTSYSTEMFONT(15);
         
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         
-        _titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+        _titleLabel.textColor = EDTColorCreate(@EDTProjectColor);
         
         _titleLabel.text = [NSString stringWithFormat:@"%@: %@", [NSBundle mainBundle].infoDictionary[@"CFBundleDisplayName"],[NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"]];
         
@@ -102,7 +105,7 @@
 #if EDTUserInfoOne
     self.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.topLine];
-    self.topLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@"#e1e1e1"];
+    self.topLine.backgroundColor = EDTColorCreate(@"#e1e1e1");
 #elif EDTUserInfoTwo
     self.backgroundColor = [UIColor whiteColor];
 #elif EDTUserInfoThree
@@ -112,9 +115,9 @@
     
     [self addSubview:self.bottomLine];
     
-    self.topLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.topLine.backgroundColor = EDTColorCreate(@EDTProjectColor);
     
-    self.bottomLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.bottomLine.backgroundColor = EDTColorCreate(@EDTProjectColor);
 #endif
 }
 
@@ -219,13 +222,13 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
-        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.font = EDTSYSTEMFONT(15);
         
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         
-        _titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#666666"];
+        _titleLabel.textColor = EDTColorCreate(@"#666666");
     }
     return _titleLabel;
 }
@@ -233,13 +236,13 @@
     
     if (!_subTitleLabel) {
         
-        _subTitleLabel = [UILabel new];
+        _subTitleLabel = EDT_LABEL_NEW;
         
-        _subTitleLabel.font = [UIFont systemFontOfSize:15];
+        _subTitleLabel.font = EDTSYSTEMFONT(15);
         
         _subTitleLabel.textAlignment = NSTextAlignmentRight;
         
-        _subTitleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#333333"];
+        _subTitleLabel.textColor = EDTColorCreate(@"#333333");
     }
     return _subTitleLabel;
 }
@@ -337,11 +340,12 @@
     [self.tableView registerClass:[EDTAboutTableViewCell class] forCellReuseIdentifier:@"cell"];
     
 #if EDTUserInfoOne
-    self.headerView = [[EDTAboutTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 100)];
+    
+    self.headerView = [[EDTAboutTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, EDT_VIEWCONTROLLER_WIDTH, 100)];
 #elif EDTUserInfoTwo
-    self.headerView = [[EDTAboutTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 120)];
+    self.headerView = [[EDTAboutTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, EDT_VIEWCONTROLLER_WIDTH, 120)];
 #elif EDTUserInfoThree
-    self.headerView = [[EDTAboutTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 120)];
+    self.headerView = [[EDTAboutTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, EDT_VIEWCONTROLLER_WIDTH, 120)];
 #endif
     
     self.tableView.tableHeaderView = self.headerView;

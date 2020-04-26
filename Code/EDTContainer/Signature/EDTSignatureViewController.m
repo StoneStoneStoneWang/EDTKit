@@ -8,7 +8,9 @@
 
 #import "EDTSignatureViewController.h"
 @import Masonry;
+@import EDTCommon;
 @import EDTColor;
+@import EDTString;
 
 @interface EDTSignatureViewController ()
 
@@ -69,7 +71,7 @@
         
         _signaturetv = [[UITextView alloc] initWithFrame:CGRectZero];
         
-        _signaturetv.font = [UIFont systemFontOfSize:15];
+        _signaturetv.font = EDTSYSTEMFONT(15);
         
         _signaturetv.textContainerInset = UIEdgeInsetsMake(15, 15, 15, 15);
         
@@ -85,7 +87,7 @@
         
         _placeholder = [[UITextView alloc] initWithFrame:CGRectZero];
         
-        _placeholder.font = [UIFont systemFontOfSize:15];
+        _placeholder.font = EDTSYSTEMFONT(15);
         
         _placeholder.textContainerInset = UIEdgeInsetsMake(15, 15, 15, 15);
         
@@ -139,7 +141,7 @@
         
         [_completeItem setTitle:@"完成" forState:UIControlStateSelected];
         
-        _completeItem.titleLabel.font = [UIFont systemFontOfSize:15];
+        _completeItem.titleLabel.font = EDTSYSTEMFONT(15);
     }
     return _completeItem;
 }
@@ -163,11 +165,11 @@
     
 #if EDTNameOne
     
-    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [self.completeItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    [self.completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [self.completeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
     
-    [self.completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]] forState:UIControlStateDisabled];
+    [self.completeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"50")) forState:UIControlStateDisabled];
     
 #elif EDTNameTwo
     
@@ -244,11 +246,11 @@
     
     self.backgroundImageView.frame = self.view.bounds;
     
-    self.whiteView.backgroundColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff80"];
+    self.whiteView.backgroundColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80"));
     
 #elif EDTNameThree
     
-    self.topLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.topLine.backgroundColor = EDTColorCreate(@EDTProjectColor);
     
     CGFloat h = CGRectGetHeight(self.navigationController.navigationBar.frame);
     
@@ -288,11 +290,11 @@
         make.height.mas_equalTo(200);
     }];
     
-    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr: @EDTColor] forState:UIControlStateNormal];
+    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr: @EDTProjectColor] forState:UIControlStateNormal];
     
-    [self.completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [self.completeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
     
-    [self.completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]] forState:UIControlStateDisabled];
+    [self.completeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"50")) forState:UIControlStateDisabled];
 #endif
 }
 

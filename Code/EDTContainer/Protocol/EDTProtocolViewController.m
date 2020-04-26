@@ -7,7 +7,7 @@
 //
 
 #import "EDTProtocolViewController.h"
-@import SToolsKit;
+@import EDTBridge;
 @interface EDTProtocolViewController ()
 
 @property (nonatomic ,strong) EDTProtocolBridge *bridge;
@@ -123,19 +123,19 @@
     
 #elif EDTLoginThree
     
-    self.topLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.topLine.backgroundColor = EDTColorCreate(@EDTProjectColor);
     
     if ([self.navigationController.viewControllers.firstObject isKindOfClass:NSClassFromString(@"EDTLoginViewController")]) {
         
         CGFloat h = CGRectGetHeight(self.navigationController.navigationBar.bounds);
         
-        self.topLine.frame = CGRectMake(15, h, CGRectGetWidth(self.view.bounds) - 30, 8);
+        self.topLine.frame = CGRectMake(15, h, EDT_VIEWCONTROLLER_WIDTH - 30, 8);
         
     } else {
         
-        CGFloat h = KTOPLAYOUTGUARD;
+        CGFloat h = EDT_TOPLAYOUTGUARD;
         
-        self.topLine.frame = CGRectMake(15, h, CGRectGetWidth(self.view.bounds) - 30, 8);
+        self.topLine.frame = CGRectMake(15, h, EDT_VIEWCONTROLLER_WIDTH - 30, 8);
     }
     
     CGRect initFrame = self.textView.frame;
@@ -161,7 +161,7 @@
     
     self.textView.backgroundColor = [UIColor whiteColor];
     
-    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.view.backgroundColor = EDTColorCreate(@EDTProjectColor);
     
     self.textView.layer.masksToBounds = false;
     

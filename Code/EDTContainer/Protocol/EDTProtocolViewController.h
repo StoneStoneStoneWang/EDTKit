@@ -7,7 +7,6 @@
 //
 
 #import "EDTConfig.h"
-@import EDTBridge;
 @import EDTTextInner;
 
 NS_ASSUME_NONNULL_BEGIN

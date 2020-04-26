@@ -7,9 +7,10 @@
 //
 
 #import "EDTSettingViewController.h"
-@import SToolsKit;
+@import EDTColor;
 @import Masonry;
 @import SDWebImage;
+@import EDTCommon;
 
 @interface EDTSettingTableViewCell()
 
@@ -27,13 +28,13 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
-        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.font = EDTSYSTEMFONT(15);
         
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         
-        _titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#333333"];
+        _titleLabel.textColor = EDTColorCreate(@"#333333");
     }
     return _titleLabel;
 }
@@ -41,13 +42,13 @@
     
     if (!_subTitleLabel) {
         
-        _subTitleLabel = [UILabel new];
+        _subTitleLabel = EDT_LABEL_NEW;
         
-        _subTitleLabel.font = [UIFont systemFontOfSize:15];
+        _subTitleLabel.font = EDTSYSTEMFONT(15);
         
         _subTitleLabel.textAlignment = NSTextAlignmentRight;
         
-        _subTitleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#999999"];
+        _subTitleLabel.textColor = EDTColorCreate(@"#999999");
     }
     return _subTitleLabel;
 }
@@ -57,7 +58,7 @@
         
         _swiItem = [[UISwitch alloc] initWithFrame:CGRectZero];
         
-        _swiItem.onTintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+        _swiItem.onTintColor = EDTColorCreate(@EDTProjectColor);
         
         _swiItem.thumbTintColor = [UIColor whiteColor];
     }
@@ -70,7 +71,7 @@
     
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     
-    self.titleLabel.textColor =  [UIColor s_transformToColorByHexColorStr:@"#333333"];
+    self.titleLabel.textColor =  EDTColorCreate(@"#333333");
     
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
     
@@ -82,14 +83,14 @@
     
     self.subTitleLabel.text = setting.subTitle;
     
-    self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@"#ffffff"];
+    self.backgroundColor = EDTColorCreate(@"#ffffff");
     
     switch (setting.type) {
         case EDTSettingTypeLogout:
             
             self.titleLabel.textAlignment = NSTextAlignmentCenter;
             
-            self.titleLabel.textColor =  [UIColor s_transformToColorByHexColorStr:@EDTColor];
+            self.titleLabel.textColor =  EDTColorCreate(@EDTProjectColor);
             break;
         case EDTSettingTypeSpace:
             
@@ -128,7 +129,7 @@
     
     if (setting.type == EDTSettingTypeSpace) {
         
-        self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+        self.backgroundColor = EDTColorCreate(@EDTProjectColor);
     } else {
         
         self.backgroundColor = [UIColor whiteColor];

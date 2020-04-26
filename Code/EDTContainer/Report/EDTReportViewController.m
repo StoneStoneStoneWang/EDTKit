@@ -6,11 +6,11 @@
 //  Copyright © 2020 王磊. All rights reserved.
 //
 #import "EDTReportViewController.h"
-#if EDTCONFIGURETYPECIRCLE
 
 @import JXTAlertManager;
 @import Masonry;
-@import SToolsKit;
+@import EDTColor;
+
 @interface EDTReportTableViewCell()
 
 @property (nonatomic ,strong) UILabel *titleLabel;
@@ -31,7 +31,7 @@
         
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         
-        _titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#666666"];
+        _titleLabel.textColor = EDTColorCreate(@"#666666");
     }
     return _titleLabel;
 }
@@ -116,22 +116,22 @@
         
         _completeItem.titleLabel.font = [UIFont systemFontOfSize:15];
         
-        if ([@EDTColor isEqualToString:@"#ffffff"]) {
-            
-            [_completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#666666"] forState:UIControlStateNormal];
-            
-            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#66666680"] forState:UIControlStateHighlighted];
-            
-            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#66666650"] forState:UIControlStateDisabled];
-            
-        } else {
-            
-            [_completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
-            
-            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff80"] forState:UIControlStateHighlighted];
-            
-            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff50"] forState:UIControlStateDisabled];
-        }
+//        if ([@EDTColor isEqualToString:@"#ffffff"]) {
+//            
+//            [_completeItem setTitleColor:EDTColorCreate(@"#666666") forState:UIControlStateNormal];
+//            
+//            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#66666680"] forState:UIControlStateHighlighted];
+//            
+//            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#66666650"] forState:UIControlStateDisabled];
+//            
+//        } else {
+//            
+//            [_completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+//            
+//            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff80"] forState:UIControlStateHighlighted];
+//            
+//            [_completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff50"] forState:UIControlStateDisabled];
+//        }
     }
     return _completeItem;
 }
@@ -235,4 +235,3 @@
 }
 
 @end
-#endif

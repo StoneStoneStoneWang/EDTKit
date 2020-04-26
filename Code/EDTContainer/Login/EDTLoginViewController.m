@@ -8,7 +8,10 @@
 
 #import "EDTLoginViewController.h"
 @import EDTTextField;
-@import SToolsKit;
+@import EDTCommon;
+@import EDTColor;
+@import EDTImage;
+@import EDTString;
 @import Masonry;
 
 #if EDTLoginTwo
@@ -101,7 +104,7 @@
         [_phone EDT_maxLength:11];
         
 #if EDTUPDATEVERSION
-        _phone.tintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+        _phone.tintColor = EDTColorCreate(@EDTProjectColor);
 #endif
     }
     return _phone;
@@ -127,7 +130,7 @@
         
         [_password EDT_maxLength:18];
 #if EDTUPDATEVERSION
-        _password.tintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+        _password.tintColor = EDTColorCreate(@EDTProjectColor);
 #endif
     }
     return _password;
@@ -141,9 +144,9 @@
         
         _loginItem.tag = 203;
         
-        [_loginItem setBackgroundImage:[UIImage s_transformFromHexColor:@EDTColor] forState:UIControlStateNormal];
-        
-        [_loginItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+        [_loginItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@EDTProjectColor] forState:UIControlStateNormal];
+    
+        [_loginItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")] forState:UIControlStateHighlighted];
         
         [_loginItem setTitle:@"登陆" forState: UIControlStateNormal];
         
@@ -155,7 +158,7 @@
         
         _loginItem.layer.masksToBounds = true;
         
-        _loginItem.titleLabel.font = [UIFont systemFontOfSize:15];
+        _loginItem.titleLabel.font = EDTSYSTEMFONT(15);
     }
     return _loginItem;
 }
@@ -172,17 +175,17 @@
         
         [_swiftLoginItem setTitle:@"没有账号?前往注册" forState: UIControlStateHighlighted];
         
-        [_swiftLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+        [_swiftLoginItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
         
-        [_swiftLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+        [_swiftLoginItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
         
         _swiftLoginItem.layer.masksToBounds = true;
         
-        _swiftLoginItem.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+        _swiftLoginItem.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
         
         _swiftLoginItem.layer.borderWidth = 1;
         
-        _swiftLoginItem.titleLabel.font = [UIFont systemFontOfSize:15];
+        _swiftLoginItem.titleLabel.font = EDTSYSTEMFONT(15);
     }
     return _swiftLoginItem;
 }
@@ -198,11 +201,11 @@
         
         [_forgetItem setTitle:@"忘记密码?" forState: UIControlStateHighlighted];
         
-        [_forgetItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+        [_forgetItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
         
-        [_forgetItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+        [_forgetItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
         
-        _forgetItem.titleLabel.font = [UIFont systemFontOfSize:15];
+        _forgetItem.titleLabel.font = EDTSYSTEMFONT(15);
     }
     return _forgetItem;
 }
@@ -284,7 +287,7 @@
         
         _drawView.backgroundColor = [UIColor clearColor];
         
-        _drawView.fillColor = [UIColor s_transformToColorByHexColorStr:@"#bdc5ce"];
+        _drawView.fillColor = EDTColorCreate(@"#bdc5ce");
     }
     return _drawView;
 }
@@ -300,7 +303,7 @@
         
         _logoImgView.layer.masksToBounds = true;
         
-        _logoImgView.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+        _logoImgView.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
         
         _logoImgView.layer.borderWidth = 1;
     }
@@ -315,7 +318,7 @@
         
         _drawView.backgroundColor = [UIColor clearColor];
         
-        _drawView.fillColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];
+        _drawView.fillColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"30"));
     }
     return _drawView;
 }
@@ -341,7 +344,7 @@
         
         _logoImgView.layer.masksToBounds = true;
         
-        _logoImgView.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+        _logoImgView.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
         
         _logoImgView.layer.borderWidth = 1;
     }
@@ -384,7 +387,7 @@
         
         _logoImgView.layer.masksToBounds = true;
         
-        _logoImgView.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+        _logoImgView.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
         
         _logoImgView.layer.borderWidth = 1;
     }
@@ -413,7 +416,7 @@
     
 #elif EDTLoginFour
     
-    UILabel *titleLabel = [UILabel new];
+    UILabel *titleLabel = EDT_LABEL_NEW;
     
     titleLabel.font = [UIFont boldSystemFontOfSize:20];
     
@@ -443,7 +446,7 @@
     
     self.backgroundImageView.frame = self.view.bounds;
     
-    CGFloat w = CGRectGetWidth(self.view.bounds);
+    CGFloat w = EDT_VIEWCONTROLLER_WIDTH;
     
     CGFloat h = w - 60;
     
@@ -519,9 +522,9 @@
         
     }];
     
-    [self.forgetItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#333333"] forState:UIControlStateNormal];
+    [self.forgetItem setTitleColor:EDTColorCreate(@"#333333") forState:UIControlStateNormal];
     
-    [self.forgetItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#333333"]] forState:UIControlStateHighlighted];
+    [self.forgetItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#333333", @"80")) forState:UIControlStateHighlighted];
     
     [self.loginItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -544,9 +547,9 @@
     
     self.loginItem.layer.masksToBounds = true;
     
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@"#ffffff"] forState:UIControlStateNormal];
 
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80")] forState:UIControlStateHighlighted];
     
     [self.swiftLoginItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -558,9 +561,9 @@
         
     }];
     
-    [self.swiftLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#333333"] forState:UIControlStateNormal];
+    [self.swiftLoginItem setTitleColor:EDTColorCreate(@"#333333") forState:UIControlStateNormal];
     
-    [self.swiftLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#333333"]] forState:UIControlStateHighlighted];
+    [self.swiftLoginItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#333333", @"80")) forState:UIControlStateHighlighted];
     
     self.swiftLoginItem.layer.borderColor = [UIColor clearColor].CGColor;
     
@@ -572,7 +575,7 @@
     
     self.backgroundImageView.frame = self.view.bounds;
     
-    CGFloat w = CGRectGetWidth(self.view.bounds);
+    CGFloat w = EDT_VIEWCONTROLLER_WIDTH;
     
     CGFloat h = w - 60;
     
@@ -644,7 +647,7 @@
         
     }];
     
-    [self.forgetItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    [self.forgetItem setTitleColor:EDTColorCreate(@"#ffffff") forState:UIControlStateNormal];
     
     [self.forgetItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
     
@@ -669,9 +672,9 @@
     
     self.loginItem.layer.masksToBounds = true;
     
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@"#ffffff"] forState:UIControlStateNormal];
 
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80")] forState:UIControlStateHighlighted];
     
     [self.swiftLoginItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -683,7 +686,7 @@
         
     }];
     
-    [self.swiftLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    [self.swiftLoginItem setTitleColor:EDTColorCreate(@"#ffffff") forState:UIControlStateNormal];
     
     [self.swiftLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
     
@@ -695,11 +698,11 @@
     
 #elif EDTLoginThree
     
-    self.topLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.topLine.backgroundColor = EDTColorCreate(@EDTProjectColor);
     
     CGFloat h = CGRectGetHeight(self.navigationController.navigationBar.frame);
     
-    CGFloat w = CGRectGetWidth(self.view.bounds);
+    CGFloat w = EDT_VIEWCONTROLLER_WIDTH;
     
     [self.topLine mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -721,7 +724,7 @@
         make.width.height.mas_equalTo(@60);
     }];
     
-    self.bottomLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.bottomLine.backgroundColor = EDTColorCreate(@EDTProjectColor);
     
     [self.bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -753,7 +756,7 @@
     
     self.phone.layer.borderWidth = 1;
     
-    self.phone.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+    self.phone.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
     
     [self.password mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -774,7 +777,7 @@
     
     self.password.layer.borderWidth = 1;
     
-    self.password.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+    self.password.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
     
     [self.forgetItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -786,9 +789,9 @@
         
     }];
     
-    [self.forgetItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [self.forgetItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    [self.forgetItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [self.forgetItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
     
     [self.loginItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -802,13 +805,13 @@
         
     }];
     
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromHexColor:@EDTColor] forState:UIControlStateNormal];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@EDTProjectColor] forState:UIControlStateNormal];
     
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")] forState:UIControlStateHighlighted];
     
-    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    [self.loginItem setTitleColor:EDTColorCreate(@"#ffffff") forState:UIControlStateNormal];
     
-    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    [self.loginItem setTitleColor:EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80")] forState:UIControlStateHighlighted];
     
     [self.swiftLoginItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -820,9 +823,9 @@
         
     }];
     
-    [self.swiftLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [self.swiftLoginItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    [self.swiftLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [self.swiftLoginItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
     
     self.swiftLoginItem.layer.borderColor = [UIColor clearColor].CGColor;
     
@@ -833,7 +836,7 @@
     
     self.backgroundImageView.frame = self.view.bounds;
     
-    CGFloat w = CGRectGetWidth(self.view.bounds);
+    CGFloat w = EDT_VIEWCONTROLLER_WIDTH;
     
     [self.logoImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -892,7 +895,7 @@
         
     }];
     
-    [self.forgetItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    [self.forgetItem setTitleColor:EDTColorCreate(@"#ffffff") forState:UIControlStateNormal];
     
     [self.forgetItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
     
@@ -908,13 +911,13 @@
         
     }];
     
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@"#ffffff"] forState:UIControlStateNormal];
     
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80")] forState:UIControlStateHighlighted];
     
-    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [self.loginItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTProjectColor]] forState:UIControlStateHighlighted];
     
     [self.swiftLoginItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -928,7 +931,7 @@
     
     self.swiftLoginItem.layer.borderColor = [UIColor clearColor].CGColor;
     
-    [self.swiftLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    [self.swiftLoginItem setTitleColor:EDTColorCreate(@"#ffffff") forState:UIControlStateNormal];
     
     [self.swiftLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
     
@@ -951,7 +954,7 @@
     
 #elif EDTLoginTwo
     
-    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.view.backgroundColor = EDTColorCreate(@EDTProjectColor);
 #elif EDTLoginThree
     
     self.view.backgroundColor = [UIColor whiteColor];

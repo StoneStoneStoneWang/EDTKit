@@ -9,7 +9,9 @@
 #import "EDTCarouselViewController.h"
 
 @import EDTBridge;
-@import SToolsKit;
+@import EDTCommon;
+@import EDTColor;
+@import EDTString;
 @import Masonry;
 
 @interface EDTCarouselCollectionViewCell : UICollectionViewCell
@@ -45,13 +47,13 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         
         _titleLabel.textColor = [UIColor whiteColor];
         
-        _titleLabel.font = [UIFont systemFontOfSize:13];
+        _titleLabel.font = EDTSYSTEMFONT(13);
     }
     return _titleLabel;
 }
@@ -74,13 +76,13 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         
         _titleLabel.textColor = [UIColor whiteColor];
         
-        _titleLabel.font = [UIFont systemFontOfSize:13];
+        _titleLabel.font = EDTSYSTEMFONT(13);
     }
     return _titleLabel;
 }
@@ -115,7 +117,7 @@
         
         _iconImageView = [[UIImageView alloc] init];
         
-        _iconImageView.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@"#e1e1e1"].CGColor;
+        _iconImageView.layer.borderColor = EDTColorCreate(@"#e1e1e1").CGColor;
         
         _iconImageView.layer.borderWidth = 0.5;
         
@@ -232,7 +234,7 @@
 
 #if EDTCarouselOne || EDTCarouselThree
 
-#define EDTCarouselHeight KSSCREEN_WIDTH/  3
+#define EDTCarouselHeight EDT_SCREEN_WIDTH /  3
 
 @interface EDTCarouselFormOneLayout : UICollectionViewFlowLayout
 
@@ -247,7 +249,7 @@
     
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    CGSize itemSize = CGSizeMake(KSSCREEN_WIDTH, EDTCarouselHeight);
+    CGSize itemSize = CGSizeMake(EDT_SCREEN_WIDTH, EDTCarouselHeight);
     
     self.itemSize = itemSize;
     
@@ -263,7 +265,7 @@
 
 #elif EDTCarouselTwo
 
-#define EDTCarouselHeight KSSCREEN_WIDTH / 2
+#define EDTCarouselHeight EDT_SCREEN_WIDTH / 2
 
 @interface EDTCarouselFormOneLayout : UICollectionViewFlowLayout
 
@@ -278,7 +280,7 @@
     
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    CGSize itemSize = CGSizeMake(KSSCREEN_WIDTH, KSSCREEN_WIDTH / 2);
+    CGSize itemSize = CGSizeMake(EDT_SCREEN_WIDTH, EDT_SCREEN_WIDTH / 2);
     
     self.itemSize = itemSize;
     
@@ -298,7 +300,7 @@
 //#define LEFT_OFFSET 60
 //@interface EDTCarouselFormTwoLayout : UICollectionViewFlowLayout
 //
-//#define EDTCarouselHeight KSSCREEN_WIDTH / 2
+//#define EDTCarouselHeight EDT_SCREEN_WIDTH / 2
 //@end
 //@implementation EDTCarouselFormTwoLayout
 //
@@ -307,7 +309,7 @@
 //
 //    self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
 //
-//    CGSize itemSize = CGSizeMake(KSSCREEN_WIDTH - 80, EDTCarouselHeight);
+//    CGSize itemSize = CGSizeMake(EDT_SCREEN_WIDTH - 80, EDTCarouselHeight);
 //
 //    self.itemSize = itemSize;
 //
@@ -335,7 +337,7 @@
 //        {
 //            CGFloat distance = CGRectGetMidX(visiableRect) - attributes.center.x;
 //            distance = ABS(distance);
-//            if (distance < KSSCREEN_WIDTH/2 + self.itemSize.width)
+//            if (distance < EDT_SCREEN_WIDTH/2 + self.itemSize.width)
 //            {
 //                CGFloat zoom = 1 + ITEM_ZOOM * (1 - distance/THE_ACTIVE_DISTANCE);
 //                attributes.transform3D = CATransform3DMakeScale(zoom, zoom, 1.0f);
@@ -402,13 +404,13 @@
         
         _pageControl.tag = 102;
         
-        _pageControl.pageIndicatorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]];
+        _pageControl.pageIndicatorTintColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"50"));
         
         _pageControl.numberOfPages = EDTCarouselImgs.count;
         
         _pageControl.currentPage = 0;
-        
-        _pageControl.currentPageIndicatorTintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+
+        _pageControl.currentPageIndicatorTintColor = EDTColorCreate(@EDTProjectColor);
     }
     return _pageControl;
 }
@@ -450,9 +452,9 @@
     
 #if EDTCarouselOne
     
-    self.pageControl.pageIndicatorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];
+    self.pageControl.pageIndicatorTintColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"30"));
     
-    self.pageControl.currentPageIndicatorTintColor = [UIColor s_transformToColorByHexColorStr:@"#ffffff"];
+    self.pageControl.currentPageIndicatorTintColor = EDTColorCreate(@"#ffffff");
     
     [self.pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -466,9 +468,9 @@
     }];
 #elif EDTCarouselTwo
     
-    self.pageControl.pageIndicatorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];
+    self.pageControl.pageIndicatorTintColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"30"));
     
-    self.pageControl.currentPageIndicatorTintColor = [UIColor s_transformToColorByHexColorStr:@"#ffffff"];
+    self.pageControl.currentPageIndicatorTintColor = EDTColorCreate(@"#ffffff");
     
     [self.pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -483,9 +485,9 @@
     
 #elif EDTCarouselThree
     
-    self.pageControl.pageIndiEDTorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];
+    self.pageControl.pageIndiEDTorTintColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"30"));
     
-    self.pageControl.pageIndiEDTorTintColor = [UIColor s_transformToColorByHexColorStr:@"#ffffff"];
+    self.pageControl.pageIndiEDTorTintColor = EDTColorCreate(@"#ffffff");
     
     [self.pageControl mas_makeConstraints:^(MASConstraintMaker *make) {
         

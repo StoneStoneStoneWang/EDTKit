@@ -9,8 +9,11 @@
 #import "EDTAddressSelectedViewController.h"
 
 @import Masonry;
-@import SToolsKit;
+@import EDTCommon;
+@import EDTColor;
 @import JXTAlertManager;
+@import EDTImage;
+@import EDTString;
 
 @interface EDTAddressSelectedTableViewCell : EDTBaseTableViewCell
 
@@ -28,15 +31,15 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
-        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.font = EDTSYSTEMFONT(15);
         
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         
-        _titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#333333"];
+        _titleLabel.textColor = EDTColorCreate(@"#333333");
         
-        _titleLabel.lineBreakMode = NSLineBreakByTrunEDTingMiddle;
+        _titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     }
     return _titleLabel;
 }
@@ -45,13 +48,13 @@
     
     if (!_subTitleLabel) {
         
-        _subTitleLabel = [UILabel new];
+        _subTitleLabel = EDT_LABEL_NEW;
         
-        _subTitleLabel.font = [UIFont systemFontOfSize:12];
+        _subTitleLabel.font = EDTSYSTEMFONT(12);
         
         _subTitleLabel.textAlignment = NSTextAlignmentLeft;
         
-        _subTitleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#666666"];
+        _subTitleLabel.textColor = EDTColorCreate(@"#666666");
     }
     return _subTitleLabel;
 }
@@ -60,13 +63,13 @@
     
     if (!_phoneLabel) {
         
-        _phoneLabel = [UILabel new];
+        _phoneLabel = EDT_LABEL_NEW;
         
-        _phoneLabel.font = [UIFont systemFontOfSize:15];
+        _phoneLabel.font = EDTSYSTEMFONT(15);
         
         _phoneLabel.textAlignment = NSTextAlignmentLeft;
         
-        _phoneLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#333333"];
+        _phoneLabel.textColor = EDTColorCreate(@"#333333");
     }
     return _phoneLabel;
 }
@@ -89,7 +92,7 @@
     
     self.titleLabel.text = address.name;
     
-    self.accessoryType = UITableViewCellAccessoryDisclosureIndiEDTor;
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     self.phoneLabel.text = address.phone;
     
@@ -173,9 +176,9 @@
         
         _completeItem.tag = 301;
         
-        [_completeItem setBackgroundImage:[UIImage s_transformFromHexColor:@EDTColor] forState:UIControlStateNormal];
+        [_completeItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@EDTProjectColor] forState:UIControlStateNormal];
         
-        [_completeItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+        [_completeItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")] forState:UIControlStateHighlighted];
         
         [_completeItem setTitle:@"+ 新增地址" forState: UIControlStateNormal];
         
@@ -189,7 +192,7 @@
         
         _completeItem.layer.masksToBounds = true;
         
-        _completeItem.titleLabel.font = [UIFont systemFontOfSize:15];
+        _completeItem.titleLabel.font = EDTSYSTEMFONT(15);
     }
     return _completeItem;
 }

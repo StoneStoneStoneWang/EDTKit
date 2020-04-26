@@ -29,7 +29,8 @@ Pod::Spec.new do |spec|
     welcome.source_files = "Code/EDTContainer/Welcome/*.{h,m}"
     welcome.dependency 'EDTConfig'
     welcome.dependency 'EDTBridge/Welcome/Bridge'
-    welcome.dependency 'SToolsKit'
+    welcome.dependency 'EDTImage'
+    welcome.dependency 'EDTString'
     welcome.dependency 'Masonry'
   end
   
@@ -39,7 +40,6 @@ Pod::Spec.new do |spec|
     protocol.source_files = "Code/EDTContainer/Protocol/*.{h,m}"
     protocol.dependency 'EDTConfig'
     protocol.dependency 'EDTBridge/Protocol/Bridge'
-    protocol.dependency 'SToolsKit'
     protocol.dependency 'Masonry'
   end
   # 协议 webview
@@ -48,7 +48,6 @@ Pod::Spec.new do |spec|
     privacy.source_files = "Code/EDTContainer/Privacy/*.{h,m}"
     privacy.dependency 'EDTConfig'
     privacy.dependency 'EDTBridge/Protocol/Bridge'
-    privacy.dependency 'SToolsKit'
     privacy.dependency 'Masonry'
   end
   
@@ -61,6 +60,8 @@ Pod::Spec.new do |spec|
     login.dependency 'Masonry'
     login.dependency 'EDTTextField'
     login.dependency 'EDTTransition'
+    login.dependency 'EDTImage'
+    login.dependency 'EDTString'
     login.dependency 'EDTDraw'
   end
   
@@ -73,6 +74,8 @@ Pod::Spec.new do |spec|
     reg.dependency 'Masonry'
     reg.dependency 'EDTTextField'
     reg.dependency 'EDTTransition'
+    reg.dependency 'EDTImage'
+    reg.dependency 'EDTString'
     reg.dependency 'EDTDraw'
   end
   
@@ -85,6 +88,8 @@ Pod::Spec.new do |spec|
     password.dependency 'Masonry'
     password.dependency 'EDTTextField'
     password.dependency 'EDTTransition'
+    password.dependency 'EDTImage'
+    password.dependency 'EDTString'
     password.dependency 'EDTDraw'
   end
   
@@ -96,6 +101,7 @@ Pod::Spec.new do |spec|
     carousel.dependency 'EDTBridge/Carousel/Bridge'
     carousel.dependency 'Masonry'
     carousel.dependency 'EDTCollection'
+    carousel.dependency 'EDTString'
   end
   
   # 轮播 banner
@@ -107,6 +113,7 @@ Pod::Spec.new do |spec|
     banner.dependency 'Masonry'
     banner.dependency 'EDTCollection'
     banner.dependency 'SDWebImage'
+    banner.dependency 'EDTString'
   end
   
   # 设置 setting
@@ -126,8 +133,8 @@ Pod::Spec.new do |spec|
     about.source_files = "Code/EDTContainer/About/*.{h,m}"
     about.dependency 'EDTConfig'
     about.dependency 'EDTBridge/About/Bridge'
-    about.dependency 'Masonry'
     about.dependency 'EDTTable'
+    about.dependency 'Masonry'
   end
   
   # 意见建议 feedBack
@@ -140,6 +147,8 @@ Pod::Spec.new do |spec|
     feedBack.dependency 'EDTTransition'
     feedBack.dependency 'JXTAlertManager'
     feedBack.dependency 'EDTTextField'
+    feedBack.dependency 'EDTImage'
+    feedBack.dependency 'EDTString'
   end
   
   # 昵称 Name
@@ -151,6 +160,7 @@ Pod::Spec.new do |spec|
     name.dependency 'Masonry'
     name.dependency 'EDTTextField'
     name.dependency 'EDTTransition'
+    name.dependency 'EDTString'
   end
   
   # 个性签名 signature
@@ -161,6 +171,7 @@ Pod::Spec.new do |spec|
     signature.dependency 'EDTBridge/Signature/Bridge'
     signature.dependency 'Masonry'
     signature.dependency 'EDTTransition'
+    signature.dependency 'EDTString'
   end
   
   # 个人中心 userinfo
@@ -175,6 +186,7 @@ Pod::Spec.new do |spec|
     userInfo.dependency 'SDWebImage'
     userInfo.dependency 'JXTAlertManager'
     userInfo.dependency 'WLToolsKit/Image'
+    userInfo.dependency 'EDTString'
   end
   
   # 意见建议 feedBack
@@ -232,6 +244,8 @@ Pod::Spec.new do |spec|
     address.dependency 'Masonry'
     address.dependency 'EDTTable'
     address.dependency 'JXTAlertManager'
+    address.dependency 'EDTImage'
+    address.dependency 'EDTString'
   end
   # 地址 address
   spec.subspec 'Comment' do |comment|
@@ -243,6 +257,7 @@ Pod::Spec.new do |spec|
     comment.dependency 'Masonry'
     comment.dependency 'EDTTable'
     comment.dependency 'JXTAlertManager'
+    comment.dependency 'EDTString'
   end
   # 地址 area
   spec.subspec 'Area' do |area|
@@ -262,7 +277,6 @@ Pod::Spec.new do |spec|
     map.dependency 'EDTTransition'
     map.dependency 'EDTAMap'
     map.dependency 'EDTConfig'
-    map.dependency 'SToolsKit'
     map.frameworks = 'UIKit', 'Foundation' ,'CoreLocation'
   end
   

@@ -5,16 +5,17 @@
 //  Created by three stone 王 on 2019/8/29.
 //  Copyright © 2019 three stone 王. All rights reserved.
 //
-#import <MAMapKit/MAMapKit.h>
+
 @import EDTTransition;
 #import "EDTConfig.h"
 NS_ASSUME_NONNULL_BEGIN
-
+@import EDTAMap;
 @class EDTAMapView;
 @class EDTLocation;
+@import CoreLocation;
 
 NS_SWIFT_NAME(EDTAMapViewController)
-@interface EDTAMapTViewController : EDTTViewController <MAMapViewDelegate>
+@interface EDTAMapTViewController : EDTTViewController <EDTAMapViewDelegate>
 
 + (instancetype)createAMapWithLat:(CLLocationDegrees )lat andLon:(CLLocationDegrees)lon;
 
@@ -26,11 +27,11 @@ NS_SWIFT_NAME(EDTAMapViewController)
 
 @property (nonatomic ,assign) CLLocationDegrees lon;
 
-- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation;
+- (void)mapView:(EDTAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation;
 
-- (void)mapView:(MAMapView *)mapView regionWillChangeAnimated:(BOOL)animated;
+- (void)mapView:(EDTAMapView *)mapView regionWillChangeAnimated:(BOOL)animated;
 
-- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views;
+- (void)mapView:(EDTAMapView *)mapView didAddAnnotationViews:(NSArray *)views;
 
 - (void)EDTFetchLocaiton:(CLLocation *)Location;
 

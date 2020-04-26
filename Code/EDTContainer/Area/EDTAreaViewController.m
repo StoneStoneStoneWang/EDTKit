@@ -8,8 +8,9 @@
 
 #import "EDTAreaViewController.h"
 @import Masonry;
-@import SToolsKit;
+@import EDTColor;
 @import EDTBean;
+@import EDTCommon;
 
 @interface EDTAreaTableViewCell : EDTBaseTableViewCell
 
@@ -25,13 +26,13 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
-        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.font = EDTSYSTEMFONT(15);
         
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         
-        _titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#666666"];
+        _titleLabel.textColor = EDTColorCreate(@"#666666");
         
         _titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     }
@@ -47,12 +48,12 @@
     
     if (areaBean.isSelected) {
         
-        self.titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+        self.titleLabel.textColor = EDTColorCreate(@EDTProjectColor);
         
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else {
         
-        self.titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#666666"];
+        self.titleLabel.textColor = EDTColorCreate(@"#666666");
     }
     
 }

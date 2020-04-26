@@ -7,13 +7,16 @@
 //
 
 #import "EDTUserInfoViewController.h"
-@import SToolsKit;
+
 @import Masonry;
 @import CoreServices;
 @import JXTAlertManager;
 @import WLToolsKit;
 @import SDWebImage;
 @import ZDatePicker;
+@import EDTCommon;
+@import EDTColor;
+@import EDTString;
 
 @interface EDTUserInfoTableViewCell()
 
@@ -38,7 +41,7 @@
         
         _iconImageView.layer.borderWidth = 1;
         
-        _iconImageView.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+        _iconImageView.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
     }
     return _iconImageView;
 }
@@ -47,13 +50,13 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
-        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.font = EDTSYSTEMFONT(15);
         
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         
-        _titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#333333"];
+        _titleLabel.textColor = EDTColorCreate(@"#333333");
     }
     return _titleLabel;
 }
@@ -62,13 +65,13 @@
     
     if (!_subTitleLabel) {
         
-        _subTitleLabel = [UILabel new];
+        _subTitleLabel = EDT_LABEL_NEW;
         
-        _subTitleLabel.font = [UIFont systemFontOfSize:15];
+        _subTitleLabel.font = EDTSYSTEMFONT(15);
         
         _subTitleLabel.textAlignment = NSTextAlignmentRight;
         
-        _subTitleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#666666"];
+        _subTitleLabel.textColor = EDTColorCreate(@"#666666");
     }
     return _subTitleLabel;
 }
@@ -131,8 +134,8 @@
             break;
         case EDTUserInfoTypePhone:
         case EDTUserInfoTypeName:
-            
-            if ([NSString s_validPhone:userInfo.subtitle]) {
+
+            if ([NSString EDTValidPhone:userInfo.subtitle]) {
                 
                 NSString * result = [userInfo.subtitle stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
                 
@@ -156,7 +159,7 @@
     
     if (userInfo.type == EDTUserInfoTypeSpace) {
         
-        self.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+        self.backgroundColor = EDTColorCreate(@EDTProjectColor);
     } else {
         
         self.backgroundColor = [UIColor whiteColor];
@@ -351,7 +354,7 @@
         {
             if (!self.picker) {
                 
-                self.picker = [[ZDatePicker alloc] initWithTextColor:[UIColor s_transformToColorByHexColorStr:@"#666666"] buttonColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] font:[UIFont systemFontOfSize:15] locale:[NSLocale localeWithLocaleIdentifier:@"zh-Hans"] showCancelButton:true];
+                self.picker = [[ZDatePicker alloc] initWithTextColor:EDTColorCreate(@"#666666") buttonColor:EDTColorCreate(@EDTProjectColor) font:EDTSYSTEMFONT(15) locale:[NSLocale localeWithLocaleIdentifier:@"zh-Hans"] showCancelButton:true];
             }
             
             __weak typeof(self) weakSelf = self;

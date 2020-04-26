@@ -6,7 +6,6 @@
 //  Copyright © 2020 王磊. All rights reserved.
 //
 #import "EDTConfig.h"
-#if EDTCONFIGURETYPECIRCLE
 
 @import EDTTable;
 @import EDTBridge;
@@ -27,4 +26,3 @@ typedef void(^EDTReportBlock)(EDTBaseViewController *from);
 
 
 NS_ASSUME_NONNULL_END
-#endif

@@ -10,10 +10,12 @@
 
 @import EDTCache;
 @import JXTAlertManager;
-@import SToolsKit;
 @import Masonry;
 @import EDTBridge;
 @import SDWebImage;
+@import EDTCommon;
+@import EDTColor;
+@import EDTString;
 
 @interface EDTCommentTableViewCell ()
 
@@ -36,7 +38,7 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
         _titleLabel.numberOfLines = 1;
         
@@ -54,7 +56,7 @@
     
     [self.contentView addSubview:self.titleLabel];
     
-    self.backgroundColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];;
+    self.backgroundColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"30"));;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
@@ -99,11 +101,11 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
         _titleLabel.numberOfLines = 1;
         
-        _titleLabel.font = [UIFont systemFontOfSize:13];
+        _titleLabel.font = EDTSYSTEMFONT(13);
         
         _titleLabel.text = @"没有更多数据了";
         
@@ -117,7 +119,7 @@
 - (void)commitInit {
     [super commitInit];
     
-    self.backgroundColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];;
+    self.backgroundColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"30"));;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -147,15 +149,15 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
         _titleLabel.numberOfLines = 1;
         
-        _titleLabel.font = [UIFont systemFontOfSize:13];
+        _titleLabel.font = EDTSYSTEMFONT(13);
         
         _titleLabel.text = @"网络错误,点击重新拉取";
         
-        _titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+        _titleLabel.textColor = EDTColorCreate(@EDTProjectColor);
         
         _titleLabel.textAlignment = NSTextAlignmentCenter;
     }
@@ -165,7 +167,7 @@
 - (void)commitInit {
     [super commitInit];
     
-    self.backgroundColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];;
+    self.backgroundColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"30"));;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -195,11 +197,11 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
         _titleLabel.numberOfLines = 1;
         
-        _titleLabel.font = [UIFont systemFontOfSize:13];
+        _titleLabel.font = EDTSYSTEMFONT(13);
         
         _titleLabel.text = @"暂无评论";
         
@@ -213,7 +215,7 @@
 - (void)commitInit {
     [super commitInit];
     
-    self.backgroundColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];
+    self.backgroundColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"30"));
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -265,13 +267,13 @@
     
     if (!_nameLabel) {
         
-        _nameLabel = [UILabel new];
+        _nameLabel = EDT_LABEL_NEW;
         
-        _nameLabel.font = [UIFont systemFontOfSize:15];
+        _nameLabel.font = EDTSYSTEMFONT(15);
         
         _nameLabel.textAlignment = NSTextAlignmentLeft;
         
-        _nameLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#ffffff"];
+        _nameLabel.textColor = EDTColorCreate(@"#ffffff");
         
     }
     return _nameLabel;
@@ -280,13 +282,13 @@
     
     if (!_timeLabel) {
         
-        _timeLabel = [UILabel new];
+        _timeLabel = EDT_LABEL_NEW;
         
-        _timeLabel.font = [UIFont systemFontOfSize:12];
+        _timeLabel.font = EDTSYSTEMFONT(12);
         
         _timeLabel.textAlignment = NSTextAlignmentLeft;
         
-        _timeLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#ffffff"];
+        _timeLabel.textColor = EDTColorCreate(@"#ffffff");
         
     }
     return _timeLabel;
@@ -295,13 +297,13 @@
     
     if (!_titleLabel) {
         
-        _titleLabel = [UILabel new];
+        _titleLabel = EDT_LABEL_NEW;
         
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         
-        _titleLabel.font = [UIFont systemFontOfSize:13];
+        _titleLabel.font = EDTSYSTEMFONT(13);
         
-        _titleLabel.textColor = [UIColor s_transformToColorByHexColorStr:@"#ffffff"];
+        _titleLabel.textColor = EDTColorCreate(@"#ffffff");
         
         _titleLabel.numberOfLines = 0;
         
@@ -335,7 +337,7 @@
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    self.backgroundColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];;
+    self.backgroundColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"30"));;
     
     [self.moreItem addTarget:self action:@selector(onMoreItemClick) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -347,7 +349,7 @@
     
     [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?x-oss-process=image/resize,w_200,h_200",comment.users.headImg]] placeholderImage:[UIImage imageNamed:@EDTLogoIcon] options:SDWebImageRefreshCached];
     
-    self.timeLabel.text = [[NSString stringWithFormat:@"%ld",comment.intime / 1000] s_convertToDate:SDateTypeDateStyle];
+    self.timeLabel.text = [[NSString stringWithFormat:@"%ld",comment.intime / 1000] EDTConvertToDate:EDTDateTypeDate];
     
     self.titleLabel.text = comment.content;
 }
@@ -403,7 +405,8 @@
 
 @end
 
-#define BottomBar_Height KTABBAR_HEIGHT
+#define BottomBar_Height EDT_TABBAR_HEIGHT
+
 @interface EDTCommentViewController () <UITextFieldDelegate ,EDTCommentTableViewCellDelegate>
 
 @property (nonatomic ,strong) EDTCommentBridge *bridge;
@@ -424,13 +427,6 @@
 @end
 
 @implementation EDTCommentViewController
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor s_transformToColorByHexColorStr:@EDTColor]];
-    
-}
 
 + (instancetype)createCommentWithEncode:(NSString *)encode andCircleBean:(EDTCircleBean *)circleBean andOp:(EDTCommentBlock) block {
     
@@ -455,7 +451,7 @@
         
         _bottomBar = [[UIView alloc] init];
         
-        _bottomBar.backgroundColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff30"];;
+        _bottomBar.backgroundColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"30"));;
     }
     return _bottomBar;
 }
@@ -465,11 +461,11 @@
         
         _editTF = [[UITextField alloc] initWithFrame:CGRectZero];
         
-        _editTF.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入评论内容" attributes:@{NSForegroundColorAttributeName: [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff80"] }];
+        _editTF.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入评论内容" attributes:@{NSForegroundColorAttributeName: EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80")) }];
         
         _editTF.textColor = [UIColor whiteColor];
         
-        _editTF.font = [UIFont systemFontOfSize:13];
+        _editTF.font = EDTSYSTEMFONT(13);
         
         _editTF.delegate = self;
         
@@ -496,11 +492,11 @@
         
         [_publishItem setTitle:@"发布" forState:UIControlStateHighlighted];
         
-        [_publishItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+        [_publishItem setTitleColor:EDTColorCreate(@"#ffffff") forState:UIControlStateNormal];
         
-        [_publishItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateHighlighted];
+        [_publishItem setTitleColor:EDTColorCreate(@"#ffffff") forState:UIControlStateHighlighted];
         
-        _publishItem.titleLabel.font = [UIFont systemFontOfSize:14];
+        _publishItem.titleLabel.font = EDTSYSTEMFONT(14);
     }
     return _publishItem;
 }
@@ -521,19 +517,19 @@
     
     [self.tableView registerClass:[EDTCommentEmptyTableViewCell class] forCellReuseIdentifier:@"empty"];
     
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KSSCREEN_WIDTH, BottomBar_Height)];
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, EDT_SCREEN_WIDTH, BottomBar_Height)];
     
     self.tableView.tableFooterView = footer;
     
-    self.bottomBar.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds) - BottomBar_Height , CGRectGetWidth(self.view.bounds), BottomBar_Height);
+    self.bottomBar.frame = CGRectMake(0, EDT_VIEWCONTROLLER_HEIGHT - BottomBar_Height , EDT_VIEWCONTROLLER_WIDTH, BottomBar_Height);
     
-    self.editTF.frame = CGRectMake(15, 0, CGRectGetWidth(self.view.bounds) - 45, 49);
+    self.editTF.frame = CGRectMake(15, 0, EDT_VIEWCONTROLLER_WIDTH - 45, 49);
     
     self.coverItem.frame = self.bottomBar.bounds;
     
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
-    self.publishItem.frame = CGRectMake(CGRectGetWidth(self.view.bounds) - 60, 0 , 40, 49);
+    self.publishItem.frame = CGRectMake(EDT_VIEWCONTROLLER_WIDTH - 60, 0 , 40, 49);
 }
 
 - (UITableViewCell *)configTableViewCell:(id)data forIndexPath:(NSIndexPath *)ip {
@@ -620,7 +616,7 @@
         
         CGFloat height = 60;
         
-        CGFloat contnetHeight = [comment.content boundingRectWithSize:CGSizeMake(KSSCREEN_WIDTH - 60 - 40, 999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:13]} context:nil].size.height;
+        CGFloat contnetHeight = [comment.content boundingRectWithSize:CGSizeMake(EDT_SCREEN_WIDTH - 60 - 40, 999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName: EDTSYSTEMFONT(13)} context:nil].size.height;
         
         height += contnetHeight;
         
@@ -723,7 +719,7 @@
     
     [UIView animateWithDuration:duration animations:^{
         
-        self.bottomBar.frame = CGRectMake(0, frame.origin.y - 49 , CGRectGetWidth(self.view.bounds), 49);
+        self.bottomBar.frame = CGRectMake(0, frame.origin.y - 49 , EDT_VIEWCONTROLLER_WIDTH, 49);
         
     } completion:^(BOOL finished) {
         
@@ -741,7 +737,7 @@
     
     [UIView animateWithDuration:duration animations:^{
         
-        self.bottomBar.frame = CGRectMake(0, frame.origin.y - h , CGRectGetWidth(self.view.bounds), h);
+        self.bottomBar.frame = CGRectMake(0, frame.origin.y - h , EDT_VIEWCONTROLLER_WIDTH, h);
         
         self.coverItem.enabled = true;
         

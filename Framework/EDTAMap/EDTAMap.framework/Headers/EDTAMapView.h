@@ -11,6 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol EDTAMapViewDelegate <MAMapViewDelegate>
+
+
+@end
+
 @interface EDTAMapView : MAMapView
 
 @property (nonatomic ,assign) CGFloat EDTLeftResp;

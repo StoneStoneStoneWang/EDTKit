@@ -7,9 +7,9 @@
 //
 
 #import "EDTAMapTViewController.h"
+#import <MAMapKit/MAMapKit.h>
 @import EDTAMap;
 @import CoreLocation;
-#import <SToolsKit/SLog.h>
 @interface EDTAMapTViewController ()
 
 @property (nonatomic ,strong ,readwrite) EDTAMapView *EDTMapView;
@@ -122,19 +122,19 @@
 }
 - (void)dealloc {
     
-    [[NSNotifiEDTionCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
+- (void)mapView:(EDTAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation {
     
     
 }
-- (void)mapView:(MAMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+- (void)mapView:(EDTAMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
     
     
 }
 
-- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+- (void)mapView:(EDTAMapView *)mapView didAddAnnotationViews:(NSArray *)views {
     
     
 }

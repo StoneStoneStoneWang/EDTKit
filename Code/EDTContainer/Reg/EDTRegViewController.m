@@ -8,7 +8,10 @@
 
 #import "EDTRegViewController.h"
 @import EDTTextField;
-@import SToolsKit;
+@import EDTCommon;
+@import EDTColor;
+@import EDTImage;
+@import EDTString;
 @import Masonry;
 #if EDTLoginTwo
 
@@ -99,7 +102,7 @@
         
         [_phone EDT_maxLength:11];
 #if EDTUPDATEVERSION
-        _phone.tintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+        _phone.tintColor = EDTColorCreate(@EDTProjectColor);
 #endif
     }
     return _phone;
@@ -121,7 +124,7 @@
         
         [_vcode EDT_maxLength:6];
 #if EDTUPDATEVERSION
-        _vcode.tintColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+        _vcode.tintColor = EDTColorCreate(@EDTProjectColor);
 #endif
     }
     return _vcode;
@@ -135,9 +138,9 @@
         
         _loginItem.tag = 203;
         
-        [_loginItem setBackgroundImage:[UIImage s_transformFromHexColor:@EDTColor] forState:UIControlStateNormal];
+        [_loginItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@EDTProjectColor] forState:UIControlStateNormal];
         
-        [_loginItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+        [_loginItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")] forState:UIControlStateHighlighted];
         
         [_loginItem setTitle:@"注册/登陆" forState: UIControlStateNormal];
         
@@ -149,7 +152,7 @@
         
         _loginItem.layer.masksToBounds = true;
         
-        _loginItem.titleLabel.font = [UIFont systemFontOfSize:15];
+        _loginItem.titleLabel.font = EDTSYSTEMFONT(15);
     }
     return _loginItem;
 }
@@ -166,17 +169,17 @@
         
         [_backLoginItem setTitle:@"已有账号,返回登陆" forState: UIControlStateHighlighted];
         
-        [_backLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+        [_backLoginItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
         
-        [_backLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+        [_backLoginItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
         
         _backLoginItem.layer.masksToBounds = true;
         
-        _backLoginItem.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+        _backLoginItem.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
         
         _backLoginItem.layer.borderWidth = 1;
         
-        _backLoginItem.titleLabel.font = [UIFont systemFontOfSize:15];
+        _backLoginItem.titleLabel.font = EDTSYSTEMFONT(15);
     }
     return _backLoginItem;
 }
@@ -193,21 +196,21 @@
         NSString *displayname = [NSBundle mainBundle].infoDictionary[@"CFBundleDisplayName"];
         
         [mutable setAttributedString: [[NSAttributedString alloc] initWithString:displayname ? displayname : @""
-                                                                      attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                   NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@EDTColor]}]];
-        [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                                         NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#333333"]}] ];
+                                                                      attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                                   NSForegroundColorAttributeName: EDTColorCreate(@EDTProjectColor)}]];
+        [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                                                         NSForegroundColorAttributeName: EDTColorCreate(@"#333333")}] ];
         [_proItem setAttributedTitle:mutable forState:UIControlStateNormal];
         
         [mutable setAttributedString: [[NSAttributedString alloc] initWithString:displayname ? displayname : @""
-                                                                      attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                   NSForegroundColorAttributeName: [UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@EDTColor]] }]];
-        [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                                         NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#333333"]}] ];
+                                                                      attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                                   NSForegroundColorAttributeName: EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) }]];
+        [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                                                         NSForegroundColorAttributeName: EDTColorCreate(@"#333333")}] ];
         
         [_proItem setAttributedTitle:mutable forState:UIControlStateHighlighted];
         
-        _proItem.titleLabel.font = [UIFont systemFontOfSize:15];
+        _proItem.titleLabel.font = EDTSYSTEMFONT(15);
     }
     return _proItem;
 }
@@ -284,7 +287,7 @@
         
         _drawView.backgroundColor = [UIColor clearColor];
         
-        _drawView.fillColor = [UIColor s_transformToColorByHexColorStr:@"#bdc5ce"];
+        _drawView.fillColor = EDTColorCreate(@"#bdc5ce");
     }
     return _drawView;
 }
@@ -299,7 +302,7 @@
         
         _logoImgView.layer.masksToBounds = true;
         
-        _logoImgView.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+        _logoImgView.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
         
         _logoImgView.layer.borderWidth = 1;
     }
@@ -339,7 +342,7 @@
         
         _logoImgView.layer.masksToBounds = true;
         
-        _logoImgView.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+        _logoImgView.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
         
         _logoImgView.layer.borderWidth = 1;
     }
@@ -382,7 +385,7 @@
         
         _logoImgView.layer.masksToBounds = true;
         
-        _logoImgView.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+        _logoImgView.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
         
         _logoImgView.layer.borderWidth = 1;
     }
@@ -405,7 +408,7 @@
     
 #elif EDTLoginFour
     
-    UILabel *titleLabel = [UILabel new];
+    UILabel *titleLabel = EDT_LABEL_NEW;
     
     titleLabel.font = [UIFont boldSystemFontOfSize:20];
     
@@ -424,7 +427,7 @@
     
 #if EDTLoginOne
     
-    CGFloat w = CGRectGetWidth(self.view.bounds);
+    CGFloat w = EDT_VIEWCONTROLLER_WIDTH;
     
     CGFloat h = w - 60;
     
@@ -501,11 +504,11 @@
     
     [vcodeItem sizeToFit];
     
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [vcodeItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    [vcodeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [vcodeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
     
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#999999"] forState:UIControlStateSelected];
+    [vcodeItem setTitleColor:EDTColorCreate(@"#999999") forState:UIControlStateSelected];
     
     [self.vcode setRightView:vcodeItem];
     
@@ -523,17 +526,17 @@
     NSString *displayname = [NSBundle mainBundle].infoDictionary[@"CFBundleDisplayName"];
     
     [mutable setAttributedString: [[NSAttributedString alloc] initWithString:displayname ? displayname : @""
-                                                                  attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                               NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#333333"]}]];
-    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                                     NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#999999"]}] ];
+                                                                  attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                               NSForegroundColorAttributeName: EDTColorCreate(@"#333333")}]];
+    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                                                     NSForegroundColorAttributeName: EDTColorCreate(@"#999999")}] ];
     [self.proItem setAttributedTitle:mutable forState:UIControlStateNormal];
     
     [mutable setAttributedString: [[NSAttributedString alloc] initWithString:displayname ? displayname : @""
-                                                                  attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                               NSForegroundColorAttributeName: [UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#333333"]] }]];
-    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                                     NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#999999"]}] ];
+                                                                  attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                               NSForegroundColorAttributeName: EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#333333", @"80")) }]];
+    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                                                     NSForegroundColorAttributeName: EDTColorCreate(@"#999999")}] ];
     [self.proItem setAttributedTitle:mutable forState:UIControlStateHighlighted];
     
     [self.proItem setNeedsDisplay];
@@ -559,9 +562,9 @@
     
     self.loginItem.layer.masksToBounds = true;
     
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@"#ffffff"] forState:UIControlStateNormal];
 
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80")] forState:UIControlStateHighlighted];
     
     [self.backLoginItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -573,14 +576,14 @@
         
     }];
     
-    [self.backLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#333333"] forState:UIControlStateNormal];
+    [self.backLoginItem setTitleColor:EDTColorCreate(@"#333333") forState:UIControlStateNormal];
     
-    [self.backLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#333333"]] forState:UIControlStateHighlighted];
+    [self.backLoginItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#333333", @"80")) forState:UIControlStateHighlighted];
     
     self.backLoginItem.layer.borderColor = [UIColor clearColor].CGColor;
 #elif EDTLoginTwo
     
-    CGFloat w = CGRectGetWidth(self.view.bounds);
+    CGFloat w = EDT_VIEWCONTROLLER_WIDTH;
     
     CGFloat h = w - 60;
     
@@ -653,11 +656,11 @@
     
     [vcodeItem sizeToFit];
     
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [vcodeItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    [vcodeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [vcodeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
     
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#999999"] forState:UIControlStateSelected];
+    [vcodeItem setTitleColor:EDTColorCreate(@"#999999") forState:UIControlStateSelected];
     
     [self.vcode setRightView:vcodeItem];
     
@@ -675,17 +678,17 @@
     NSString *displayname = [NSBundle mainBundle].infoDictionary[@"CFBundleDisplayName"];
     
     [mutable setAttributedString: [[NSAttributedString alloc] initWithString:displayname ? displayname : @""
-                                                                  attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                               NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#ffffff"]}]];
-    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                                     NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#e1e1e1"]}] ];
+                                                                  attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                               NSForegroundColorAttributeName: EDTColorCreate(@"#ffffff")}]];
+    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                                                     NSForegroundColorAttributeName: EDTColorCreate(@"#e1e1e1")}] ];
     [self.proItem setAttributedTitle:mutable forState:UIControlStateNormal];
     
     [mutable setAttributedString: [[NSAttributedString alloc] initWithString:displayname ? displayname : @""
-                                                                  attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
+                                                                  attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
                                                                                NSForegroundColorAttributeName: [UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] }]];
-    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                                     NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#e1e1e1"]}] ];
+    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                                                     NSForegroundColorAttributeName: EDTColorCreate(@"#e1e1e1")}] ];
     [self.proItem setAttributedTitle:mutable forState:UIControlStateHighlighted];
     
     [self.proItem setNeedsDisplay];
@@ -711,9 +714,9 @@
     
     self.loginItem.layer.masksToBounds = true;
     
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@"#ffffff"] forState:UIControlStateNormal];
 
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80")] forState:UIControlStateHighlighted];
     
     [self.backLoginItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -725,7 +728,7 @@
         
     }];
     
-    [self.backLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    [self.backLoginItem setTitleColor:EDTColorCreate(@"#ffffff") forState:UIControlStateNormal];
     
     [self.backLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
     
@@ -733,11 +736,11 @@
     
 #elif EDTLoginThree
     
-    self.topLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.topLine.backgroundColor = EDTColorCreate(@EDTProjectColor);
     
     CGFloat h = CGRectGetHeight(self.navigationController.navigationBar.frame);
     
-    CGFloat w = CGRectGetWidth(self.view.bounds);
+    CGFloat w = EDT_VIEWCONTROLLER_WIDTH;
     
     [self.topLine mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -759,7 +762,7 @@
         make.width.height.mas_equalTo(@60);
     }];
     
-    self.bottomLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.bottomLine.backgroundColor = EDTColorCreate(@EDTProjectColor);
     
     [self.bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -791,7 +794,7 @@
     
     self.phone.layer.borderWidth = 1;
     
-    self.phone.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+    self.phone.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
     
     //
     [self.vcode mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -813,7 +816,7 @@
     
     self.vcode.layer.borderWidth = 1;
     
-    self.vcode.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+    self.vcode.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
     
     UIButton *vcodeItem = (UIButton *)self.vcode.rightView;
     
@@ -821,11 +824,11 @@
     
     [vcodeItem sizeToFit];
     
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [vcodeItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    [vcodeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [vcodeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
     
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#999999"] forState:UIControlStateSelected];
+    [vcodeItem setTitleColor:EDTColorCreate(@"#999999") forState:UIControlStateSelected];
     
     [self.vcode setRightView:vcodeItem];
     
@@ -843,17 +846,17 @@
     NSString *displayname = [NSBundle mainBundle].infoDictionary[@"CFBundleDisplayName"];
     
     [mutable setAttributedString: [[NSAttributedString alloc] initWithString:displayname ? displayname : @""
-                                                                  attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                               NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@EDTColor]}]];
-    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                                     NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#999999"]}] ];
+                                                                  attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                               NSForegroundColorAttributeName: EDTColorCreate(@EDTProjectColor)}]];
+    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                                                     NSForegroundColorAttributeName: EDTColorCreate(@"#999999")}] ];
     [self.proItem setAttributedTitle:mutable forState:UIControlStateNormal];
     
     [mutable setAttributedString: [[NSAttributedString alloc] initWithString:displayname ? displayname : @""
-                                                                  attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                               NSForegroundColorAttributeName: [UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@EDTColor]] }]];
-    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                                     NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#999999"]}] ];
+                                                                  attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                               NSForegroundColorAttributeName: EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) }]];
+    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                                                     NSForegroundColorAttributeName: EDTColorCreate(@"#999999")}] ];
     [self.proItem setAttributedTitle:mutable forState:UIControlStateHighlighted];
     
     [self.proItem setNeedsDisplay];
@@ -870,13 +873,13 @@
         
     }];
     
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromHexColor:@EDTColor] forState:UIControlStateNormal];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@EDTProjectColor] forState:UIControlStateNormal];
     
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")] forState:UIControlStateHighlighted];
     
-    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    [self.loginItem setTitleColor:EDTColorCreate(@"#ffffff") forState:UIControlStateNormal];
     
-    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    [self.loginItem setTitleColor:EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80")] forState:UIControlStateHighlighted];
     
     [self.backLoginItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -888,9 +891,9 @@
         
     }];
     
-    [self.backLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [self.backLoginItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    [self.backLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [self.backLoginItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
     
     self.backLoginItem.layer.borderColor = [UIColor clearColor].CGColor;
     
@@ -901,7 +904,7 @@
     
     self.backgroundImageView.frame = self.view.bounds;
     
-    CGFloat w = CGRectGetWidth(self.view.bounds);
+    CGFloat w = EDT_VIEWCONTROLLER_WIDTH;
     
     [self.logoImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -959,11 +962,11 @@
     
     [vcodeItem sizeToFit];
     
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [vcodeItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    [vcodeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [vcodeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
     
-    [vcodeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#999999"] forState:UIControlStateSelected];
+    [vcodeItem setTitleColor:EDTColorCreate(@"#999999") forState:UIControlStateSelected];
     
     [self.vcode setRightView:vcodeItem];
     
@@ -981,17 +984,17 @@
     NSString *displayname = [NSBundle mainBundle].infoDictionary[@"CFBundleDisplayName"];
     
     [mutable setAttributedString: [[NSAttributedString alloc] initWithString:displayname ? displayname : @""
-                                                                  attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                               NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#ffffff"]}]];
-    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                                     NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#e1e1e1"]}] ];
+                                                                  attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                               NSForegroundColorAttributeName: EDTColorCreate(@"#ffffff")}]];
+    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                                                     NSForegroundColorAttributeName: EDTColorCreate(@"#e1e1e1")}] ];
     [self.proItem setAttributedTitle:mutable forState:UIControlStateNormal];
     
     [mutable setAttributedString: [[NSAttributedString alloc] initWithString:displayname ? displayname : @""
-                                                                  attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
+                                                                  attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
                                                                                NSForegroundColorAttributeName: [UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] }]];
-    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12] ,
-                                                                                                     NSForegroundColorAttributeName: [UIColor s_transformToColorByHexColorStr:@"#e1e1e1"]}] ];
+    [mutable appendAttributedString:[[NSAttributedString alloc] initWithString:@" 注册协议" attributes:@{NSFontAttributeName: EDTSYSTEMFONT(12) ,
+                                                                                                     NSForegroundColorAttributeName: EDTColorCreate(@"#e1e1e1")}] ];
     [self.proItem setAttributedTitle:mutable forState:UIControlStateHighlighted];
     
     [self.proItem setNeedsDisplay];
@@ -1008,13 +1011,13 @@
         
     }];
     
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@"#ffffff"] forState:UIControlStateNormal];
     
-    [self.loginItem setBackgroundImage:[UIImage s_transformFromAlphaHexColor:[NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
+    [self.loginItem setBackgroundImage:[UIImage EDTTransformFromAlphaHexValue:EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80")] forState:UIControlStateHighlighted];
     
-    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [self.loginItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [self.loginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTProjectColor]] forState:UIControlStateHighlighted];
     
     [self.backLoginItem mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -1026,7 +1029,7 @@
         
     }];
     
-    [self.backLoginItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@"#ffffff"] forState:UIControlStateNormal];
+    [self.backLoginItem setTitleColor:EDTColorCreate(@"#ffffff") forState:UIControlStateNormal];
     
     [self.backLoginItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr: [NSString stringWithFormat:@"%@80",@"#ffffff"]] forState:UIControlStateHighlighted];
     
@@ -1046,7 +1049,7 @@
     
 #elif EDTLoginTwo
     
-    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.view.backgroundColor = EDTColorCreate(@EDTProjectColor);
 #elif EDTLoginThree
     
     self.view.backgroundColor = [UIColor whiteColor];

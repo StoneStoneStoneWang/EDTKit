@@ -8,7 +8,9 @@
 
 #import "EDTNameViewController.h"
 @import Masonry;
-@import SToolsKit;
+@import EDTCommon;
+@import EDTColor;
+@import EDTString;
 @import EDTTextField;
 
 @interface EDTNameViewController ()
@@ -30,7 +32,7 @@
 
 @property (nonatomic ,strong) UIImageView *backgroundImageView;
 
-//    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+//    self.view.backgroundColor = EDTColorCreate(@EDTProjectColor);
 
 #elif EDTNameThree
 @property (nonatomic ,strong) UIView *topLine;
@@ -111,7 +113,7 @@
         
         [_completeItem setTitle:@"完成" forState:UIControlStateSelected];
         
-        _completeItem.titleLabel.font = [UIFont systemFontOfSize:15];
+        _completeItem.titleLabel.font = EDTSYSTEMFONT(15);
     }
     return _completeItem;
 }
@@ -128,11 +130,12 @@
     [self.view addSubview:self.textField];
     
 #if EDTNameOne
-    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
     
-    [self.completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [self.completeItem setTitleColor:EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    [self.completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]] forState:UIControlStateDisabled];
+    [self.completeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
+
+    [self.completeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"50")) forState:UIControlStateDisabled];
     
 #elif EDTNameTwo
     
@@ -173,11 +176,11 @@
     
     self.backgroundImageView.frame = self.view.bounds;
     
-    self.textField.backgroundColor = [UIColor s_transformTo_AlphaColorByHexColorStr:@"#ffffff80"];
+    self.textField.backgroundColor = EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@"#ffffff", @"80"));
     
 #elif EDTNameThree
     
-    self.topLine.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
+    self.topLine.backgroundColor = EDTColorCreate(@EDTProjectColor);
     
     CGFloat h = CGRectGetHeight(self.navigationController.navigationBar.frame);
     
@@ -199,11 +202,11 @@
         make.height.mas_equalTo(48);
     }];
     
-    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr: @EDTColor] forState:UIControlStateNormal];
+    [self.completeItem setTitleColor:[UIColor s_transformToColorByHexColorStr: @EDTProjectColor] forState:UIControlStateNormal];
     
-    [self.completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@80",@EDTColor]] forState:UIControlStateHighlighted];
+    [self.completeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"80")) forState:UIControlStateHighlighted];
     
-    [self.completeItem setTitleColor:[UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]] forState:UIControlStateDisabled];
+    [self.completeItem setTitleColor:EDTAlphaColorCreate(EDT_COLOR_FORMAT_STRING(@EDTProjectColor, @"50")) forState:UIControlStateDisabled];
 #endif
     
 }
