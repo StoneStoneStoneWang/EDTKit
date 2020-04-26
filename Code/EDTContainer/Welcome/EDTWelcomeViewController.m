@@ -8,8 +8,10 @@
 
 #import "EDTWelcomeViewController.h"
 @import Masonry;
-@import SToolsKit;
+@import EDTCommon;
+@import EDTColor;
 @import EDTBridge;
+@import EDTImage;
 
 @interface EDTWelcomeCollectionViewCell ()
 
@@ -23,7 +25,7 @@
     
     if (!_iconImageView) {
         
-        _iconImageView = [UIImageView new];
+        _iconImageView = EDT_IMAGEVIEW_NEW;
         
         _iconImageView.contentMode = UIViewContentModeScaleAspectFill;
         
@@ -177,15 +179,19 @@
     
     [self.skipItem setTitle:@"立即体验" forState:UIControlStateHighlighted];
     
-    self.skipItem.layer.borderColor = [UIColor s_transformToColorByHexColorStr:@EDTColor].CGColor;
+    self.skipItem.layer.borderColor = EDTColorCreate(@EDTProjectColor).CGColor;
     
-    [self.skipItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateNormal];
+    [self.skipItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@"#ffffff"] forState:UIControlStateNormal];
     
-    [self.skipItem setBackgroundImage:[UIImage s_transformFromHexColor:@"#ffffff"] forState:UIControlStateHighlighted];
+    [self.skipItem setBackgroundImage:[UIImage EDTTransformFromHexValue:@"#ffffff"] forState:UIControlStateHighlighted];
     
-    [self.skipItem setTitleColor: [UIColor s_transformToColorByHexColorStr:@EDTColor] forState:UIControlStateNormal];
+    [self.skipItem setTitleColor: EDTColorCreate(@EDTProjectColor) forState:UIControlStateNormal];
     
-    [self.skipItem setTitleColor: [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]] forState:UIControlStateHighlighted];
+    NSString *s = ;
+    
+    EDTAlphaColorCreate([NSString stringWithFormat:@"%@50",@EDTProjectColor]);
+    
+    [self.skipItem setTitleColor:  forState:UIControlStateHighlighted];
     
     self.pageControl.pageIndicatorTintColor = [UIColor s_transformTo_AlphaColorByHexColorStr:[NSString stringWithFormat:@"%@50",@EDTColor]];
     

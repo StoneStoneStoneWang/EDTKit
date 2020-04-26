@@ -33,8 +33,6 @@
 
 @property (nonatomic ,strong) UIImageView *backgroundImageView;
 
-//    self.view.backgroundColor = [UIColor s_transformToColorByHexColorStr:@EDTColor];
-
 #elif EDTNameThree
 @property (nonatomic ,strong) UIView *topLine;
 #endif
@@ -99,7 +97,7 @@
         
         _placeholder.text = @"请输入个性昵称";
         
-        _placeholder.textColor = EDTColor(@"#999999");
+        _placeholder.textColor = EDTColorCreate(@"#999999");
     }
     return _placeholder;
 }

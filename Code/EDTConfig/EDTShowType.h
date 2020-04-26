@@ -9,7 +9,7 @@
 
 #if EDTCONFIGURETYPESWIMMING
 
-#define EDTColor "#4b95fe"
+#define EDTProjectColor "#4b95fe"
 
 #pragma mark --- 是否更新时启用
 

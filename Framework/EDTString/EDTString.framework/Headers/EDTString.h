@@ -18,3 +18,5 @@ FOUNDATION_EXPORT const unsigned char EDTStringVersionString[];
 
 
 #import <EDTString/EDTStringCata.h>
+
+#define EDT_COLOR_FORMAT_STRING(arg1,arg2) [NSString stringWithFormat:@"%@%@",arg1,arg2]
