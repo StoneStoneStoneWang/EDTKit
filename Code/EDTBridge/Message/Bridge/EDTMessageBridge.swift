@@ -78,7 +78,7 @@ extension EDTMessageBridge {
                 case .fetchList:
                     vc.loadingStatus = .succ
                     
-                case let .failed(msg):
+                case .failed:
                     vc.loadingStatus = .fail
                     
                 case .empty:

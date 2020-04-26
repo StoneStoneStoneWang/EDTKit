@@ -41,7 +41,9 @@ public struct EDTRegViewModel: EDTViewModel {
         
         let passwordItemSelected: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: false)
         /* 定时器 序列*/
-        let timer: Observable<Int> = Observable<Int>.timer(0, period: 1, scheduler: MainScheduler.instance)
+    
+        let timer: Observable<Int> = Observable<Int>.interval(DispatchTimeInterval.seconds(1), scheduler: MainScheduler.instance)
+        
     }
     
     public struct WLOutput {
@@ -57,9 +59,6 @@ public struct EDTRegViewModel: EDTViewModel {
         let backLogin: Driver<Void>
         /*  协议... 序列*/
         let pro: Driver<Void>
-        
-        @available(*, deprecated, message: "Please use smsRelay")
-        let sms: Variable<(Bool,String)> = Variable<(Bool,String)>((true,"获取验证码"))
         
         let smsRelay: BehaviorRelay<(Bool,String)> = BehaviorRelay<(Bool,String)>(value: (true,"获取验证码"))
         

@@ -33,7 +33,7 @@ public struct EDTFindPasswordModel: EDTViewModel {
         /* 验证码点击 序列*/
         let verifyTaps: Signal<Void>
         /* 定时器 序列*/
-        let timer: Observable<Int> = Observable<Int>.timer(0, period: 1, scheduler: MainScheduler.instance)
+        let timer: Observable<Int> = Observable<Int>.interval(DispatchTimeInterval.seconds(1), scheduler: MainScheduler.instance)
         
         let completeTaps: Signal<Void>
         

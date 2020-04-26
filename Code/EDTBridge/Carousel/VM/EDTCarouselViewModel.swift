@@ -69,7 +69,7 @@ struct EDTCarouselViewModel: EDTViewModel {
         let canTimerResp: Bool
         
         /* 定时器 序列*/
-        let timer: Observable<Int> = Observable<Int>.timer(1, period: 4, scheduler: MainScheduler.instance)
+        let timer: Observable<Int> = Observable<Int>.interval(DispatchTimeInterval.seconds(1), scheduler: MainScheduler.instance)
         
         let currentPage: BehaviorRelay<Int>
         

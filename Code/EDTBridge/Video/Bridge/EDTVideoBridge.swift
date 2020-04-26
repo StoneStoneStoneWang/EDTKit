@@ -135,7 +135,7 @@ extension EDTVideoBridge {
         
         EDTVideoViewModel
             .like(encoded, isLike: !isLike)
-            .drive(onNext: { [unowned self] (result) in
+            .drive(onNext: {(result) in
                 
                 EDTHud.pop()
                 

@@ -27,10 +27,7 @@ public struct EDTWelcomViewModel: EDTViewModel {
         let welcomeImgs: [String]
         
         /* 定时器 序列*/
-        let timer: Observable<Int> = Observable<Int>.timer(0, period: 1, scheduler: MainScheduler.instance)
-        
-        @available(*, deprecated, message: "Please use durationRelay")
-        let duration: Variable<Int> = Variable<Int>(3)
+        let timer: Observable<Int> = Observable<Int>.interval(DispatchTimeInterval.seconds(1), scheduler: MainScheduler.instance)
         
         let durationRelay: BehaviorRelay<Int> = BehaviorRelay<Int>(value: 3)
     }
