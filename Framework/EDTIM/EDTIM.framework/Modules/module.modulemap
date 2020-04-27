@@ -1,0 +1,6 @@
+framework module EDTIM {
+  umbrella header "EDTIM.h"
+
+  export *
+  module * { export * }
+}
