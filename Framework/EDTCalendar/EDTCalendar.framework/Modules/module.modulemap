@@ -1,0 +1,6 @@
+framework module EDTCalendar {
+  umbrella header "EDTCalendar.h"
+
+  export *
+  module * { export * }
+}

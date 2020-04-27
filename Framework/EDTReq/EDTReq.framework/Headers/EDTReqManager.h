@@ -69,6 +69,16 @@ NS_SWIFT_NAME(EDTReq)
                 andSucc:(void (^)(NSString * _Nonnull))success
                 andFail:(void (^)(NSError * _Nonnull))failure;
 
++ (void)fetchSignedWithTag:(NSString *)tag
+                   andSucc:(void (^)(id _Nonnull))success
+                   andFail:(void (^)(NSError * _Nonnull))failure;
+
++ (void)signedWithTag:(NSString *)tag
+           andContent:(NSString *)content
+           andEncoded:(NSString *)encoded
+              andSucc:(void (^)(id _Nonnull))success
+              andFail:(void (^)(NSError * _Nonnull))failure;
+
 @end
 
 NS_ASSUME_NONNULL_END
