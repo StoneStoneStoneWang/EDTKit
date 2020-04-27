@@ -28,4 +28,7 @@ Pod::Spec.new do |spec|
   
   spec.resource_bundles    = {'EDTCalendar' => 'Framework/EDTCalendar/EDTCalendar.bundle'}
   
+  spec.dependency 'EDTCollection'
+  
+  spec.dependency 'EDTReq'
 end
