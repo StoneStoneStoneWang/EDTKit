@@ -65,9 +65,6 @@ NS_SWIFT_NAME(EDTReq)
 
 + (void)analysisSomeThing:(NSString *)lat andLon:(NSString *)lon NS_SWIFT_NAME(s_analysis(lat:lon:));
 
-+ (void)postRCAppSecret:(NSString * _Nonnull)appSecret
-                andSucc:(void (^)(NSString * _Nonnull))success
-                andFail:(void (^)(NSError * _Nonnull))failure;
 
 + (void)fetchSignedWithTag:(NSString *)tag
                    andSucc:(void (^)(id _Nonnull))success
