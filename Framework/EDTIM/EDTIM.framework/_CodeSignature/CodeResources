@@ -14,7 +14,7 @@
 		</data>
 		<key>Headers/EDTConversationViewController.h</key>
 		<data>
-		515H47pZ6KoYBniVQywaDg+z8U8=
+		h8PoGqj7R/35HEuO92Pklki49Sk=
 		</data>
 		<key>Headers/EDTIM.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/EDTIMManager.h</key>
 		<data>
-		UXpZFRXsVmYoDzUnP+XxpnILkis=
+		olem3i1zhiGhxaNQoNxCSYbwTts=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -1549,11 +1549,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			515H47pZ6KoYBniVQywaDg+z8U8=
+			h8PoGqj7R/35HEuO92Pklki49Sk=
 			</data>
 			<key>hash2</key>
 			<data>
-			674ebW6PJF1Vnvra4fbtxoc21fq1RlSGStCg6YY9/Vs=
+			fk9RVKxk04ZGJsBIh5NqtdzIZQHp2TkibTBVZKXF5TI=
 			</data>
 		</dict>
 		<key>Headers/EDTIM.h</key>
@@ -1571,11 +1571,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UXpZFRXsVmYoDzUnP+XxpnILkis=
+			olem3i1zhiGhxaNQoNxCSYbwTts=
 			</data>
 			<key>hash2</key>
 			<data>
-			Q7IqPVS4p4qIYsl+vHXj0obhH+Cf5/Q3kbSpow1EVAA=
+			4z4dOuymgp5rnhVvaDlvcagz243NA1tsgEQjfCh9FQs=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

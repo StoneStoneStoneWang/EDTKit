@@ -40,7 +40,7 @@ extension EDTUserInfoCache {
         return data
     }
     
-    public func queryUser() -> EDTUserBean  {
+    @objc public func queryUser() -> EDTUserBean  {
         
         if EDTAccountCache.default.uid != "" {
             
@@ -51,7 +51,7 @@ extension EDTUserInfoCache {
                 return userBean
             }
         }
-    
+        
         return EDTUserBean()
     }
 }
