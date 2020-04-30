@@ -6,11 +6,7 @@
 	<dict>
 		<key>Headers/EDTShare.h</key>
 		<data>
-		81Lhp1AFEyFWsvTzYxr/IxYaEs4=
-		</data>
-		<key>Headers/EDTShareManager.h</key>
-		<data>
-		9VOf96KmAeR20hAHFHWwtxTn0bA=
+		fsvxQ7BSLXHCw2DXd9PK5MYj4qU=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -27,22 +23,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			81Lhp1AFEyFWsvTzYxr/IxYaEs4=
+			fsvxQ7BSLXHCw2DXd9PK5MYj4qU=
 			</data>
 			<key>hash2</key>
 			<data>
-			M0SgSiwz6JhCnkDwyVT2Gnph5tZckBpFo/jt8kx6B54=
-			</data>
-		</dict>
-		<key>Headers/EDTShareManager.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			9VOf96KmAeR20hAHFHWwtxTn0bA=
-			</data>
-			<key>hash2</key>
-			<data>
-			SdlY5grq/hilZIdis35rV/ESJPXPMQ66dZ4K+JRLjks=
+			x/i3SGtkO/hRPLOINuZY/wXOqIwPViQ9wYRPZATTuwM=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
