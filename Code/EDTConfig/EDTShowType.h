@@ -13,7 +13,7 @@
 
 #pragma mark --- 是否更新时启用
 
-#define EDTUPDATEVERSION 0
+#define EDTUPDATEVERSION 1
 
 #pragma mark ---
 
